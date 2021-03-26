@@ -8,7 +8,6 @@ DROP TABLE IF EXISTS book;
 SET FOREIGN_KEY_CHECKS=1;
 
 
-
 CREATE TABLE book (
 	id BIGINT(20) NOT NULL auto_increment,
 	ISBN VARCHAR(20) NOT NULL UNIQUE,
@@ -25,7 +24,7 @@ CREATE TABLE user (
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    role VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL DEFAULT('USER'),
     PRIMARY KEY(id)
 );
 
@@ -46,37 +45,33 @@ CREATE TABLE bookshelf_item (
     rating FLOAT,
     reason VARCHAR(255),
     status VARCHAR(255) NOT NULL,
+	date_created DATETIME(6) DEFAULT NULL,
+    last_updated DATETIME(6) DEFAULT NULL,
 	PRIMARY KEY(id),
     foreign key (bookshelf_id) REFERENCES bookshelf (id) on DELETE RESTRICT ON UPDATE CASCADE,
     foreign key (book_id) REFERENCES book (id) on DELETE RESTRICT ON UPDATE CASCADE
 );
 
 
--- select* from user;
--- INSERT INTO user (username, password, email ) VALUES('abby', 'abby123', 'abby@gmail.com');
--- INSERT INTO user (username, password, email ) VALUES('Bob', 'bob123', 'bob@gmail.com');
--- INSERT INTO user (username, password, email ) VALUES('Charlie', 'charlie123', 'charlie@gmail.com');
---
---
---
--- select* from book;
--- INSERT INTO book (title, description, author, year, image_url, active, last_updated) VALUE ('Pig & Goose and the first day of spring', 
---                                                                                            'On the first day of spring Pig sets out to have a picnic by the pond, meets Goose, and so discovers a new friend. ', 
---                                                                                            'Rebecca Bond', 
---                                                                                            '2017', 
---                                                                                            'https://covers.openlibrary.org/b/id/10662021-L.jpg', 1, '2021-03-23');
---                                                                                            
--- INSERT INTO book (title, description, author, year, image_url, active, last_updated) VALUE ('The fires of spring', 
---                                                                                             'The "Arab Spring" all started when a young Tunisian fruit-seller set himself on fire in protest of a government official confiscating his apples without cause and slapping his face. The aftermath of that one personal protest grew to become the Middle East movement known as the Arab Spring -- a wave of disparate events that included revolutions, protests, government overthrows, hopeful reform movements, and bloody civil wars. This book will be the first to bring the post Arab Spring world to light in a holistic context. It is a narrative of the author Shelly Culbertson\'s journey through six countries of the Middle East, describing countries, historical perspective, and interviews with revolution and government figures. Culbertson, RAND Middle East analyst and former U.S. State Department officer who has been involved with the Middle East for two decades, is uniquely equipped to analyze the current social, political, economic, and cultural effects of the movement. With honesty, empathy, and expert historical accuracy, Culbertson strives to answer the questions "what led to the Arab Spring," "what is it like there now," and "what trends after the Arab Spring are shaping the future of the Middle East?" The Fires of Spring tells the story by weaving together a sense of place, history, insight about key issues of our time, and personal stories and adventures. It navigates street life and peers into ministries, mosques, and women\'s worlds. It delves into what Arab Spring optimism was about, and at the same time sheds light on the pain and dysfunction that continues to plague some parts of the region.',
---                                                                                             'Shelly Culbertson', 
---                                                                                             '2016', 
---                                                                                             'https://covers.openlibrary.org/b/id/10267753-L.jpg', 1, '2021-03-23');
--- INSERT INTO book (title, description, author, year, image_url, active, last_updated) VALUE ('Bad blood',
---																							'Investigative journalist Judith Reitman delivers the never-before-told story of the American Red Cross's fall from grace -- an incredible account of gross mismanagement and shocking neglect. From the Red Cross's decision in 1983 not to use an HIV-screening test, to May 1993 when the FDA brought an unprecedented lawsuit against the organization and its president for thousands of violations of federal blood safety laws, this explosive true account exposes a system that is slowly killing the very people it has sworn to protect.',
---                                                                                            'Judith Reitman',
---                                                                                            '1996',
---                                                                                            'https://ia800602.us.archive.org/view_archive.php?archive=/23/items/olcovers707/olcovers707-L.zip&file=7074974-L.jpg', 1, '2021-03-23');
---
---
--- select * from book_list;
--- INSERT INTO book_list (name, user_id, book_id, rate, reason, status) VALUES('2020','1', '1', 8.5,'recommended by friend', 'FINISHED');
+ select* from user;
+ INSERT INTO user (username, password, email, role) VALUES('abby', 'abby123', 'abby@gmail.com', 'USER');
+ INSERT INTO user (username, password, email, role) VALUES('Bob', 'bob123', 'bob@gmail.com', 'ADMIN');
+ INSERT INTO user (username, password, email, role) VALUES('Charlie', 'charlie123', 'charlie@gmail.com', 'USER');
+
+
+
+ select* from book;
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE ('014311526X', 'Nudge: Improving Decisions About Health, Wealth, and Happiness', 'Every day we make choices—about what to buy or eat, about financial investments or our children’s health and education, even about the causes we champion or the planet itself. Unfortunately, we often choose poorly. Nudge is about how we make these choices and how we can make better ones. Using dozens of eye-opening examples and drawing on decades of behavioral science research, Nobel Prize winner Richard H. Thaler and Harvard Law School professor Cass R. Sunstein show that no choice is ever presented to us in a neutral way, and that we are all susceptible to biases that can lead us to make bad decisions. But by knowing how people think, we can use sensible “choice architecture” to nudge people toward the best decisions for ourselves, our families, and our society, without restricting our freedom of choice.', ' Richard H. Thaler, Cass R. Sunstein', '2009', 'assets/images/books/3450744.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE ('0307264785', 'Traffic: Why We Drive the Way We Do and What It Says About Us', 'Would you be surprised that road rage can be good for society? Or that most crashes happen on sunny, dry days? That our minds can trick us into thinking the next lane is moving faster? Or that you can gauge a nation s driving behavior by its levels of corruption? These are only a few of the remarkable dynamics that Tom Vanderbilt explores in this fascinating tour through the mysteries of the road. \nBased on exhaustive research and interviews with driving experts and traffic officials around the globe, Traffic gets under the hood of the everyday activity of driving to uncover the surprisingly complex web of physical, psychological, and technical factors that explain how traffic works, why we drive the way we do, and what our driving says about us. Vanderbilt examines the perceptual limits and cognitive underpinnings that make us worse drivers than we think we are. He demonstrates why plans to protect pedestrians from cars often lead to more accidents. He shows how roundabouts, which can feel dangerous and chaotic, actually make roads safer and reduce traffic in the bargain. He uncovers who is more likely to honk at whom, and why. He explains why traffic jams form, outlines the unintended consequences of our quest for safety, and even identifies the most common mistake drivers make in parking lots. \nThe car has long been a central part of American life; whether we see it as a symbol of freedom or a symptom of sprawl, we define ourselves by what and how we drive. As Vanderbilt shows, driving is a provocatively revealing prism for examining how our minds work and the ways in which we interact with one another. Ultimately, Traffic is about more than driving: it s about human nature. This book will change the way we see ourselves and the world around us. And who knows? It may even make us better drivers."', 'Tom Vanderbilt', '2008', 'assets/images/books/2776527.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE ('0374275637', 'Thinking, Fast and Slow', 'In the highly anticipated Thinking, Fast and Slow, Kahneman takes us on a groundbreaking tour of the mind and explains the two systems that drive the way we think. System 1 is fast, intuitive, and emotional; System 2 is slower, more deliberative, and more logical. Kahneman exposes the extraordinary capabilities—and also the faults and biases—of fast thinking, and reveals the pervasive influence of intuitive impressions on our thoughts and behavior. The impact of loss aversion and overconfidence on corporate strategies, the difficulties of predicting what will make us happy in the future, the challenges of properly framing risks at work and at home, the profound effect of cognitive biases on everything from playing the stock market to planning the next vacation—each of these can be understood only by knowing how the two systems work together to shape our judgments and decisions. \nEngaging the reader in a lively conversation about how we think, Kahneman reveals where we can and cannot trust our intuitions and how we can tap into the benefits of slow thinking. He offers practical and enlightening insights into how choices are made in both our business and our personal lives—and how we can use different techniques to guard against the mental glitches that often get us into trouble. Thinking, Fast and Slow will transform the way you think about thinking.', 'Daniel Kahneman', '2011', 'assets/images/books/11468377.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('0765331268', 'The First Days', 'Katie is driving to work one beautiful day when a dead man jumps into her car and tries to eat her.  That same morning, Jenni opens a bedroom door to find her husband devouring their toddler son. \nFate puts Jenni and Katie—total strangers—together in a pickup, fleeing the suddenly zombie-filled streets of the Texas city in which they live. Before the sun has set, they have become more than just friends and allies—they are bonded as tightly as any two people who have been to war together. \nDuring their cross-Texas odyssey to find and rescue Jenni’s oldest son, Jenni discovers the joy of watching a zombie’s head explode when she shoots its brains out. Katie learns that she’s a terrific tactician—and a pretty good shot. \nA chance encounter puts them on the road to an isolated, fortified town, besieged by zombies, where fewer than one hundred people cling to the shreds of civilization. \nIt looks like the end of the world. But Katie and Jenni and many others will do whatever they have to to stay alive. Run, fight, pick each other up when they stumble, fall in love…anything is possible at the end of the world.', 'Rhiannon Frater', ' 2008', 'assets/images/books/9648068.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('0525559477', 'The Midnight Library', 'Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived. To see how things would be if you had made other choices . . . Would you have done anything different, if you had the chance to undo your regrets?”', 'Matt Haig', '2020', 'assets/images/books/52578297.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('0316337064', 'No Better Friend: One Man, One Dog, and Their Extraordinary Story of Courage and Survival in WWII', 'Flight technician Frank Williams and Judy, a purebred pointer, met in the most unlikely of places: a World War II internment camp in the Pacific. Judy was a fiercely loyal dog, with a keen sense for who was friend and who was foe, and the pair\'s relationship deepened throughout their captivity. When the prisoners suffered beatings, Judy would repeatedly risk her life to intervene. She survived bombings and other near-death experiences and became a beacon not only for Frank but for all the men, who saw in her survival a flicker of hope for their own.', 'Robert Weintraub', '2015', 'assets/images/books/23197306.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('1947076167', 'Great Battles for Boys: World War I', 'Now you can—with Great Battles for Boys, a series written especially for reluctant readers. Exciting short chapters take boys to the front lines of history\'s most important military conflicts. Each page offers historic photographs, maps, and biographies of remarkable soldiers.', 'Joe Giorello', '2019', 'assets/images/books/52839378.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('1250069793', 'Truly Madly Guilty', 'Sam and Clementine have a wonderful, albeit, busy life: they have two little girls, Sam has just started a new dream job, and Clementine, a cellist, is busy preparing for the audition of a lifetime. If there’s anything they can count on, it’s each other.', 'Liane Moriarty', '2016', 'assets/images/books/26247008.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('0345539842', 'Morning Star','Darrow would have lived in peace, but his enemies brought him war. The Gold overlords demanded his obedience, hanged his wife, and enslaved his people. But Darrow is determined to fight back. Risking everything to transform himself and breach Gold society, Darrow has battled to survive the cutthroat rivalries that breed Society’s mightiest warriors, climbed the ranks, and waited patiently to unleash the revolution that will tear the hierarchy apart from within.', 'Pierce Brown', '2016', 'assets/images/books/18966806.jpg');
+INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('1423178289', 'The Thank You Book', 'Gerald is careful. Piggie is not.\nPiggie cannot help smiling. Gerald can.\nGerald worries so that Piggie does not have to.\nGerald and Piggie are best friends.\nIn The Thank You Book!, Piggie wants to thank EVERYONE. But Gerald is worried Piggie will forget someone . . . someone important. ', 'Mo Willems', '2016', 'assets/images/books/27247476.jpg');
+
+
+ select * from bookshelf;
+-- INSERT INTO book_list (name, user_id, book_id, rate, reason, status) VALUES('2020','1', '1', 8.5,'recommended by friend', 'FINISHED'); 

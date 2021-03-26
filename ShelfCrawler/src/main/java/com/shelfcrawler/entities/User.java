@@ -28,5 +28,5 @@ public class User implements Serializable {
 	private String role;
 
 	@OneToMany(mappedBy = "user")
-	private List<BookShelf> bookLists;
+	private List<BookShelf> bokshelves;
 }
