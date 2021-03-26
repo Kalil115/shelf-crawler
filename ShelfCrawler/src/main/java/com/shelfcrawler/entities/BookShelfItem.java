@@ -9,24 +9,26 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="BOOK")
+@Table(name="BOOKSHELF_ITEM")
 @Data
-public class Book implements Serializable{
+public class BookShelfItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Long id;
 	
-	private String isbn;
+	private Long bookShelfId;
 	
-	private String title;
+	private Long bookId;
 	
-	private String description;
+	private String comment;
 	
-	private String author;
+	private Float rating;
 	
-	private Integer published;
+	private String reason;
 	
-	private String imageUrl;
+	private String status;
+	
+
 
 }

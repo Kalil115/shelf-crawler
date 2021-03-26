@@ -24,7 +24,9 @@ public class User implements Serializable {
 	private String password;
 
 	private String email;
+	
+	private String role;
 
 	@OneToMany(mappedBy = "user")
-	private List<Shelf> shelves;
+	private List<BookShelf> bookLists;
 }
