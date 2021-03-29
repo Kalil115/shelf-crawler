@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shelfcrawler.entities.Bookshelf;
 import com.shelfcrawler.entities.User;
 import com.shelfcrawler.repository.BookshelfRepository;
 import com.shelfcrawler.repository.UserRepository;
@@ -31,7 +30,7 @@ public class UserController {
 		return userRepository.findAll();
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public User findUserById(@PathVariable("id") Long id) {
 		return userRepository.findById(id).get();
 	}

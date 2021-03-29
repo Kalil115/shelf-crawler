@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.dto.AddBookWrapper;
 import com.shelfcrawler.entities.Bookshelf;
+import com.shelfcrawler.entities.BookshelfItem;
 import com.shelfcrawler.repository.BookshelfRepository;
 import com.shelfcrawler.service.AddBookService;
+import com.shelfcrawler.service.FindBookService;
 
 @RestController
 @RequestMapping("/bookshelves")
@@ -26,16 +28,24 @@ public class BookShelfController {
 
 	@Autowired
 	AddBookService addBookService;
+	
+	@Autowired
+	FindBookService findBookService;
 
 	@GetMapping
 	public List<Bookshelf> findAllBookshelves() {
 		return bookshelfRepository.findAll();
 	}
 	
-//	@GetMapping("search/findByUserId")
-//	public List<Bookshelf> findByUserId(@RequestParam("id") Long id) {
-//		return bookshelfRepository.findByUserId(id);
-//	}
+	@GetMapping("search/findByUserId")
+	public List<Bookshelf> findByUserId(@RequestParam("id") Long id) {
+		return findBookService.findByUserId(id);
+	}
+	
+	@GetMapping("/books/search/findByStatusAndUserId")
+	public List<BookshelfItem> findByStatusAndUserId(@RequestParam("status") String status, @RequestParam("userId") Long userId) {
+		return findBookService.findByStatusAndUserId(status, userId);
+	}
 
 	@PostMapping
 	public Bookshelf saveBookshelf(@RequestBody Bookshelf bookshelf) {
