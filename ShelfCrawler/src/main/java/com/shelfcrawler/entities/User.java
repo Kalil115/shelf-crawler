@@ -1,22 +1,29 @@
 package com.shelfcrawler.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "USER")
-@Data
+@Getter
+@Setter
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String username;
@@ -27,6 +34,16 @@ public class User implements Serializable {
 	
 	private String role;
 
-	@OneToMany(mappedBy = "user")
-	private List<BookShelf> bokshelves;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Bookshelf> bookshelves = new HashSet<>();
+	
+	public void add(Bookshelf bookshelf) {
+		if (bookshelf != null) {
+			if (bookshelves == null) {
+				bookshelves = new HashSet<>();
+			}
+			bookshelves.add(bookshelf);
+			bookshelf.setUser(this);
+		}
+	}
 }
