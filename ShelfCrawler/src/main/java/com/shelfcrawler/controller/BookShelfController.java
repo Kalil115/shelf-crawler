@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,9 +38,19 @@ public class BookShelfController {
 		return bookshelfRepository.findAll();
 	}
 	
+	@GetMapping("/{id}")
+	public Bookshelf findByBookshelfId(@PathVariable("id") Long id) {
+		return bookshelfRepository.findById(id).get();
+	}
+	
 	@GetMapping("search/findByUserId")
 	public List<Bookshelf> findByUserId(@RequestParam("id") Long id) {
 		return findBookService.findByUserId(id);
+	}
+	
+	@GetMapping("search/findByUsername")
+	public List<Bookshelf> findByUsername(@RequestParam("username") String username) {
+		return bookshelfRepository.findByUserUsername(username);
 	}
 	
 	@GetMapping("/books/search/findByStatusAndUserId")
