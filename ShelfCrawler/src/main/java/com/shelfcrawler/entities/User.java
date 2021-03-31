@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,12 +31,20 @@ public class User implements Serializable {
 
 	private String password;
 
+	@Email
 	private String email;
 	
 	private String role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Bookshelf> bookshelves = new HashSet<>();
+	
+	public User(String username, String password, String email, String role) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+	}
 	
 	public void add(Bookshelf bookshelf) {
 		if (bookshelf != null) {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.shelfcrawler.entities.BookshelfItem;
 import com.shelfcrawler.entities.ItemStatus;
