@@ -1,11 +1,23 @@
 USE project;
 
 SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS movieshelf_item;
+DROP TABLE IF EXISTS movieshelf;
+DROP TABLE IF EXISTS movie;
 DROP TABLE IF EXISTS bookshelf_item;
 DROP TABLE IF EXISTS bookshelf;
-DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS book;
+DROP TABLE IF EXISTS user;
 SET FOREIGN_KEY_CHECKS=1;
+
+CREATE TABLE user (
+	id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    role VARCHAR(255) NOT NULL DEFAULT('USER'),
+    PRIMARY KEY(id)
+);
 
 
 CREATE TABLE book (
@@ -17,15 +29,6 @@ CREATE TABLE book (
     published INT,
     image_url VARCHAR(255),
     primary key(id)
-);
-
-CREATE TABLE user (
-	id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    role VARCHAR(255) NOT NULL DEFAULT('USER'),
-    PRIMARY KEY(id)
 );
 
 CREATE TABLE bookshelf (
@@ -51,6 +54,43 @@ CREATE TABLE bookshelf_item (
 	PRIMARY KEY(id),
     foreign key (bookshelf_id) REFERENCES bookshelf (id) on DELETE RESTRICT ON UPDATE CASCADE,
     foreign key (book_id) REFERENCES book (id) on DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+create table movie (
+    id BIGINT(20) NOT NULL auto_increment,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    director VARCHAR(255),
+    cast VARCHAR(255),
+    year INT,
+    image_url VARCHAR(255),
+    primary key(id)
+);
+
+create table movieshelf (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    user_id BIGINT(20) NOT NULL,
+    goal INT NOT NULL,
+    reach_rate FLOAT,
+    PRIMARY KEY (id),
+    FOREIGN KEY(user_id) REFERENCES user(id) on DELETE RESTRICT ON UPDATE CASCADE
+);
+
+create table movieshelf_item (
+	id BIGINT(20) NOT NULL AUTO_INCREMENT,
+	movieshelf_id BIGINT(20) NOT NULL,
+    movie_id BIGINT(20) NOT NULL,
+    comment text,
+    rating FLOAT,
+    reason VARCHAR(255),
+    status VARCHAR(255) NOT NULL,
+	date_created DATETIME(6) DEFAULT NULL,
+    last_updated DATETIME(6) DEFAULT NULL,
+	PRIMARY KEY(id),
+    foreign key (movieshelf_id) REFERENCES movieshelf (id) on DELETE RESTRICT ON UPDATE CASCADE,
+    foreign key (movie_id) REFERENCES movie (id) on DELETE RESTRICT ON UPDATE CASCADE
 );
 
 
@@ -87,3 +127,35 @@ INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, stat
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 8, "love it", 9, "friend recommended", "FINISHED", NOW());
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 9, null, null, "friend recommended", "DNF", NOW());
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 10, null, null, "friend recommended", "LISTING", NOW());
+
+
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Shawshank Redemption', 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 'Frank Darabont', 'Tim Robbins, Morgan Freeman, Bob Gunton', '1994', 'assets/images/movies/tt0111161.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Godfather', 'An organized crime dynasty\'s aging patriarch transfers control of his clandestine empire to his reluctant son.', 'Francis Ford Coppola', 'Marlon Brando, Al Pacino, James Caan', '1972', 'assets/images/movies/tt0068646.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Godfather: Part II', 'The early life and career of Vito Corleone in 1920s New York City is portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.', 'Francis Ford Coppola', ' Al Pacino, Robert De Niro, Robert Duvall', '1974', 'assets/images/movies/tt0071562.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Dark Knight', 'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.', 'Christopher Nolan', 'Christian Bale, Heath Ledger, Aaron Eckhart', '2008', 'assets/images/movies/tt0468569jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('12 Angry Men', 'A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence.', 'Sidney Lumet', 'Henry Fonda, Lee J. Cobb, Martin Balsam', '1957', 'assets/images/movies/tt0050083.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('Schindler\'s List', 'In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.', 'Steven Spielberg', 'Liam Neeson, Ralph Fiennes, Ben Kingsley', '1993', 'assets/images/movies/tt0108052.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Lord of the Rings: The Return of the King', 'Gandalf and Aragorn lead the World of Men against Sauron\'s army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.', 'Peter Jackson', 'Elijah Wood, Viggo Mortensen, Ian McKellen', '2003', 'assets/images/movies/tt0167260.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('Pulp Fiction', 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.', 'Quentin Tarantino', 'John Travolta, Uma Thurman, Samuel L. Jackson', '1994', 'assets/images/movies/tt0110912.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('IThe Good, the Bad and the Ugly', 'A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.', 'Sergio Leone', 'Clint Eastwood, Eli Wallach, Lee Van Cleef', '1966', 'assets/images/movies/tt0060196.jpg');
+INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Lord of the Rings: The Fellowship of the Ring', 'A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.', 'Peter Jackson', 'Elijah Wood, Ian McKellen, Orlando Bloom', '2001', 'assets/images/movies/tt0120737.jpg');
+
+
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.48); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 1.04); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2018','1', 50, 1.22); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2017','1', 100, 1.09);
+
+
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 1, "exciting", 8.2, "imdb recommended", "FINISHED", NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 2, "exciting", 8.5, "imdb recommended", "FINISHED", NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 3, null, null, "imdb recommended", 'LISTING', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 4, null, null, "bpv recommend", 'DNF', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 5, null, null, null, 'LISTING', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 6, 'enjoyed it', null, null, 'FINISHED', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 7, 'not interesting', null, null, 'DNF', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 8, null, null, null, 'LISTING', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 9, 'good', null, null, 'FINISHED', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 10, 'not interesting', null, null, 'DNF', NOW());
+
+

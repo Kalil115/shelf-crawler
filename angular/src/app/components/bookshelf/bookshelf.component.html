@@ -1,0 +1,48 @@
+<div class="container">
+    <table mat-table [dataSource]="bookshelfItems" multiTemplateDataRows matSort class="mat-elevation-z2">
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+            <td mat-cell *matCellDef="let bookshelfItems"> {{bookshelfItems.book.title}} </td>
+        </ng-container>
+        <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
+            <td mat-cell *matCellDef="let bookshelfItems"> {{bookshelfItems.book.author}} </td>
+        </ng-container>
+        <ng-container matColumnDef="rating">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
+            <td mat-cell *matCellDef="let bookshelfItems"> {{bookshelfItems.rating}} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let bookshelfItems"> {{bookshelfItems.status}} </td>
+        </ng-container>
+
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="example-element-diagram col-3 d-flex justify-content-center">
+                        <img src="{{element.book.imageUrl}}" class="img-thumbnail" alt="thumbnail">
+                    </div>
+                    <div class="col-9">
+                        <div class="">published: {{element.book.published}} </div>
+                        <div class="">reason: {{element.reason}} </div>
+                        <div class="">comment: {{element.comment}} </div>
+                        
+                        <div class="">{{element.book.description}}</div>
+
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+</div>
