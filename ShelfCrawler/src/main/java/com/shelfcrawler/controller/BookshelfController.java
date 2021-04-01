@@ -22,7 +22,7 @@ import com.shelfcrawler.service.FindBookService;
 
 @RestController
 @RequestMapping("/bookshelves")
-public class BookShelfController {
+public class BookshelfController {
 
 	@Autowired
 	BookshelfRepository bookshelfRepository;

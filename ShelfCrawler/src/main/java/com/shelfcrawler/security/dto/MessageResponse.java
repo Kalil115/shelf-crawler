@@ -1,18 +1,10 @@
 package com.shelfcrawler.security.dto;
 
+import lombok.Data;
+
+@Data
 public class MessageResponse {
-	String message;
-
-	public MessageResponse(String message) {
-		this.message = message;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
+	
+	final String message;
+	
 }
