@@ -39,6 +39,8 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Bookshelf> bookshelves = new HashSet<>();
 	
+	public User() {}
+	
 	public User(String username, String password, String email, String role) {
 		this.username = username;
 		this.password = password;

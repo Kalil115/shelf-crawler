@@ -44,6 +44,7 @@ export class BookshelfComponent implements OnInit {
     this.bookshelfService.getBookshelfById(bookshelfId).subscribe(
       // data => this.results = new MatTableDataSource(data)
       data => this.bookshelfItems = data
+      // data => console.log(data)
     )
   }
 

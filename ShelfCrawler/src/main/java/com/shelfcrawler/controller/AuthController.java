@@ -58,7 +58,7 @@ public class AuthController {
 
 		User user = new User(username, password, email, role);
 		userRepository.save(user);
-		mailService.sendWelcomeMail(user);
+//		mailService.sendWelcomeMail(user);
 		
 		return ResponseEntity.ok(new MessageResponse("User registered succesfully"));
 	}
