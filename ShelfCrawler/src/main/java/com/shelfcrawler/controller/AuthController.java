@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shelfcrawler.dto.MailMessage;
 import com.shelfcrawler.entities.User;
 import com.shelfcrawler.repository.UserRepository;
 import com.shelfcrawler.security.dto.MessageResponse;
@@ -34,14 +32,12 @@ public class AuthController {
 	PasswordEncoder encoder;
 
 	@Autowired
-	MailMessage mailMessage;
-
-	@Autowired
 	MailService mailService;
 
 	@Autowired
 	JwtUtils jwtUtils;
-
+	
+	
 	@PostMapping
 	@RequestMapping("/signup")
 	public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
@@ -59,26 +55,12 @@ public class AuthController {
 		if (userRepository.existsByEmail(email)) {
 			return ResponseEntity.badRequest().body(new MessageResponse("email already exist"));
 		}
-		
-		User user = new User(username,
-				             password,
-				             email,
-				             role);
 
+		User user = new User(username, password, email, role);
 		userRepository.save(user);
+		mailService.sendWelcomeMail(user);
 		
-		mailMessage.setEmailAddress(email);
-		mailMessage.setSubject("Welcome to Shelf Crawler");
-		mailMessage.setBodyText("Hi " + username + ",\n" + "Welcome  to shelf Crawler.");
-		
-//		try {
-//			mailService.sendEmail(mailMessage);
-//		}catch(MailException mailException) {
-//			System.out.println(mailException);
-//		}
-
 		return ResponseEntity.ok(new MessageResponse("User registered succesfully"));
-
 	}
 
 //	@PostMapping
