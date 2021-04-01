@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.shelfcrawler.security.services.UserDetailsImpl;
@@ -34,14 +35,15 @@ public class JwtUtils {
 	}
 	
 	public String generateJwtToken(Authentication auth) {
-		UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+		UserDetails userDetails = (UserDetailsImpl) auth.getPrincipal();
 		
 		Date expiration = new Date(new Date().getTime() + jwtExpirationMs);
 		
-		JwtBuilder builder = Jwts.builder().setSubject(userDetails.getUsername())
-			.setIssuedAt(new Date())
-			.setExpiration(expiration)
-			.signWith(SignatureAlgorithm.HS512, jwtSecret);
+		JwtBuilder builder = Jwts.builder()
+				.setSubject(userDetails.getUsername())
+			    .setIssuedAt(new Date())
+			    .setExpiration(expiration)
+			    .signWith(SignatureAlgorithm.HS512, jwtSecret);
 		
 		return builder.compact();
 	}

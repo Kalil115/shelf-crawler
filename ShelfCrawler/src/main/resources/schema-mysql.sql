@@ -94,9 +94,12 @@ create table movieshelf_item (
 );
 
 
-INSERT INTO user (username, password, email, role) VALUES('abby', 'abby123', 'abby@gmail.com', 'USER');
-INSERT INTO user (username, password, email, role) VALUES('Bob', 'bob123', 'bob@gmail.com', 'ADMIN');
-INSERT INTO user (username, password, email, role) VALUES('Charlie', 'charlie123', 'charlie@gmail.com', 'USER');
+-- INSERT INTO user (username, password, email, role) VALUES('abby', 'abby123', 'abby@gmail.com', 'USER');
+-- INSERT INTO user (username, password, email, role) VALUES('Bob', 'bob123', 'bob@gmail.com', 'ADMIN');
+-- INSERT INTO user (username, password, email, role) VALUES('Charlie', 'charlie123', 'charlie@gmail.com', 'USER');
+INSERT INTO user (username, password, email, role) VALUES('abby', '$2y$12$42QvfbjCGltb/KI/r0UvJuWCFTFwEwDnLt10Fc04tJCkf/bAFqyEq', 'abby@gmail.com', 'USER');
+INSERT INTO user (username, password, email, role) VALUES('Bob', '$2y$12$4.rEHJL4QjcNarWF4yYxv.EXm15CKvfDLgewDgI3doPM/JV00A4mC', 'bob@gmail.com', 'ADMIN');
+INSERT INTO user (username, password, email, role) VALUES('Charlie', '$2y$12$SlaKuiACH5oa2/yKHnrvc.Z1xjJUfONmb.UHKHePZb.2DJvy5F5u.', 'charlie@gmail.com', 'USER');
 
 
 INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE ('014311526X', 'Nudge: Improving Decisions About Health, Wealth, and Happiness', 'Every day we make choices—about what to buy or eat, about financial investments or our children’s health and education, even about the causes we champion or the planet itself. Unfortunately, we often choose poorly. Nudge is about how we make these choices and how we can make better ones. Using dozens of eye-opening examples and drawing on decades of behavioral science research, Nobel Prize winner Richard H. Thaler and Harvard Law School professor Cass R. Sunstein show that no choice is ever presented to us in a neutral way, and that we are all susceptible to biases that can lead us to make bad decisions. But by knowing how people think, we can use sensible “choice architecture” to nudge people toward the best decisions for ourselves, our families, and our society, without restricting our freedom of choice.', ' Richard H. Thaler, Cass R. Sunstein', '2009', 'assets/images/books/3450744.jpg');
