@@ -19,25 +19,18 @@ export class BookshelfService {
     return this.httpClient.get<Bookshelf[]>(url);
   }
 
-  getBookshelfById(bookshelfId: number): Observable<BookshelfItem[]> {
-    const url = this.baseUrl + '/' + bookshelfId;
-    return this.httpClient.get<GetBookshelfResponse>(url).pipe(
-      map(response => response.bookshelfItems)
-    );
-  }
+  // getBookshelfById(bookshelfId: number): Observable<BookshelfItem[]> {
+  //   const url = this.baseUrl + '/' + bookshelfId;
+  //   return this.httpClient.get<GetBookshelfResponse>(url).pipe(
+  //     map(response => response.bookshelfItems)
+  //   );
+  // }
 
-  getAllBookshelves(): Observable<Bookshelf[]> {
-    return this.httpClient.get<Bookshelf[]>(this.baseUrl);
-  }
+  // getAllBookshelves(): Observable<Bookshelf[]> {
+  //   return this.httpClient.get<Bookshelf[]>(this.baseUrl);
+  // }
 }
 
 export interface GetBookshelfResponse {
   bookshelfItems: BookshelfItem[];
 }  
-
-// export interface GetBookshelvesResponse {
-//   bookshelves: {
-//     name: string,
-//     bookshelfItems: BookshelfItem[];
-//   }
-// }

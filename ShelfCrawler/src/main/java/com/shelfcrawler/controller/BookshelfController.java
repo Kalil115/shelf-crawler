@@ -48,15 +48,15 @@ public class BookshelfController {
 		return findBookService.findByUserId(id);
 	}
 	
-	@GetMapping("search/findByUsername")
-	public List<Bookshelf> findByUsername(@RequestParam("username") String username) {
-		return bookshelfRepository.findByUserUsername(username);
-	}
-	
-	@GetMapping("/books/search/findByStatusAndUserId")
-	public List<BookshelfItem> findByStatusAndUserId(@RequestParam("status") String status, @RequestParam("userId") Long userId) {
-		return findBookService.findByStatusAndUserId(status, userId);
-	}
+//	@GetMapping("search/findByUsername")
+//	public List<Bookshelf> findByUsername(@RequestParam("username") String username) {
+//		return bookshelfRepository.findByUserUsername(username);
+//	}
+//	
+//	@GetMapping("/books/search/findByStatusAndUserId")
+//	public List<BookshelfItem> findByStatusAndUserId(@RequestParam("status") String status, @RequestParam("userId") Long userId) {
+//		return findBookService.findByStatusAndUserId(status, userId);
+//	}
 
 	@PostMapping
 	public Bookshelf saveBookshelf(@RequestBody Bookshelf bookshelf) {
