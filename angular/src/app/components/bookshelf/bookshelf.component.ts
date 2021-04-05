@@ -53,9 +53,12 @@ export class BookshelfComponent implements OnInit {
   getBookshelfByUserIdAndBookshelfName(userId: number, bookshelfName: number): void {
     this.bookshelfService.getBookshelfByUserId(userId).subscribe(
       data => {
-        const hit = data.find(bookshelf => bookshelf.name === bookshelfName.toString());
-        this.bookshelfItems = hit.bookshelfItems;
-        
+        const found = data.find(bookshelf => bookshelf.name === bookshelfName.toString());
+        if(found){
+          this.bookshelfItems = found.bookshelfItems;
+        }else{
+          this.bookshelfItems = null;
+        }
       }
     );
   }
