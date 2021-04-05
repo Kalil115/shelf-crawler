@@ -20,7 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "MOVIEHELF")
+@Table(name = "MOVIESHELF")
 @Getter
 @Setter
 public class Movieshelf implements Serializable {
