@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { YearPickerServiceService } from './year-picker.service';
+import { YearPickerService } from './year-picker.service';
 
 describe('YearPickerServiceService', () => {
-  let service: YearPickerServiceService;
+  let service: YearPickerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(YearPickerServiceService);
+    service = TestBed.inject(YearPickerService);
   });
 
   it('should be created', () => {

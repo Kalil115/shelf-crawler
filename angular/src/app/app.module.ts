@@ -28,6 +28,7 @@ import { SearchComponent } from './components/nav-bar/search/search.component';
 import { YearPickerComponent } from './components/nav-bar/year-picker/year-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Bookshelf } from './common/bookshelf';
+import { MovieshelfComponent } from './components/movieshelf/movieshelf.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'users/:username', component: BoardUserComponent},
   {path:'books', component:BookshelfComponent},
+  {path:'movies', component:MovieshelfComponent},
   {path:'', component: DashboardComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'}
 ];
@@ -61,7 +63,8 @@ const routes: Routes = [
     NavBarComponent,
     LoginStatusComponent,
     SearchComponent,
-    YearPickerComponent
+    YearPickerComponent,
+    MovieshelfComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

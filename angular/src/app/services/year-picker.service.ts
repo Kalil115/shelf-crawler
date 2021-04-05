@@ -4,7 +4,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class YearPickerServiceService {
+export class YearPickerService {
 
   
   currentYear: Subject<number> = new BehaviorSubject<number>(new Date().getFullYear());

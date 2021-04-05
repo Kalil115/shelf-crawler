@@ -2,13 +2,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/common/book';
-import { Bookshelf } from 'src/app/common/bookshelf';
 import { BookshelfItem } from 'src/app/common/bookshelf-items';
 import { User } from 'src/app/common/user';
 import { BookshelfService } from 'src/app/services/bookshelf.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { YearPickerServiceService } from 'src/app/services/year-picker.service';
-
+import { YearPickerService } from 'src/app/services/year-picker.service';
 
 @Component({
   selector: 'app-bookshelf',
@@ -26,15 +24,13 @@ export class BookshelfComponent implements OnInit {
 
   user: User;
   currentYear: number;
-  bookshelves: Bookshelf[];
   bookshelfItems: BookshelfItem[];
-  // results: any;
   columnsToDisplay = ['title', 'author', 'rating', 'status'];
   expandedElement: PeriodicElement | null;
 
   constructor(private tokenStorageService:TokenStorageService,
               private router: Router,
-              private yearPickerService: YearPickerServiceService,
+              private yearPickerService: YearPickerService,
               private bookshelfService: BookshelfService) { }
 
   ngOnInit(): void {
