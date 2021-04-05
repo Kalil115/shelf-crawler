@@ -25,8 +25,19 @@ export class BookshelfService {
       map(response => response.bookshelfItems)
     );
   }
+
+  getAllBookshelves(): Observable<Bookshelf[]> {
+    return this.httpClient.get<Bookshelf[]>(this.baseUrl);
+  }
 }
 
 export interface GetBookshelfResponse {
   bookshelfItems: BookshelfItem[];
 }  
+
+// export interface GetBookshelvesResponse {
+//   bookshelves: {
+//     name: string,
+//     bookshelfItems: BookshelfItem[];
+//   }
+// }

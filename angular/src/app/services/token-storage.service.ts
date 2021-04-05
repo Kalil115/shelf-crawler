@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../common/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,12 @@ export class TokenStorageService {
     return window.sessionStorage.getItem(this.tokenKey);
   }
 
-  public saveUser(user: any): void {
+  public saveUser(user: User): void {
     window.sessionStorage.removeItem(this.userKey);
     window.sessionStorage.setItem(this.userKey, JSON.stringify(user));
   }
 
-  public getUser(): any {
+  public getUser(): User {
     const user = window.sessionStorage.getItem(this.userKey);
     if(user){
       return JSON.parse(user);

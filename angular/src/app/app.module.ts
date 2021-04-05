@@ -27,17 +27,19 @@ import { LoginStatusComponent } from './components/nav-bar/login-status/login-st
 import { SearchComponent } from './components/nav-bar/search/search.component';
 import { YearPickerComponent } from './components/nav-bar/year-picker/year-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Bookshelf } from './common/bookshelf';
 
 
 const routes: Routes = [
-  {path:'dashboard', component: DashboardComponent},
-  {path:'admin', component: BoardAdminComponent},
   {path:'login', component: LoginComponent},
   {path:'signup', component: RegisterComponent},
   {path:'logout', component: LogoutComponent},
   {path:'forget', component: ForgetComponent},
+  {path:'dashboard', component: DashboardComponent},
+  {path:'admin', component: BoardAdminComponent},
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'users/:username', component: BoardUserComponent},
+  {path:'books', component:BookshelfComponent},
   {path:'', component: DashboardComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'}
 ];

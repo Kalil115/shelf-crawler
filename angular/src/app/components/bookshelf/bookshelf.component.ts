@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/common/book';
 import { Bookshelf } from 'src/app/common/bookshelf';
 import { BookshelfItem } from 'src/app/common/bookshelf-items';
+import { User } from 'src/app/common/user';
 import { BookshelfService } from 'src/app/services/bookshelf.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { YearPickerServiceService } from 'src/app/services/year-picker.service';
 
 
 @Component({
@@ -20,33 +23,51 @@ import { BookshelfService } from 'src/app/services/bookshelf.service';
 })
 export class BookshelfComponent implements OnInit {
 
+  user: User;
+  currentYear: number;
   bookshelves: Bookshelf[] = [];
   bookshelfItems: BookshelfItem[];
   results: any;
   columnsToDisplay = ['title', 'author', 'rating', 'status'];
   expandedElement: PeriodicElement | null;
 
-  constructor(private bookshelfService: BookshelfService) { }
+  constructor(private tokenStorageService:TokenStorageService,
+              private yearPickerService: YearPickerServiceService,
+              private bookshelfService: BookshelfService) { }
 
   ngOnInit(): void {
-    this.getBookshelfByID(1);
+    this.user = this.tokenStorageService.getUser();
+    this.currentYear = this.yearPickerService.getYear();
+    this.getBookshelfByUserId(this.user.id);
+    // this.getBookshelfByID(1);
+    // this.getBookshelfItemByBookshelfName(this.currentYear.toString());
+    // this.getAllBookshelves();
   }
 
 
-  getAllShelves() {
-    const userId = 1;
+  // getBookshelfByID(bookshelfId: number) {
+  //   this.bookshelfService.getBookshelfById(bookshelfId).subscribe(
+  //     // data => this.results = new MatTableDataSource(data)
+  //     data => this.bookshelfItems = data
+  //     // data => console.log(data)
+  //   )
+  // }
+
+
+
+  // getAllBookshelves(){
+  //   this.bookshelfService.getAllBookshelves().subscribe(
+  //     // data => this.bookshelves = data
+  //     data => console.log(data)
+  //   );
+  // }
+
+  getBookshelfByUserId(userId: number): void {
     this.bookshelfService.getBookshelfByUserId(userId).subscribe(
-      data => this.bookshelves = data
+      data => console.log(data)
     );
   }
-
-  getBookshelfByID(bookshelfId: number) {
-    this.bookshelfService.getBookshelfById(bookshelfId).subscribe(
-      // data => this.results = new MatTableDataSource(data)
-      data => this.bookshelfItems = data
-      // data => console.log(data)
-    )
-  }
+  
 
 
 }

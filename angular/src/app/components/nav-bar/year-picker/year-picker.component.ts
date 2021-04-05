@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { YearPickerServiceService } from 'src/app/services/year-picker.service';
 
 @Component({
   selector: 'app-year-picker',
@@ -9,18 +10,22 @@ export class YearPickerComponent implements OnInit {
 
   currentYear: number;
 
-  constructor() {
+  constructor(private yearPickerService: YearPickerServiceService) {
   }
 
   ngOnInit(): void {
-    this.currentYear = new Date().getFullYear();
+    this.yearPickerService.setYear(new Date().getFullYear());
+    this.currentYear = this.yearPickerService.getYear();
   }
 
   nextYear() {
-    this.currentYear += 1; 
+    this.currentYear += 1;
+    this.yearPickerService.setYear(this.currentYear); 
   }
 
   preYear() {
     this.currentYear -= 1; 
+    this.yearPickerService.setYear(this.currentYear); 
   }
+  
 }
