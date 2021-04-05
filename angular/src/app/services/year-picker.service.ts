@@ -7,7 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class YearPickerServiceService {
 
   
-  currentYear: number;
+  currentYear: Subject<number> = new BehaviorSubject<number>(new Date().getFullYear());
   private yearKey = "current-year";
 
   constructor() { }
@@ -20,5 +20,9 @@ export class YearPickerServiceService {
   getYear(): number {
     const year: string = window.sessionStorage.getItem(this.yearKey);
     return Number.parseInt(year);
+  }
+
+  update(newYear: number) {
+    this.currentYear.next(newYear);
   }
 }
