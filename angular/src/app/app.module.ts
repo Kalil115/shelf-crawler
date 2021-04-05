@@ -17,11 +17,17 @@ import { HomeComponent } from './components/home/home.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { BoardUserComponent } from './components/board-user/board-user.component';
 import { RouterModule, Routes } from '@angular/router';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
 import { ForgetComponent } from './components/auth/forget/forget.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { LoginStatusComponent } from './components/nav-bar/login-status/login-status.component';
+import { SearchComponent } from './components/nav-bar/search/search.component';
+import { YearPickerComponent } from './components/nav-bar/year-picker/year-picker.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 const routes: Routes = [
   {path:'dashboard', component: DashboardComponent},
@@ -46,11 +52,14 @@ const routes: Routes = [
     HomeComponent,
     BoardAdminComponent,
     BoardUserComponent,
-    NavBarComponent,
     SidebarComponent,
     DashboardComponent,
     LogoutComponent,
     ForgetComponent,
+    NavBarComponent,
+    LoginStatusComponent,
+    SearchComponent,
+    YearPickerComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -59,7 +68,8 @@ const routes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     authInterceptorProviders

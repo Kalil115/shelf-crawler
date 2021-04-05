@@ -1,0 +1,28 @@
+<ul class="navbar-nav navbar-nav-right" *ngIf="!isLoggedin">
+    <li class="nav-item">
+        <a class="btn btn-primary btn-rounded btn-fw" role="button" routerLink="signup">SignUp</a>
+    </li>
+    <li class="nav-item">
+        <a class="btn btn-primary btn-rounded btn-fw" role="button" routerLink="login">LogIn</a>
+    </li>
+</ul>
+
+<ul class="navbar-nav navbar-nav-right" *ngIf="isLoggedin">
+    <li class="nav-item nav-profile dropdown">
+        
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+            <i class="fas fa-user fa-lg"></i>
+            <span class="nav-profile-name">{{username}}</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <a class="dropdown-item">
+                <i class="mdi mdi-account text-primary"></i>
+                <a class="nav-link" [routerLink]="['users' ,username, 'profile']">Profile</a>
+            </a>
+            <a class="dropdown-item">
+                <i class="mdi mdi-logout text-primary"></i>
+                <a routerLink="/logout" class="nav-link">LogOut</a>
+            </a>
+        </div>
+    </li>
+</ul>
