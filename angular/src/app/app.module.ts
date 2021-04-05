@@ -8,8 +8,8 @@ import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 import { authInterceptorProviders } from 'src/app/helpers/auth.interceptor';
@@ -20,7 +20,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LogoutComponent } from './components/logout/logout.component';
+import { LogoutComponent } from './components/auth/logout/logout.component';
+import { ForgetComponent } from './components/auth/forget/forget.component';
 
 const routes: Routes = [
   {path:'dashboard', component: DashboardComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'signup', component: RegisterComponent},
   {path:'logout', component: LogoutComponent},
+  {path:'forget', component: ForgetComponent},
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'users/:username', component: BoardUserComponent},
   {path:'', component: DashboardComponent},
@@ -48,6 +50,7 @@ const routes: Routes = [
     SidebarComponent,
     DashboardComponent,
     LogoutComponent,
+    ForgetComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -12,9 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.entities.User;
@@ -86,5 +88,17 @@ public class AuthController {
 		
 		return ResponseEntity.ok(new JwtResponse(token, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 				
+	}
+	
+	@GetMapping
+	@RequestMapping("/reset")
+	public ResponseEntity<?> reset(@Valid @RequestParam("email") String email) {
+		if(userRepository.existsByEmail(email)) {
+			User user = userRepository.findByEmail(email).get();			
+//			mailService.sendResetMail(user);
+			return ResponseEntity.ok(new MessageResponse("email sent"));
+		}
+		
+		return ResponseEntity.badRequest().body(new MessageResponse("Cannot find your email address. Please check again."));
 	}
 }

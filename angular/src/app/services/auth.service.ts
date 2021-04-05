@@ -32,4 +32,9 @@ export class AuthService {
     }, 
     this.httpOptions);
   }
+
+  reset(email: string): Observable<any> {
+    const url = this.AUTH_API + 'reset?email=' + email;
+    return this.httpClient.get(url);
+  }
 }
