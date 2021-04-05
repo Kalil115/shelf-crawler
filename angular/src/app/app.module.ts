@@ -17,12 +17,21 @@ import { HomeComponent } from './components/home/home.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { BoardUserComponent } from './components/board-user/board-user.component';
 import { RouterModule, Routes } from '@angular/router';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
+  {path:'dashboard', component: DashboardComponent},
+  {path:'admin', component: BoardAdminComponent},
   {path:'login', component: LoginComponent},
   {path:'signup', component: RegisterComponent},
-  // {path:'', redirectTo:'/products', pathMatch: 'full'},
-  // {path:'**', redirectTo:'/products', pathMatch: 'full'}
+  {path:'logout', component: LogoutComponent},
+  {path:'users/:username/profile', component: ProfileComponent},
+  {path:'users/:username', component: BoardUserComponent},
+  {path:'', component: DashboardComponent},
+  {path:'**', redirectTo:'', pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -35,6 +44,10 @@ const routes: Routes = [
     HomeComponent,
     BoardAdminComponent,
     BoardUserComponent,
+    NavBarComponent,
+    SidebarComponent,
+    DashboardComponent,
+    LogoutComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

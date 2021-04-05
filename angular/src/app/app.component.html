@@ -1,47 +1,48 @@
-<div class="page-wrapper">
-
-    <!-- MENU SIDEBAR-->
-    <aside class="menu-sidebar d-none d-lg-block">
-        <div class="logo">
-            <a routerLink="/products">
-                <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
-            </a>
-        </div>
-        <!-- <app-product-category-menu></app-product-category-menu> -->
-    </aside>
-    <!-- END MENU SIDEBAR-->
-
-    <!-- PAGE CONTAINER-->
-    <div class="page-container">
-        <!-- HEADER DESKTOP-->
-        <header class="header-desktop">
-            <div class="section-content section-content-p30">
-                <div class="container-fluid">
-                    <div class="header-wrap">
-                        <!-- <app-search></app-search> -->
-                        <!-- <app-cart-status></app-cart-status> -->
-                    </div>
-                    <div class="account-wrap"></div>
-                </div>
-            </div>
-        </header>
-        <!-- END HEADER DESKTOP-->
-
-        <!-- MAIN CONTENT-->
-        <div class="main-content">
-            <router-outlet></router-outlet>
-        </div>
-        <!-- END MAIN CONTENT-->
-
+<!-- 
+  <div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a href="#" class="navbar-brand">book crawler</a>
+      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="books">Books </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="movies">Movies </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="tv_series">TV Series </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="games">Games </a>
+        </li>
+      </ul>
+  
+      
+  
+     
+    </nav>
+  
+    <div class="container">
+      <router-outlet></router-outlet>
     </div>
+  </div> 
+-->
+
+
+
+<div class="container-scroller">
+  <!-- partial:partials/_navbar.html -->
+  <app-nav-bar></app-nav-bar>
+  <!-- partial -->
+  <div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_sidebar.html -->
+    <app-sidebar></app-sidebar>
+    <!-- partial -->
+    <div class="main-panel">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
 </div>
-
-<!-- END PAGE CONTAINER-->
-
-<footer>
-    <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">Help</a></li>
-    </ul>
-</footer>
+<!-- container-scroller -->
