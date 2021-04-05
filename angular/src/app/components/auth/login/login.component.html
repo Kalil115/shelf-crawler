@@ -1,6 +1,6 @@
 <div class="content-wrapper d-flex align-items-center auth px-0">
     <div class="row w-100 mx-0">
-        <div class="col-lg-4 mx-auto">
+        <div class="col-lg-6 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                 <h4>Hello! let's get started</h4>
                 <h6 class="font-weight-light">Sign in to continue.</h6>
@@ -28,7 +28,7 @@
                         <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN
                             IN</button>
                         <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
-                            Login failed: {{ errorMessage }}
+                            Login failed:<br> {{ errorMessage }}
                         </div>
                     </div>
                     <div class="my-2 d-flex justify-content-between align-items-center">

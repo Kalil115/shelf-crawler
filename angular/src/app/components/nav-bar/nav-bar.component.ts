@@ -7,10 +7,21 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor() { }
+  private roles: string[] = [];
+  isLoggedin = false;
+  showAdminBoard = false;
+  username?: string;
+  constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.isLoggedin = !!this.tokenStorageService.getToken();
+    
+    if(this.isLoggedin) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+      this.showAdminBoard = this.roles.includes("ADMIN");
+      this.username = user.username;
+    }
   }
 
 }
