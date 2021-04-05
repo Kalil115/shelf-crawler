@@ -8,9 +8,6 @@ import { TokenStorageService } from './services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = "angular";
-  
-  
 
   constructor(){}
 
