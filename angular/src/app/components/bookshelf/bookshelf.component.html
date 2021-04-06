@@ -6,48 +6,91 @@
                     <diV class="card-title">
                         <h4>Books in {{bookshelfName}}</h4>
                     </diV>
-                    <div class="d-flex align-items-end">
-                        <span>Goal: {{goal}}&nbsp;</span>
-                        <button class="btn btn-icon" data-toggle="modal" data-target="#editGoalModal">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </div>
+                    <div *ngIf="bookshelfName; else createBookshelf">
+                        <div class="d-flex align-items-end">
+                            <span>Goal: {{goal}}&nbsp;</span>
+                            <button class="btn btn-icon" data-toggle="modal" data-target="#editGoalModal">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
 
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="editGoalModal" tabindex="-1" role="dialog"
-                        aria-labelledby="editGoalModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editGoalModalLabel">Edit Goal</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <!-- Modal edit Goal -->
+                        <div class="modal fade" id="editGoalModal" tabindex="-1" role="dialog"
+                            aria-labelledby="editGoalModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editGoalModalLabel">Edit Goal</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form>
+                                        <div class="modal-body">
+                                            <input type="text" name="goal" class="form-control" id="editGoal" placeholder="set a new goal"
+                                                [(ngModel)]="editGoalForm.newGoal">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" (click)="editGoal()"
+                                                data-dismiss="modal">Save changes</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <form (ngSubmit)="editGoal()">
-                                    <div class="modal-body">
-                                        <input type="text" name="goal" class="form-control" id="editGoal"
-                                            [(ngModel)]="editGoalForm.newGoal">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
-                    </div>
-                    <!-- end of Modal-->
+                        <!-- end of edit Goal-->
 
-                    <div class="card-description">
-                        <p>Reach Rate: {{reachRate}}%</p>
+                        <div class="card-description">
+                            <p>Reach Rate: {{reachRate}}%</p>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" [style.width.%]="reachRate"
+                                attr.aria-valuenow="{{reachRate}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </div>
-                    <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" [style.width.%]="reachRate"
-                            attr.aria-valuenow="{{reachRate}}" aria-valuemin="0" aria-valuemax="100"></div>
+                    <ng-template #createBookshelf>
+                        <div class="d-flex align-items-end">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createShelfModal">
+                                <i class="mdi mdi-plus icon-sm">Build</i>
+                            </button>
+                            
+                        </div>
+                    </ng-template>
+
+
+
+                    <!-- create shelf modal -->
+                    <div class="modal fade" id="createShelfModal" tabindex="-1" role="dialog"
+                    aria-labelledby="createShelfModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="createShelfModalLabel">Build a new shlef</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form>
+                                <div class="modal-body">
+                                    <input type="text" name="goal" class="form-control" id="editGoal" placeholder="Please enter your goal"
+                                        [(ngModel)]="createShelf.newGoal">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" (click)="buildShelf()"
+                                        data-dismiss="modal">Create</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                </div>
+                <!-- end of create shelf modal-->
+
+
                     <br>
                     <table mat-table [dataSource]="bookshelfItems" multiTemplateDataRows matSort
                         class="mat-elevation-z2">

@@ -33,7 +33,7 @@ CREATE TABLE book (
 
 CREATE TABLE bookshelf (
 	id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255),
+    name VARCHAR(255) UNIQUE,
     user_id BIGINT(20) NOT NULL,
     goal INT NOT NULL,
     reach_rate FLOAT,

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.dto.AddBookWrapper;
+import com.shelfcrawler.dto.AddBookshelf;
 import com.shelfcrawler.entities.Bookshelf;
 import com.shelfcrawler.repository.BookshelfRepository;
 import com.shelfcrawler.service.AddBookService;
@@ -64,8 +65,8 @@ public class BookshelfController {
 //	}
 
 	@PostMapping
-	public Bookshelf saveBookshelf(@RequestBody Bookshelf bookshelf) {
-		return bookshelfRepository.save(bookshelf);
+	public Bookshelf saveBookshelf(@RequestBody AddBookshelf addBookshelf) {
+		return bookshelfService.saveBookshelf(addBookshelf);
 	}
 
 	@PutMapping("/updateBookshelfGoal/{id}")

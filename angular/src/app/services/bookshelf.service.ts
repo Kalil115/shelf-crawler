@@ -32,6 +32,15 @@ export class BookshelfService {
     return this.httpClient.put<void>(url, bookshelf, this.httpOptions);
   }
 
+  addBookshelf(userId:number, bookshelf: Bookshelf): Observable<void> {
+    return this.httpClient.post<void>(this.baseUrl,
+    {
+      userId,
+      bookshelf
+    }, 
+    this.httpOptions);
+  }
+
 
 
   // getAllBookshelves(): Observable<Bookshelf[]> {

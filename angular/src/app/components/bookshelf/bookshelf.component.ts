@@ -23,6 +23,9 @@ import { YearPickerService } from 'src/app/services/year-picker.service';
 })
 export class BookshelfComponent implements OnInit {
 
+  createShelf: any = {
+    newGoal: null
+  }
   editGoalForm: any = {
     newGoal: null
   }
@@ -95,6 +98,18 @@ export class BookshelfComponent implements OnInit {
     this.reachRate = reachRate * 100;
     this.goal = newGoal;
     return reachRate;
+  }
+
+  buildShelf() {
+    const newGoal = this.createShelf.newGoal;
+    if(newGoal) {
+      const newBookshelf = new Bookshelf();
+      newBookshelf.name = this.currentYear.toString();
+      newBookshelf.goal = newGoal;
+      newBookshelf.reachRate = 0;
+      this.bookshelfName = newBookshelf.name;
+      this.bookshelfService.addBookshelf(this.user.id, newBookshelf).subscribe();
+    }
   }
 
 }
