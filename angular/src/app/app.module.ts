@@ -10,10 +10,9 @@ import {MatTableModule} from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/nav-bar/profile/profile.component';
 
 import { authInterceptorProviders } from 'src/app/helpers/auth.interceptor';
-import { HomeComponent } from './components/home/home.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { BoardUserComponent } from './components/board-user/board-user.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -53,7 +52,6 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    HomeComponent,
     BoardAdminComponent,
     BoardUserComponent,
     SidebarComponent,
