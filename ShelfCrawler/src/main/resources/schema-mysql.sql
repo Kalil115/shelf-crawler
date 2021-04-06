@@ -114,8 +114,8 @@ INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE(
 INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('1423178289', 'The Thank You Book', 'Gerald is careful. Piggie is not.\nPiggie cannot help smiling. Gerald can.\nGerald worries so that Piggie does not have to.\nGerald and Piggie are best friends.\nIn The Thank You Book!, Piggie wants to thank EVERYONE. But Gerald is worried Piggie will forget someone . . . someone important. ', 'Mo Willems', '2016', 'assets/images/books/27247476.jpg');
 
 
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.18); 
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.20); 
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.06); 
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2018','1', 50, 0.12); 
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2017','1', 100, 0.76);
 
@@ -123,7 +123,7 @@ INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2017','1', 100, 
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 1, "very helpful", 8.2, "bpv  recommended", "FINISHED", NOW());
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 2, "very useful", 8.7, "amazon  recommended", "FINISHED", NOW());
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 3, "not interested", 5, "amazon  recommended", "DNF", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 4, null, null, "amazon  recommended", "READING", NOW());
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 4, null, null, "amazon  recommended", "IN_PROGRESS", NOW());
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 5, null, null, null, "LISTING", NOW());
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 6, null, null, null, "LISTING", NOW());
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 7, "very helpful", 8.2, "bpv  recommended", "FINISHED", NOW());
@@ -145,7 +145,7 @@ INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('
 
 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.48); 
-INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 1.04); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2018','1', 50, 1.22); 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2017','1', 100, 1.09);
 
