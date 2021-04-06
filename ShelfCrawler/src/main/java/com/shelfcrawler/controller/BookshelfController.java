@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.dto.AddBookWrapper;
 import com.shelfcrawler.entities.Bookshelf;
-import com.shelfcrawler.entities.BookshelfItem;
 import com.shelfcrawler.repository.BookshelfRepository;
 import com.shelfcrawler.service.AddBookService;
+import com.shelfcrawler.service.BookshelfService;
 import com.shelfcrawler.service.FindBookService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/bookshelves")
 public class BookshelfController {
@@ -32,6 +34,9 @@ public class BookshelfController {
 	
 	@Autowired
 	FindBookService findBookService;
+	
+	@Autowired
+	BookshelfService bookshelfService;
 
 	@GetMapping
 	public List<Bookshelf> findAllBookshelves() {
@@ -63,9 +68,9 @@ public class BookshelfController {
 		return bookshelfRepository.save(bookshelf);
 	}
 
-	@PutMapping
-	public Bookshelf updateBookshelf(@RequestBody Bookshelf bookshelf) {
-		return bookshelfRepository.save(bookshelf);
+	@PutMapping("/updateBookshelfGoal/{id}")
+	public Bookshelf updateBookshelf(@PathVariable("id") Long id, @RequestBody Bookshelf bookshelf) {
+		return bookshelfService.updateBookshelfGoal(bookshelf);
 	}
 
 	@PostMapping("/addbook")
