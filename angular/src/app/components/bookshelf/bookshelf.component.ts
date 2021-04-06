@@ -8,6 +8,10 @@ import { User } from 'src/app/common/user';
 import { BookshelfService } from 'src/app/services/bookshelf.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { YearPickerService } from 'src/app/services/year-picker.service';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ViewChild } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-bookshelf',
@@ -21,7 +25,7 @@ import { YearPickerService } from 'src/app/services/year-picker.service';
     ]),
   ],
 })
-export class BookshelfComponent implements OnInit {
+export class BookshelfComponent implements OnInit, AfterViewInit {
 
   createShelf: any = {
     newGoal: null
@@ -37,8 +41,12 @@ export class BookshelfComponent implements OnInit {
   bookshelf: Bookshelf;
   bookshelfName: string;
   bookshelfItems: BookshelfItem[];
+  dataSource: any = new MatTableDataSource();
   columnsToDisplay = ['title', 'author', 'rating', 'status'];
   expandedElement: PeriodicElement | null;
+
+  @ViewChild(MatSort) sort: MatSort;
+
 
   constructor(private tokenStorageService: TokenStorageService,
     private router: Router,
@@ -54,8 +62,13 @@ export class BookshelfComponent implements OnInit {
     this.yearPickerService.currentYear.subscribe(data => {
       this.currentYear = data;
       this.getBookshelfByUserIdAndBookshelfName(this.user.id, data);
+      this.ngAfterViewInit();
     });
 
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   getBookshelfByUserIdAndBookshelfName(userId: number, bookshelfName: number): void {
@@ -65,13 +78,15 @@ export class BookshelfComponent implements OnInit {
         if (found) {
           this.bookshelf = found;
           this.bookshelfName = found.name;
-          this.bookshelfItems = found.bookshelfItems;
+          // this.bookshelfItems = found.bookshelfItems;
+          this.dataSource = new MatTableDataSource(found.bookshelfItems);
+          this.dataSource.sort = this.sort;
           this.reachRate = found.reachRate * 100;
           this.goal = found.goal;
         } else {
           this.bookshelf = new Bookshelf();
           this.bookshelfName = null;
-          this.bookshelfItems = null;
+          this.dataSource = new MatTableDataSource();
           this.reachRate = 0;
           this.goal = 0;
         }
@@ -102,7 +117,7 @@ export class BookshelfComponent implements OnInit {
 
   buildShelf() {
     const newGoal = this.createShelf.newGoal;
-    if(newGoal) {
+    if (newGoal) {
       const newBookshelf = new Bookshelf();
       newBookshelf.name = this.currentYear.toString();
       newBookshelf.goal = newGoal;

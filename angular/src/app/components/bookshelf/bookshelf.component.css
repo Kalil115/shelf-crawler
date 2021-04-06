@@ -27,6 +27,16 @@ table {
     display: flex;
   }
 
-  .example-element-detail img {
-    height: 300px;
+  .img-container{
+    position:relative;  
+    padding: 24px 10px;
+  }
+
+  .img-container img{
+    max-height:100%;
+    width : 100%;    
+  }
+
+  i {
+    font-style:normal;
   }
