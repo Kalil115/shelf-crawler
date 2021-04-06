@@ -15,17 +15,14 @@ export class YearPickerComponent implements OnInit {
 
   ngOnInit(): void {
     this.yearPickerService.currentYear.subscribe(data => this.currentYear = data);
-    // this.currentYear = this.yearPickerService.getYear();
   }
 
   nextYear() {
-    this.currentYear += 1;
-    this.yearPickerService.update(this.currentYear); 
+    this.yearPickerService.update(this.currentYear + 1); 
   }
 
   preYear() {
-    this.currentYear -= 1; 
-    this.yearPickerService.update(this.currentYear); 
+    this.yearPickerService.update(this.currentYear -1); 
   }
   
 }
