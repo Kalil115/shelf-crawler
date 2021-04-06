@@ -11,9 +11,9 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="d-flex align-items-end">
-                                    <span>Goal: {{goal}}&nbsp;</span>
-                                    <button class="btn btn-icon" data-toggle="modal" data-target="#editGoalModal">
-                                        <i class="fas fa-edit"></i>
+                                    <button class="btn btn-icon-text  btn-link btn-sm" data-toggle="modal"
+                                        data-target="#editGoalModal">
+                                        Goal: {{goal}} <i class="mdi mdi-lead-pencil btn-icon-append icon-sm"></i>
                                     </button>
                                 </div>
                                 <div class="card-description">
@@ -72,7 +72,19 @@
                                         </div>
                                         <div class="col-lg-10 card-body">
                                             <ul class="list-arrow">
-                                                <li>Published: {{element.book.published}}</li>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <li>Published: {{element.book.published}}</li>
+                                                    </div>
+                                                    <div class="col-mdd-2 ml-auto">
+                                                        <button
+                                                            class="btn btn-sm btn-inverse-secondary btn-icon-text btn-icon-prepend"
+                                                            data-toggle="modal" data-target="#editBookshelfItem"
+                                                            (click)="openEditBookshelfModal(element.id)">
+                                                            <i class="mdi mdi-auto-fix"></i>editbook
+                                                        </button>
+                                                    </div>
+                                                </div>
                                                 <li>Description: <p class="card-description">
                                                         {{element.book.description}}
                                                     </p>
@@ -139,10 +151,10 @@
         </div>
     </div>
 </div>
-<!-- end of edit Goal-->
+<!-- end of Modal edit Goal-->
 
 
-<!-- create shelf modal -->
+<!-- Modal create shelf -->
 <div class="modal fade" id="createShelfModal" tabindex="-1" role="dialog" aria-labelledby="createShelfModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -155,9 +167,92 @@
             </div>
             <form>
                 <div class="modal-body">
-                    <input type="text" name="goal" class="form-control" id="createShelfGOal"
+                    <input type="text" name="goal" class="form-control" id="editBookshelfItem1"
                         placeholder="Please enter your goal" [(ngModel)]="createShelf.newGoal">
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="editBookshelfItem()"
+                        data-dismiss="modal">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end of Modal create shelf -->
+
+<!-- Modal edit BookshelfItem -->
+<div class="modal fade" id="editBookshelfItem" tabindex="-1" role="dialog" aria-labelledby="editBookshelfItemLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBookshelfItemLabel">{{editBookshelfItemHolder.book.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+                <div class="modal-body">
+
+                    <!-- <input type="text" name="comment" class="form-control" id="createShelfGOal" placeholder="sdff"
+                        [(ngModel)]="createShelf.newGoal"> -->
+                    <div class="form-group row">
+                        <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="rating"
+                                value="{{editBookshelfItemHolder.rating}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="reason" class="col-sm-2 col-form-label">Reason</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Reason"
+                                value="{{editBookshelfItemHolder.reason}}">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="status" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10 row">
+                            <div class="form-check form-check-inline form-check-success ">
+                                <label class="form-check-label">
+                                    <input type="radio" name="status" id="finished" value="FINISHED"
+                                        [attr.checked]="editBookshelfItemHolder.status === 'FINISHED' ? 'checked' : null">FINISHED
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline form-check-warning">
+                                <label class="form-check-label">
+                                    <input type="radio" name="status" id="inProgress" value="IN_PROGRESS"
+                                        [attr.checked]="editBookshelfItemHolder.status === 'IN_PROGRESS' ? 'checked' : null">In_PROGRESS
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline form-check-dark">
+                                <label class="form-check-label">
+                                    <input type="radio" name="status" id="dnf" value="DNF"
+                                        [attr.checked]="editBookshelfItemHolder.status === 'DNF' ? 'checked' : null">DNF
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline form-check-secondary">
+                                <label class="form-check-label">
+                                    <input type="radio" name="status" id="listing" value="LISTING"
+                                        [attr.checked]="editBookshelfItemHolder.status === 'LISTING' ? 'checked' : null">LISTING
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="comment" class="col-sm-2 col-form-label">Comment</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="comment" rows="4"></textarea>
+                        </div>
+                    </div>
+
+
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" (click)="buildShelf()"
@@ -167,4 +262,4 @@
         </div>
     </div>
 </div>
-<!-- end of create shelf modal-->
+<!-- end of Modal edit BookshelfItem  -->

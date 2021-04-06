@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
+import { BookshelfItemService } from 'src/app/services/bookshelf-item.service';
 
 @Component({
   selector: 'app-bookshelf',
@@ -34,6 +35,8 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     newGoal: null
   }
 
+  editBookshelfItemHolder: BookshelfItem;
+
   user: User;
   currentYear: number;
   reachRate: number;
@@ -51,10 +54,12 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   constructor(private tokenStorageService: TokenStorageService,
     private router: Router,
     private yearPickerService: YearPickerService,
-    private bookshelfService: BookshelfService) { }
+    private bookshelfService: BookshelfService,
+    private bookshelfItemService: BookshelfItemService) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
+    this.editBookshelfItemHolder = new BookshelfItem(new Book());
     if (this.user == null) {
       this.router.navigate(['login']);
     }
@@ -125,6 +130,18 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
       this.bookshelfName = newBookshelf.name;
       this.bookshelfService.addBookshelf(this.user.id, newBookshelf).subscribe();
     }
+  }
+
+  openEditBookshelfModal(bookshelfItemId: number){
+    this.bookshelfItemService.findBookshelfItemById(bookshelfItemId).subscribe(
+      data =>{
+        this.editBookshelfItemHolder = data;
+        console.log(data);
+      });
+  }
+
+  editBookshelfItem() {
+    
   }
 
 }
