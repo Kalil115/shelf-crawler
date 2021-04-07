@@ -9,7 +9,7 @@ import { BookshelfService } from 'src/app/services/bookshelf.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { YearPickerService } from 'src/app/services/year-picker.service';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { BookshelfItemService } from 'src/app/services/bookshelf-item.service';
@@ -46,12 +46,13 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   bookshelf: Bookshelf;
   allBookshelves: Bookshelf[];
   bookshelfName: string;
-  ListingbookshelfItems: BookshelfItem[];
+  ListingbookshelfItems: any =new MatTableDataSource();
   dataSource: any = new MatTableDataSource();
   columnsToDisplay = ['title', 'author', 'rating', 'status'];
   expandedElement: PeriodicElement | null;
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable) table: MatTable<any>;
 
 
   constructor(private tokenStorageService: TokenStorageService,
@@ -177,7 +178,8 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
       this.bookshelf.bookshelfItems.push(bookshelfItem);
     }
     this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems.filter(item=> item.status != 'LISTING'));
-    this.ListingbookshelfItems = this.allBookshelves.map( shelf => shelf.bookshelfItems.filter(item => item.status == "LISTING")).reduce((arr1, arr2) => arr1.concat(arr2));
+    this.ListingbookshelfItems = new MatTableDataSource(this.allBookshelves.map( shelf => shelf.bookshelfItems.filter(item => item.status == "LISTING")).reduce((arr1, arr2) => arr1.concat(arr2)));
+    
     // update reachrate
     this.computeReachRate(this.bookshelf, this.bookshelf.goal);
   }
