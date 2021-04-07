@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
+import { BookshelfComponent } from './components/shelves/bookshelf/bookshelf.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,8 +26,8 @@ import { LoginStatusComponent } from './components/nav-bar/login-status/login-st
 import { SearchComponent } from './components/nav-bar/search/search.component';
 import { YearPickerComponent } from './components/nav-bar/year-picker/year-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Bookshelf } from './common/bookshelf';
-import { MovieshelfComponent } from './components/movieshelf/movieshelf.component';
+import { MovieshelfComponent } from './components/shelves/movieshelf/movieshelf.component';
+import { ListingTableComponent } from './components/listing-table/listing-table.component';
 
 
 const routes: Routes = [
@@ -62,7 +62,8 @@ const routes: Routes = [
     LoginStatusComponent,
     SearchComponent,
     YearPickerComponent,
-    MovieshelfComponent
+    MovieshelfComponent,
+    ListingTableComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
