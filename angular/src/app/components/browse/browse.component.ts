@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Book } from 'src/app/common/book';
+import { Movie } from 'src/app/common/movie';
+import { BookService } from 'src/app/services/book.service';
+import { MovieService } from 'src/app/services/movie.service';
 
 @Component({
   selector: 'app-browse',
@@ -7,9 +12,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrowseComponent implements OnInit {
 
-  constructor() { }
+  item[];
+  books: Book[];
+  movies: Movie[];
+  
+  constructor(private bookService: BookService,
+              private movieService: MovieService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(() => this.listItems());
+  }
+
+  listItems() {
+    if(this.route.snapshot.paramMap.has("keyword")) {
+      const keyword = this.route.snapshot.paramMap.get("keyword");
+      this.searchItems(keyword);
+    }else if(this.route.snapshot.paramMap.has("cat"))  {
+      const category = this.route.snapshot.paramMap.get("cat");
+      this.handleListProductByCategory(category);
+    } else{
+      this.handleListAll();
+    }
+  }
+
+  searchItems(keyword: string) {
+    this.productSrevice.searchProduct(keyword).subscribe(
+      data => this.products = data;
+    )
+  }
+
+  handleItemByCategory(category: string) {
+    this.itemService.getItemListPaginate(this.pageNumber-1, this.pageSize, this.category).subscribe(this.processResult());
   }
 
 }
