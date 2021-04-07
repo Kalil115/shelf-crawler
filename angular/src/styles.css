@@ -1,0 +1,14 @@
+.card-body .img-thumbnail {
+    max-height: 300px;
+    height:100%;
+  }
+
+  .card-body .description {
+    
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5; /* number of lines to show */
+        -webkit-box-orient: vertical;
+     
+  }

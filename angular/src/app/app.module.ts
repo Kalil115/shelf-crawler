@@ -36,13 +36,14 @@ const routes: Routes = [
   {path:'signup', component: RegisterComponent},
   {path:'logout', component: LogoutComponent},
   {path:'forget', component: ForgetComponent},
-  {path:'browse', component: BrowseComponent},
+  {path:'books', component: BrowseComponent},
   {path:'dashboard', component: DashboardComponent},
-  {path:'admin', component: BoardAdminComponent},
+  // {path:'admin', component: BoardAdminComponent},
   {path:'users/:username/profile', component: ProfileComponent},
-  {path:'users/:username', component: BoardUserComponent},
-  {path:'books', component:BookshelfComponent},
+  // {path:'users/:username', component: BoardUserComponent},
+  {path:'bookshelf', component:BookshelfComponent},
   {path:'movies', component:MovieshelfComponent},
+  {path:'search/:keyword', component: BrowseComponent},
   {path:'', component: BrowseComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'}
 ];

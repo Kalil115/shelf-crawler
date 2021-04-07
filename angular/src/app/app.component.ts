@@ -9,6 +9,8 @@ import { TokenStorageService } from './services/token-storage.service';
 })
 export class AppComponent implements OnInit {
 
+  title = "angular";
+
   constructor(){}
 
   ngOnInit() {

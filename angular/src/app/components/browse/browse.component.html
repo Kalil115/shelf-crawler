@@ -1,21 +1,17 @@
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-md-6 grid-margin stretch-card">
+        <div class="col-md-3 grid-margin stretch-card" *ngFor="let tempBook of books">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Headings</h4>
-                    <p class="card-description">
-                        Add tags <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> or class <code>.h1</code> to
-                        <code>.h6</code>
-                    </p>
-                    <div class="template-demo">
-                        <h1>h1. Heading</h1>
-                        <h2>h2. Heading</h2>
-                        <h3>h3. Heading</h3>
-                        <h4>h4. Heading</h4>
-                        <h5>h5. Heading</h5>
-                        <h6>h6. Heading</h6>
-                    </div>
+                    <h5 class="text-dark">{{tempBook.title}}</h5>
+                    <div class="text-center"><img class="img-thumbnail" src="{{tempBook.imageUrl}}"></div>
+                    
+                    <ul class="card-description">
+                        <li>published: {{tempBook.published}}</li>
+                        <li>Author: {{tempBook.author}}</li>
+                        <li>Descrpition: <p class="description">{{tempBook.description}}</p></li>
+                    </ul>
+                    <button class="btn btn-primary">add</button>
                 </div>
             </div>
         </div>

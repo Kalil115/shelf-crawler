@@ -118,6 +118,7 @@ INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2018','1', 50, 0.12); 
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2017','1', 100, 0.76);
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 100, 0);
 
 
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 1, "very helpful", 8.2, "bpv  recommended", "FINISHED", NOW());
