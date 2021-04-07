@@ -28,6 +28,7 @@ import { YearPickerComponent } from './components/nav-bar/year-picker/year-picke
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MovieshelfComponent } from './components/shelves/movieshelf/movieshelf.component';
 import { ListingTableComponent } from './components/listing-table/listing-table.component';
+import { BrowseComponent } from './components/browse/browse.component';
 
 
 const routes: Routes = [
@@ -35,13 +36,14 @@ const routes: Routes = [
   {path:'signup', component: RegisterComponent},
   {path:'logout', component: LogoutComponent},
   {path:'forget', component: ForgetComponent},
+  {path:'browse', component: BrowseComponent},
   {path:'dashboard', component: DashboardComponent},
   {path:'admin', component: BoardAdminComponent},
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'users/:username', component: BoardUserComponent},
   {path:'books', component:BookshelfComponent},
   {path:'movies', component:MovieshelfComponent},
-  {path:'', component: DashboardComponent},
+  {path:'', component: BrowseComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'}
 ];
 
@@ -63,7 +65,8 @@ const routes: Routes = [
     SearchComponent,
     YearPickerComponent,
     MovieshelfComponent,
-    ListingTableComponent
+    ListingTableComponent,
+    BrowseComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
