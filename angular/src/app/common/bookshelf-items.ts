@@ -10,9 +10,5 @@ export class BookshelfItem {
     status: string;
     dateCreated: Date;
     lastUpdated: Date;
-
-    constructor(book: Book){
-        this.book = book;
-    }
     
 }

@@ -187,76 +187,68 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editBookshelfItemLabel">{{editBookshelfItemHolder.book.title}}</h5>
+                <h5 class="modal-title" id="editBookshelfItemLabel">{{currentBookTitle}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            <form [formGroup]="bookshelfItemForm">
                 <div class="modal-body">
 
                     <div class="form-group row">
                         <label for="rating" class="col-sm-2 col-form-label">Rating</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="rating" name="rating" [(ngModel)]="editBookshelgItemForm.rating"
-                                value="{{editBookshelfItemHolder.rating}}">
+                            <input type="text" class="form-control" formControlName="rating">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="reason" class="col-sm-2 col-form-label">Reason</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="Reason" name="reason" [(ngModel)]="editBookshelgItemForm.reason"
-                                value="{{editBookshelfItemHolder.reason}}">
+                            <input type="text" class="form-control" formControlName="reason">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="status" class="col-sm-2 col-form-label">Status</label>
-                        <div class="col-sm-10 row">
-                            <div class="form-check form-check-inline form-check-success ">
-                                <label class="form-check-label">
-                                    <input type="radio" name="status" id="finished" value="FINISHED" 
-                                        [attr.checked]="editBookshelfItemHolder.status === 'FINISHED' ? 'checked' : null">FINISHED
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline form-check-warning">
-                                <label class="form-check-label">
-                                    <input type="radio" name="status" id="inProgress" value="IN_PROGRESS"
-                                        [attr.checked]="editBookshelfItemHolder.status === 'IN_PROGRESS' ? 'checked' : null">In_PROGRESS
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline form-check-dark">
-                                <label class="form-check-label">
-                                    <input type="radio" name="status" id="dnf" value="DNF"
-                                        [attr.checked]="editBookshelfItemHolder.status === 'DNF' ? 'checked' : null">DNF
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline form-check-secondary">
-                                <label class="form-check-label">
-                                    <input type="radio" name="status" id="listing" value="LISTING" 
-                                        [attr.checked]="editBookshelfItemHolder.status === 'LISTING' ? 'checked' : null">LISTING
-                                </label>
-                            </div>
+                    <label for="status" class="col-sm-2 col-form-label">Status</label>
+                    <div class="col-sm-10 row">
+                        <div class="form-check form-check-inline form-check-success ">
+                            <label class="form-check-label">
+                                <input type="radio" value="FINISHED" formControlName="status">FINISHED
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline form-check-warning">
+                            <label class="form-check-label">
+                                <input type="radio" value="IN_PROGRESS" formControlName="status">IN_PROGRESS
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline form-check-dark">
+                            <label class="form-check-label">
+                                <input type="radio" value="DNF" formControlName="status">DNF
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline form-check-secondary">
+                            <label class="form-check-label">
+                                <input type="radio" value="LISTING" formControlName="status">LISTING
+                            </label>
                         </div>
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label for="comment" class="col-sm-2 col-form-label">Comment</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" id="comment" rows="4" name="comment" [(ngModel)]="editBookshelgItemForm.comment">{{editBookshelfItemHolder.comment}}</textarea>
-                        </div>
+                <div class="form-group row">
+                    <label for="comment" class="col-sm-2 col-form-label">Comment</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="4" formControlName="comment"></textarea>
                     </div>
-
-
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="updateBookshelfItem()"
-                        data-dismiss="modal">Update</button>
-                </div>
-            </form>
         </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                (click)="updateBookshelfItem()">Update</button>
+        </div>
+        </form>
     </div>
+</div>
 </div>
 <!-- end of Modal edit BookshelfItem  -->

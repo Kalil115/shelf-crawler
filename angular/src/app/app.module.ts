@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BookshelfComponent } from './components/bookshelf/bookshelf.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { ProfileComponent } from './components/nav-bar/profile/profile.component';
@@ -72,7 +72,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatTableModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [
     authInterceptorProviders

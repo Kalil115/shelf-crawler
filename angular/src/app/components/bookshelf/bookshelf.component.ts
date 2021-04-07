@@ -13,6 +13,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { BookshelfItemService } from 'src/app/services/bookshelf-item.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bookshelf',
@@ -34,16 +37,10 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   editGoalForm: any = {
     newGoal: null
   }
+  bookshelfItemForm: FormGroup;
 
-  editBookshelgItemForm: any = {
-    id: null,
-    rating: null,
-    reason: null,
-    status: null,
-    comment: null,
-  }
-  editBookshelfItemHolder: BookshelfItem;
-
+  currentBookshelfItem: BookshelfItem = new BookshelfItem();
+  currentBookTitle: string;
   user: User;
   currentYear: number;
   reachRate: number;
@@ -62,11 +59,12 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     private router: Router,
     private yearPickerService: YearPickerService,
     private bookshelfService: BookshelfService,
-    private bookshelfItemService: BookshelfItemService) { }
+    private bookshelfItemService: BookshelfItemService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
-    this.editBookshelfItemHolder = new BookshelfItem(new Book());
     if (this.user == null) {
       this.router.navigate(['login']);
     }
@@ -77,6 +75,13 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
       this.ngAfterViewInit();
     });
 
+    this.bookshelfItemForm = this.formBuilder.group({
+      'id': ['', Validators.required],
+      'rating': [''],
+      'reason': [''],
+      'status': ['', Validators.required],
+      'comment': [],
+    });
   }
 
   ngAfterViewInit() {
@@ -90,7 +95,6 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
         if (found) {
           this.bookshelf = found;
           this.bookshelfName = found.name;
-          // this.bookshelfItems = found.bookshelfItems;
           this.dataSource = new MatTableDataSource(found.bookshelfItems);
           this.dataSource.sort = this.sort;
           this.reachRate = found.reachRate * 100;
@@ -120,7 +124,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
 
   computeReachRate(bookshelf: Bookshelf, newGoal: number): number {
     const bookshelfItems = bookshelf.bookshelfItems;
-    const count: number = bookshelfItems.filter(item => item.rating != null).length;
+    const count: number = bookshelfItems.filter(item => item.rating != null && item.status === 'FINISHED').length;
     const reachRate: number = +(count / newGoal).toFixed(2);
     this.reachRate = reachRate * 100;
     this.goal = newGoal;
@@ -139,22 +143,43 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openEditBookshelfModal(bookshelfItemId: number){
+  openEditBookshelfModal(bookshelfItemId: number) {
     this.bookshelfItemService.findBookshelfItemById(bookshelfItemId).subscribe(
-      data =>{
-        this.editBookshelfItemHolder = data;
-      });
-    this.editBookshelgItemForm.id = bookshelfItemId;
+      data => {
+        this.currentBookshelfItem = data;
+        this.currentBookTitle = data.book.title;
+        this.bookshelfItemForm.patchValue(data);
+      });    
   }
 
   updateBookshelfItem() {
-    const newBookshelgItem = this.editBookshelgItemForm;
-    console.log(newBookshelgItem.id);
-    console.log(newBookshelgItem.rating);
-    console.log(newBookshelgItem.reason);
-    console.log(newBookshelgItem.status);
-    console.log(newBookshelgItem.comment);
+    const formValue = this.bookshelfItemForm.value;
+    const bookshelfItem: BookshelfItem = this.currentBookshelfItem;
+    bookshelfItem.id = formValue.id;
+    bookshelfItem.rating = formValue.rating;
+    bookshelfItem.reason = formValue.reason;
+    bookshelfItem.status = formValue.status;
+    bookshelfItem.comment = formValue.comment;
+    this.bookshelfItemService.updateBookshelfItem(bookshelfItem).subscribe();
+
+    // update currrent bookshelf and datasource
+    const idx = this.bookshelf.bookshelfItems.findIndex(item => item.id == bookshelfItem.id)
+    this.bookshelf.bookshelfItems[idx] = bookshelfItem;
+    this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems);
+    
+    // update reachrate
+    this.computeReachRate(this.bookshelf, this.bookshelf.goal);
+    
+    
   }
+
+  updateBookshelf() {
+
+    // update bookshelf
+
+    // update datasource
+  }
+
 
 }
 
