@@ -16,7 +16,7 @@ export class BrowseComponent implements OnInit {
   movies: Movie[];
 
   pageNumber: number = 1;
-  pageSize: number = 12;
+  pageSize: number = 8;
   totalElements: number = 0;
   
   constructor(private bookService: BookService,
