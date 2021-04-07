@@ -17,21 +17,21 @@ import com.shelfcrawler.repository.BookRepository;
 @RequestMapping("/books")
 public class BookController {
 
-	@Autowired
-	BookRepository bookRepository;
+//	@Autowired
+//	BookRepository bookRepository;
 
-	@GetMapping
-	public List<Book> findAllBook() {
-		return bookRepository.findAll();
-	}
-
-	@PostMapping
-	public Book saveBook(@RequestBody Book book) {
-		return bookRepository.save(book);
-	}
-
-	@PutMapping
-	public Book updateBook(@RequestBody Book book) {
-		return bookRepository.save(book);
-	}
+//	@GetMapping
+//	public List<Book> findAllBook() {
+//		return bookRepository.findAll();
+//	}
+//
+//	@PostMapping
+//	public Book saveBook(@RequestBody Book book) {
+//		return bookRepository.save(book);
+//	}
+//
+//	@PutMapping
+//	public Book updateBook(@RequestBody Book book) {
+//		return bookRepository.save(book);
+//	}
 }

@@ -35,6 +35,13 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     newGoal: null
   }
 
+  editBookshelgItemForm: any = {
+    id: null,
+    rating: null,
+    reason: null,
+    status: null,
+    comment: null,
+  }
   editBookshelfItemHolder: BookshelfItem;
 
   user: User;
@@ -136,12 +143,17 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     this.bookshelfItemService.findBookshelfItemById(bookshelfItemId).subscribe(
       data =>{
         this.editBookshelfItemHolder = data;
-        console.log(data);
       });
+    this.editBookshelgItemForm.id = bookshelfItemId;
   }
 
-  editBookshelfItem() {
-    
+  updateBookshelfItem() {
+    const newBookshelgItem = this.editBookshelgItemForm;
+    console.log(newBookshelgItem.id);
+    console.log(newBookshelgItem.rating);
+    console.log(newBookshelgItem.reason);
+    console.log(newBookshelgItem.status);
+    console.log(newBookshelgItem.comment);
   }
 
 }

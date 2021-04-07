@@ -172,7 +172,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="editBookshelfItem()"
+                    <button type="button" class="btn btn-primary" (click)="buildShelf()"
                         data-dismiss="modal">Create</button>
                 </div>
             </form>
@@ -195,30 +195,27 @@
             <form>
                 <div class="modal-body">
 
-                    <!-- <input type="text" name="comment" class="form-control" id="createShelfGOal" placeholder="sdff"
-                        [(ngModel)]="createShelf.newGoal"> -->
                     <div class="form-group row">
                         <label for="rating" class="col-sm-2 col-form-label">Rating</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="rating"
+                            <input type="text" class="form-control" id="rating" name="rating" [(ngModel)]="editBookshelgItemForm.rating"
                                 value="{{editBookshelfItemHolder.rating}}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="reason" class="col-sm-2 col-form-label">Reason</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="Reason"
+                            <input type="text" class="form-control" id="Reason" name="reason" [(ngModel)]="editBookshelgItemForm.reason"
                                 value="{{editBookshelfItemHolder.reason}}">
                         </div>
                     </div>
-
 
                     <div class="form-group row">
                         <label for="status" class="col-sm-2 col-form-label">Status</label>
                         <div class="col-sm-10 row">
                             <div class="form-check form-check-inline form-check-success ">
                                 <label class="form-check-label">
-                                    <input type="radio" name="status" id="finished" value="FINISHED"
+                                    <input type="radio" name="status" id="finished" value="FINISHED" 
                                         [attr.checked]="editBookshelfItemHolder.status === 'FINISHED' ? 'checked' : null">FINISHED
                                 </label>
                             </div>
@@ -236,7 +233,7 @@
                             </div>
                             <div class="form-check form-check-inline form-check-secondary">
                                 <label class="form-check-label">
-                                    <input type="radio" name="status" id="listing" value="LISTING"
+                                    <input type="radio" name="status" id="listing" value="LISTING" 
                                         [attr.checked]="editBookshelfItemHolder.status === 'LISTING' ? 'checked' : null">LISTING
                                 </label>
                             </div>
@@ -246,7 +243,7 @@
                     <div class="form-group row">
                         <label for="comment" class="col-sm-2 col-form-label">Comment</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="comment" rows="4"></textarea>
+                            <textarea class="form-control" id="comment" rows="4" name="comment" [(ngModel)]="editBookshelgItemForm.comment">{{editBookshelfItemHolder.comment}}</textarea>
                         </div>
                     </div>
 
@@ -255,8 +252,8 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="buildShelf()"
-                        data-dismiss="modal">Create</button>
+                    <button type="button" class="btn btn-primary" (click)="updateBookshelfItem()"
+                        data-dismiss="modal">Update</button>
                 </div>
             </form>
         </div>
