@@ -14,8 +14,6 @@ import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { BookshelfItemService } from 'src/app/services/bookshelf-item.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bookshelf',
@@ -46,8 +44,9 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   reachRate: number;
   goal: number;
   bookshelf: Bookshelf;
+  allBookshelves: Bookshelf[];
   bookshelfName: string;
-  bookshelfItems: BookshelfItem[];
+  ListingbookshelfItems: BookshelfItem[];
   dataSource: any = new MatTableDataSource();
   columnsToDisplay = ['title', 'author', 'rating', 'status'];
   expandedElement: PeriodicElement | null;
@@ -91,14 +90,18 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   getBookshelfByUserIdAndBookshelfName(userId: number, bookshelfName: number): void {
     this.bookshelfService.getBookshelfByUserId(userId).subscribe(
       data => {
+        this.allBookshelves = data;
+        this.ListingbookshelfItems = data.map( shelf => shelf.bookshelfItems.filter(item => item.status == "LISTING")).reduce((arr1, arr2) => arr1.concat(arr2));
         const found = data.find(bookshelf => bookshelf.name === bookshelfName.toString());
         if (found) {
           this.bookshelf = found;
           this.bookshelfName = found.name;
-          this.dataSource = new MatTableDataSource(found.bookshelfItems);
-          this.dataSource.sort = this.sort;
           this.reachRate = found.reachRate * 100;
           this.goal = found.goal;
+          this.dataSource = new MatTableDataSource(found.bookshelfItems.filter(item=> item.status != 'LISTING'));
+          this.dataSource.sort = this.sort;
+          
+          
         } else {
           this.bookshelf = new Bookshelf();
           this.bookshelfName = null;
@@ -138,8 +141,12 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
       newBookshelf.name = this.currentYear.toString();
       newBookshelf.goal = newGoal;
       newBookshelf.reachRate = 0;
+      newBookshelf.bookshelfItems = [];
       this.bookshelfName = newBookshelf.name;
-      this.bookshelfService.addBookshelf(this.user.id, newBookshelf).subscribe();
+      this.bookshelf = newBookshelf;
+      this.bookshelfService.addBookshelf(this.user.id, newBookshelf).subscribe(
+        data => this.bookshelf = data
+      );
     }
   }
 
@@ -160,27 +167,20 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     bookshelfItem.reason = formValue.reason;
     bookshelfItem.status = formValue.status;
     bookshelfItem.comment = formValue.comment;
-    this.bookshelfItemService.updateBookshelfItem(bookshelfItem).subscribe();
+    this.bookshelfItemService.updateBookshelfItem(this.bookshelf.id, bookshelfItem).subscribe();
 
     // update currrent bookshelf and datasource
     const idx = this.bookshelf.bookshelfItems.findIndex(item => item.id == bookshelfItem.id)
+    if(idx != -1){
     this.bookshelf.bookshelfItems[idx] = bookshelfItem;
-    this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems);
-    
+    }else{
+      this.bookshelf.bookshelfItems.push(bookshelfItem);
+    }
+    this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems.filter(item=> item.status != 'LISTING'));
+    this.ListingbookshelfItems = this.allBookshelves.map( shelf => shelf.bookshelfItems.filter(item => item.status == "LISTING")).reduce((arr1, arr2) => arr1.concat(arr2));
     // update reachrate
     this.computeReachRate(this.bookshelf, this.bookshelf.goal);
-    
-    
   }
-
-  updateBookshelf() {
-
-    // update bookshelf
-
-    // update datasource
-  }
-
-
 }
 
 export interface PeriodicElement {

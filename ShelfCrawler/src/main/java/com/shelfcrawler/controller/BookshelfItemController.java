@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shelfcrawler.dto.UpdateBookshelfItem;
 import com.shelfcrawler.entities.BookshelfItem;
 import com.shelfcrawler.repository.BookshelfItemRepository;
 import com.shelfcrawler.service.BookshelfItemService;
@@ -28,7 +29,7 @@ public class BookshelfItemController {
 	}
 
 	@PutMapping("/{id}")
-	public BookshelfItem updateBookshelfItem(@PathVariable("id") Long id, @RequestBody BookshelfItem bookshelfItem) {
-		return bookshelfItemService.updateBookshelfItem(bookshelfItem);
+	public BookshelfItem updateBookshelfItem(@PathVariable("id") Long id, @RequestBody UpdateBookshelfItem updateBookshelfItem) {
+		return bookshelfItemService.updateBookshelfItem(updateBookshelfItem);
 	}
 }

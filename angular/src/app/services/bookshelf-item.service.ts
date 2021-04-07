@@ -22,8 +22,12 @@ export class BookshelfItemService {
   }
 
 
-  updateBookshelfItem(bookshelfItem: BookshelfItem): Observable<BookshelfItem> {
+  updateBookshelfItem(bookshelfId: number, bookshelfItem: BookshelfItem): Observable<BookshelfItem> {
     const url = this.baseUrl + "/" + bookshelfItem.id;
-    return this.httpClient.put<BookshelfItem>(url,bookshelfItem,this.httpOptions);
+    return this.httpClient.put<BookshelfItem>(url,
+      {
+        bookshelfId,
+        bookshelfItem
+      },this.httpOptions);
   }
 }
