@@ -1,25 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TvSeries } from 'src/app/common/tvSeries';
+import { Tvshelf } from 'src/app/common/tvshelf';
+import { User } from 'src/app/common/user';
+import { TvshelfService } from 'src/app/services/tvshelf.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { YearPickerService } from 'src/app/services/year-picker.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Tv } from 'src/app/common/tv';
-import { Tvshelf } from 'src/app/common/tvshelf';
-import { TvshelfItem } from 'src/app/common/tvshelf-item';
-import { User } from 'src/app/common/user';
-import { TodoListStorageService } from 'src/app/services/todo-list-storage.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { ViewChild } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TvListService } from 'src/app/services/tv-list.service';
-import { TvshelfService } from 'src/app/services/tvshelf.service';
+import { TodoListStorageService } from 'src/app/services/todo-list-storage.service';
+import { TvshelfItem } from 'src/app/common/tvshelf-item';
 import { TvshelfItemService } from 'src/app/services/tvshlef-item.service';
-import { YearPickerService } from 'src/app/services/year-picker.service';
+
 
 @Component({
   selector: 'app-tvshelf',
   templateUrl: './tvshelf.component.html',
-  styleUrls: ['./tvshelf.component.css']
+  styleUrls: ['./tvshelf.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class TvshelfComponent implements OnInit {
+export class TvshelfComponent implements OnInit, AfterViewInit {
 
   createShelf: any = {
     newGoal: null
@@ -27,20 +38,20 @@ export class TvshelfComponent implements OnInit {
   editGoalForm: any = {
     newGoal: null
   }
-  shelfItemForm: FormGroup;
+  tvshelfItemForm: FormGroup;
 
-  currentShelfItem: TvshelfItem = new TvshelfItem();
-  currentTitle: string;
+  currentTvshelfItem: TvshelfItem = new TvshelfItem();
+  currentTvTitle: string;
   user: User;
   currentYear: number;
   reachRate: number;
   goal: number;
-  shelf: Tvshelf;
-  shelfName: string;
+  tvshelf: Tvshelf;
+  tvshelfName: string;
 
-  ListingDataSource: any = new MatTableDataSource();
+  ListingtvshelfItems: any = new MatTableDataSource();
   dataSource: any = new MatTableDataSource();
-  columnsToDisplay = ['title', 'director', 'rating', 'status'];
+  columnsToDisplay = ['title', 'rating', 'status'];
   expandedElement: PeriodicElement | null;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -49,13 +60,12 @@ export class TvshelfComponent implements OnInit {
   constructor(
     private tokenStorageService: TokenStorageService,
     private router: Router,
-    private formBuilder: FormBuilder,
     private yearPickerService: YearPickerService,
-    private todoListStorageService: TodoListStorageService,
     private tvshelfService: TvshelfService,
     private tvshelfItemService: TvshelfItemService,
-    private tvListService: TvListService
-                           
+    private tvListService: TvListService,
+    private formBuilder: FormBuilder,
+    private todoListStorageService: TodoListStorageService
   ) { }
 
   ngOnInit(): void {
@@ -64,14 +74,16 @@ export class TvshelfComponent implements OnInit {
       this.router.navigate(['login']);
     } else {
 
+
       this.yearPickerService.currentYear.subscribe(data => {
         this.currentYear = data;
-        this.getShelfByUserIdAndShelfName(this.user.id, data);
+        this.getTvshelfByUserIdAndTvshelfName(this.user.id, data);
       });
 
-      this.updateListingItems();
+      this.updateListingTvshelfItems();
 
-      this.shelfItemForm = this.formBuilder.group({
+
+      this.tvshelfItemForm = this.formBuilder.group({
         'id': ['', Validators.required],
         'rating': [''],
         'reason': [''],
@@ -85,20 +97,20 @@ export class TvshelfComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  getShelfByUserIdAndShelfName(userId: number, shelfName: number): void {
+  getTvshelfByUserIdAndTvshelfName(userId: number, tvshelfName: number): void {
     this.tvshelfService.getTvshelfByUserId(userId).subscribe(
       data => {
-        const found = data.find(shelf => shelf.name === shelfName.toString());
+        const found = data.find(tvshelf => tvshelf.name === tvshelfName.toString());
         if (found) {
-          this.shelf = found;
-          this.shelfName = found.name;
+          this.tvshelf = found;
+          this.tvshelfName = found.name;
           this.reachRate = found.reachRate * 100;
           this.goal = found.goal;
           this.dataSource = new MatTableDataSource(found.tvshelfItems);
           this.dataSource.sort = this.sort;
         } else {
-          this.shelf = new Tvshelf();
-          this.shelfName = null;
+          this.tvshelf = new Tvshelf();
+          this.tvshelfName = null;
           this.dataSource = new MatTableDataSource();
           this.reachRate = 0;
           this.goal = 0;
@@ -107,24 +119,24 @@ export class TvshelfComponent implements OnInit {
     );
   }
 
-  updateListingItems() {
+  updateListingTvshelfItems() {
     this.tvListService.tvshelfItemListSubject.subscribe(
-      data => this.ListingDataSource = new MatTableDataSource(data)
+      data => this.ListingtvshelfItems = new MatTableDataSource(data)
     );
   }
 
   editGoal() {
     const newGoal = this.editGoalForm.newGoal;
-    if (this.shelf.id && newGoal) {
-      this.shelf.goal = newGoal;
-      this.computeReachRate(this.shelf);
+    if (this.tvshelf.id && newGoal) {
+      this.tvshelf.goal = newGoal;
+      this.computeReachRate(this.tvshelf);
     }
   }
 
-  computeReachRate(shelf: Tvshelf): void {
-    const goal = shelf.goal;
+  computeReachRate(tvshelf: Tvshelf): void {
+    const goal = tvshelf.goal;
     let count = 0;
-    const element = shelf.tvshelfItems;
+    const element = tvshelf.tvshelfItems;
     for (let i = 0; i < element.length; i++) {
       if (element[i].rating > 0 && element[i].status === 'FINISHED') {
 
@@ -132,72 +144,72 @@ export class TvshelfComponent implements OnInit {
       }
     }
     const newReachRate: number = +(count / goal).toFixed(2);
-    shelf.reachRate = newReachRate;
+    tvshelf.reachRate = newReachRate;
     this.reachRate = newReachRate * 100;
     this.goal = goal;
-    this.tvshelfService.updateTvshelfGoal(shelf).subscribe();
+    this.tvshelfService.updateTvshelfGoal(tvshelf).subscribe();
   }
 
   buildShelf() {
     const newGoal = this.createShelf.newGoal;
     if (newGoal) {
-      const newshelf = new Tvshelf();
-      newshelf.name = this.currentYear.toString();
-      newshelf.goal = newGoal;
-      newshelf.reachRate = 0;
-      newshelf.tvshelfItems = [];
-      this.shelfName = newshelf.name;
-      this.shelf = newshelf;
+      const newTvshelf = new Tvshelf();
+      newTvshelf.name = this.currentYear.toString();
+      newTvshelf.goal = newGoal;
+      newTvshelf.reachRate = 0;
+      newTvshelf.tvshelfItems = [];
+      this.tvshelfName = newTvshelf.name;
+      this.tvshelf = newTvshelf;
       this.goal = newGoal;
       this.reachRate = 0;
-      this.tvshelfService.addTvshelf(this.user.id, newshelf).subscribe(
-        data => this.shelf = data
+      this.tvshelfService.addTvshelf(this.user.id, newTvshelf).subscribe(
+        data => this.tvshelf = data
       );
     }
   }
 
-  openEditshelfModal(shelfItemId: number) {
-    this.tvshelfItemService.findTvshelfItemById(shelfItemId).subscribe(
+  openEditTvshelfModal(tvshelfItemId: number) {
+    this.tvshelfItemService.findTvshelfItemById(tvshelfItemId).subscribe(
       data => {
-        this.currentShelfItem = data;
-        this.currentTitle = data.tv.title;
-        this.shelfItemForm.patchValue(data);
+        this.currentTvshelfItem = data;
+        this.currentTvTitle = data.tvSeries.title;
+        this.tvshelfItemForm.patchValue(data);
       });
   }
 
   updateTvshelfItem() {
-    const formValue = this.shelfItemForm.value;
-    const shelfItem: TvshelfItem = this.currentShelfItem;
-    shelfItem.id = formValue.id;
-    shelfItem.rating = formValue.rating;
-    shelfItem.reason = formValue.reason;
-    shelfItem.status = formValue.status;
-    shelfItem.comment = formValue.comment;
+    const formValue = this.tvshelfItemForm.value;
+    const tvshelfItem: TvshelfItem = this.currentTvshelfItem;
+    tvshelfItem.id = formValue.id;
+    tvshelfItem.rating = formValue.rating;
+    tvshelfItem.reason = formValue.reason;
+    tvshelfItem.status = formValue.status;
+    tvshelfItem.comment = formValue.comment;
 
-    let shelfId = undefined;
+    let tvshelfId = undefined;
 
-    if (shelfItem.status == 'LISTING') {
-      shelfId = this.todoListStorageService.getTvshelfId();
+    if (tvshelfItem.status == 'LISTING') {
+      tvshelfId = this.todoListStorageService.getTvshelfId();
     } else {
-      shelfId = this.shelf.id;
+      tvshelfId = this.tvshelf.id;
     }
-    this.tvshelfItemService.updateTvshelfItem(shelfId, shelfItem).subscribe(
+    this.tvshelfItemService.updateTvshelfItem(tvshelfId, tvshelfItem).subscribe(
       data => { 
-        const newList = (data.find(shelf => shelf.name === 'todo').tvshelfItems);
-        this.ListingDataSource = new MatTableDataSource(newList);
+        const newList = data.find(tvshelf => tvshelf.name === 'todo').tvshelfItems;
+        this.ListingtvshelfItems = new MatTableDataSource(newList);
         this.tvListService.update(newList);
 
-        const currentShelf = data.find(shelf => shelf.name != 'todo');
-        if(currentShelf){
-          this.shelf= currentShelf;
-          this.computeReachRate(currentShelf);
-          this.dataSource = new MatTableDataSource(currentShelf.tvshelfItems);
+        const currentTvshelf = data.find(tvshelf => tvshelf.name != 'todo');
+        if(currentTvshelf){
+          this.tvshelf= currentTvshelf;
+          this.computeReachRate(currentTvshelf);
+          this.dataSource = new MatTableDataSource(currentTvshelf.tvshelfItems);
         }else {
-          const idx = this.shelf.tvshelfItems.findIndex(item => item.id == shelfItem.id);
+          const idx = this.tvshelf.tvshelfItems.findIndex(item => item.id == tvshelfItem.id);
           if(idx != -1) {
-            this.shelf.tvshelfItems.splice(idx, 1);
-            this.computeReachRate(this.shelf);
-            this.dataSource = new MatTableDataSource(this.shelf.tvshelfItems);
+            this.tvshelf.tvshelfItems.splice(idx, 1);
+            this.computeReachRate(this.tvshelf);
+            this.dataSource = new MatTableDataSource(this.tvshelf.tvshelfItems);
           }
         }
         
@@ -206,12 +218,12 @@ export class TvshelfComponent implements OnInit {
   }
 
   deleteListingItem() {
-    const currentShelfItemId = this.shelfItemForm.value.id;
+    const currentTvshelfItemId = this.tvshelfItemForm.value.id;
 
-    this.tvshelfItemService.deleteListingItem(currentShelfItemId).subscribe(
+    this.tvshelfItemService.deleteListingItem(currentTvshelfItemId).subscribe(
       data => {
       const newList = data.tvshelfItems;
-      this.ListingDataSource = new MatTableDataSource(newList);
+      this.ListingtvshelfItems = new MatTableDataSource(newList);
       this.tvListService.update(newList);
   });
     
@@ -220,7 +232,7 @@ export class TvshelfComponent implements OnInit {
 
 export interface PeriodicElement {
   id: number,
-  tv: Tv,
+  tvSeries: TvSeries,
   comment: string,
   rating: number,
   tvshelfItems: TvshelfItem[];

@@ -1,0 +1,26 @@
+<p>new-tv-series works!</p>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-3 grid-margin stretch-card" *ngFor="let tempTvSeries of tvSeries">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-dark">{{tempTvSeries.title}}</h5>
+                    <div class="text-center"><img class="img-thumbnail" src="{{tempTvSeries.imageUrl}}"></div>
+                    
+                    <ul class="card-description">
+                        <li>Year: {{tempTvSeries.year}}</li>
+                        <li>Descrpition: <p class="description">{{tempTvSeries.description}}</p></li>
+                    </ul>
+                    <button class="btn btn-primary" (click)="addToList(tempTvSeries)">add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-pagination">
+        <ngb-pagination [(page)] = "pageNumber"
+                        [pageSize] = "pageSize"
+                        [collectionSize] = "totalElements"
+                        (pageChange) = "listItems()">
+        </ngb-pagination>
+    </div>
+</div>

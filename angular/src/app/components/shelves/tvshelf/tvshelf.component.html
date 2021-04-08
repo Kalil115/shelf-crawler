@@ -4,20 +4,24 @@
             <div class="card">
                 <div class="card-body">
 
-                    <div *ngIf="shelfName; else createTvshelf">
+                    <div *ngIf="tvshelfName; else createTvshelf">
                         <diV class="card-title">
-                            <h4>Tvs in {{shelfName}}</h4>
+                            <h4>Tvs in {{tvshelfName}}</h4>
                         </diV>
-
-                        <div class="d-flex align-items-end">
-                            <button class="btn btn-icon-text  btn-link btn-sm" data-toggle="modal"
-                                data-target="#editGoalModal">
-                                Goal: {{goal}} <i class="mdi mdi-lead-pencil btn-icon-append icon-sm"></i>
-                            </button>
-                        </div>
-                        <div class="card-description">
-                            <p>Reach Rate: {{reachRate}}%</p>
-                        </div>
+                        
+                           
+                                <div class="d-flex align-items-end">
+                                    <button class="btn btn-icon-text  btn-link btn-sm" data-toggle="modal"
+                                        data-target="#editGoalModal">
+                                        Goal: {{goal}} <i class="mdi mdi-lead-pencil btn-icon-append icon-sm"></i>
+                                    </button>
+                                </div>
+                                <div class="card-description">
+                                    <p>Reach Rate: {{reachRate}}%</p>
+                                </div>
+                           
+                            
+                        
 
                         <div class="progress">
                             <div class="progress-bar bg-success" role="progressbar" [style.width.%]="reachRate"
@@ -25,31 +29,26 @@
                         </div>
 
                         <br>
-                        <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort
-                            class="mat-elevation-z2">
+                        <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z2">
                             <ng-container matColumnDef="title">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-md-6-"> Title </th>
-                                <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.title}} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="director">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Director </th>
-                                <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.director}} </td>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header  class="col-md-6-"> Title </th>
+                                <td mat-cell *matCellDef="let tvshelfItems"> {{tvshelfItems.tvSeries.title}} </td>
                             </ng-container>
                             <ng-container matColumnDef="rating">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
-                                <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.rating}} </td>
+                                <td mat-cell *matCellDef="let tvshelfItems"> {{tvshelfItems.rating}} </td>
                             </ng-container>
                             <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                                <td mat-cell *matCellDef="let shelfItems">
-                                    <label *ngIf="shelfItems.status === 'IN_PROGRESS'"
-                                        class="badge badge-pill badge-warning">{{shelfItems.status}}</label>
-                                    <label *ngIf="shelfItems.status === 'FINISHED'"
-                                        class="badge badge-pill badge-success">{{shelfItems.status}}</label>
-                                    <label *ngIf="shelfItems.status === 'LISTING'"
-                                        class="badge badge-pill badge-light">{{shelfItems.status}}</label>
-                                    <label *ngIf="shelfItems.status === 'DNF'"
-                                        class="badge badge-pill badge-secondary">{{shelfItems.status}}</label>
+                                <td mat-cell *matCellDef="let tvshelfItems">
+                                    <label *ngIf="tvshelfItems.status === 'IN_PROGRESS'"
+                                        class="badge badge-pill badge-warning">{{tvshelfItems.status}}</label>
+                                    <label *ngIf="tvshelfItems.status === 'FINISHED'"
+                                        class="badge badge-pill badge-success">{{tvshelfItems.status}}</label>
+                                    <label *ngIf="tvshelfItems.status === 'LISTING'"
+                                        class="badge badge-pill badge-light">{{tvshelfItems.status}}</label>
+                                    <label *ngIf="tvshelfItems.status === 'DNF'"
+                                        class="badge badge-pill badge-secondary">{{tvshelfItems.status}}</label>
                                 </td>
                             </ng-container>
 
@@ -60,25 +59,25 @@
                                     <div class="example-element-detail"
                                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                         <div class="col-lg-2 img-container">
-                                            <img src="{{element.tv.imageUrl}}" class="img-thumbnail" alt="thumbnail">
+                                            <img src="{{element.tvSeries.imageUrl}}" class="img-thumbnail" alt="thumbnail">
                                         </div>
                                         <div class="col-lg-10 card-body">
                                             <ul class="list-arrow">
                                                 <div class="row">
                                                     <div class="col-md-10">
-                                                        <li>Year: {{element.tv.year}}</li>
+                                                        <li>Published: {{element.tvSeries.published}}</li>
                                                     </div>
                                                     <div class="col-mdd-2 ml-auto">
                                                         <button
                                                             class="btn btn-sm btn-inverse-secondary btn-icon-text btn-icon-prepend"
                                                             data-toggle="modal" data-target="#editTvshelfItem"
-                                                            (click)="openEditshelfModal(element.id)">
+                                                            (click)="openEditTvshelfModal(element.id)">
                                                             <i class="mdi mdi-auto-fix"></i>edittv
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <li>Description: <p class="card-description">
-                                                        {{element.tv.description}}
+                                                        {{element.tvSeries.description}}
                                                     </p>
                                                 </li>
                                                 <li>Reason: {{element.reason}} </li>
@@ -114,93 +113,89 @@
 
                 </div>
             </div>
+            
 
-
-
+            
         </div>
     </div>
-    <div class="row" *ngIf="shelfName">
+    <div class="row" *ngIf="tvshelfName">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <diV class="card-title">
                         <h4>Listing Tvs</h4>
                     </diV>
-
-                    <table mat-table [dataSource]="ListingDataSource" multiTemplateDataRows matSort
-                        class="mat-elevation-z2">
-                        <ng-container matColumnDef="title">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
-                            <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.title}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="director">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
-                            <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.director}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="rating">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
-                            <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.rating}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                            <td mat-cell *matCellDef="let shelfItems">
-                                <label *ngIf="shelfItems.status === 'IN_PROGRESS'"
-                                    class="badge badge-pill badge-warning">{{shelfItems.status}}</label>
-                                <label *ngIf="shelfItems.status === 'FINISHED'"
-                                    class="badge badge-pill badge-success">{{shelfItems.status}}</label>
-                                <label *ngIf="shelfItems.status === 'LISTING'"
-                                    class="badge badge-pill badge-light">{{shelfItems.status}}</label>
-                                <label *ngIf="shelfItems.status === 'DNF'"
-                                    class="badge badge-pill badge-secondary">{{shelfItems.status}}</label>
-                            </td>
-                        </ng-container>
+                    
+                    <table mat-table [dataSource]="ListingtvshelfItems" multiTemplateDataRows matSort
+                            class="mat-elevation-z2">
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                                <td mat-cell *matCellDef="let tvshelfItems"> {{tvshelfItems.tvSeries.title}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="rating">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
+                                <td mat-cell *matCellDef="let tvshelfItems"> {{tvshelfItems.rating}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                                <td mat-cell *matCellDef="let tvshelfItems">
+                                    <label *ngIf="tvshelfItems.status === 'IN_PROGRESS'"
+                                        class="badge badge-pill badge-warning">{{tvshelfItems.status}}</label>
+                                    <label *ngIf="tvshelfItems.status === 'FINISHED'"
+                                        class="badge badge-pill badge-success">{{tvshelfItems.status}}</label>
+                                    <label *ngIf="tvshelfItems.status === 'LISTING'"
+                                        class="badge badge-pill badge-light">{{tvshelfItems.status}}</label>
+                                    <label *ngIf="tvshelfItems.status === 'DNF'"
+                                        class="badge badge-pill badge-secondary">{{tvshelfItems.status}}</label>
+                                </td>
+                            </ng-container>
 
 
-                        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-                        <ng-container matColumnDef="expandedDetail">
-                            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-                                <div class="example-element-detail"
-                                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                    <div class="col-lg-2 img-container">
-                                        <img src="{{element.tv.imageUrl}}" class="img-thumbnail" alt="thumbnail">
-                                    </div>
-                                    <div class="col-lg-10 card-body">
-                                        <ul class="list-arrow">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <li>Year: {{element.tv.year}}</li>
+                            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                            <ng-container matColumnDef="expandedDetail">
+                                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                                    <div class="example-element-detail"
+                                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                        <div class="col-lg-2 img-container">
+                                            <img src="{{element.tvSeries.imageUrl}}" class="img-thumbnail" alt="thumbnail">
+                                        </div>
+                                        <div class="col-lg-10 card-body">
+                                            <ul class="list-arrow">
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <li>Year: {{element.tvSeries.year}}</li>
+                                                    </div>
+                                                    <div class="col-mdd-2 ml-auto">
+                                                        <button
+                                                            class="btn btn-sm btn-inverse-secondary btn-icon-text btn-icon-prepend"
+                                                            data-toggle="modal" data-target="#editListingTv"
+                                                            (click)="openEditTvshelfModal(element.id)">
+                                                            <i class="mdi mdi-auto-fix"></i>edittv
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="col-mdd-2 ml-auto">
-                                                    <button
-                                                        class="btn btn-sm btn-inverse-secondary btn-icon-text btn-icon-prepend"
-                                                        data-toggle="modal" data-target="#editListingTv"
-                                                        (click)="openEditshelfModal(element.id)">
-                                                        <i class="mdi mdi-auto-fix"></i>editTv
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <li>Description: <p class="card-description">
-                                                    {{element.tv.description}}
-                                                </p>
-                                            </li>
-                                            <li>Reason: {{element.reason}} </li>
-                                            <li>Comment: {{element.comment}} </li>
-                                        </ul>
+                                                <li>Description: <p class="card-description">
+                                                        {{element.tvSeries.description}}
+                                                    </p>
+                                                </li>
+                                                <li>Reason: {{element.reason}} </li>
+                                                <li>Comment: {{element.comment}} </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
-                            [class.example-expanded-row]="expandedElement === element"
-                            (click)="expandedElement = expandedElement === element ? null : element">
-                        </tr>
-                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
-                        </tr>
-                    </table>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+                                [class.example-expanded-row]="expandedElement === element"
+                                (click)="expandedElement = expandedElement === element ? null : element">
+                            </tr>
+                            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
+                            </tr>
+                        </table>
                 </div>
             </div>
-
+            
         </div>
     </div>
 </div>
@@ -266,12 +261,12 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editTvshelfItemLabel">{{currentTitle}}</h5>
+                <h5 class="modal-title" id="editTvshelfItemLabel">{{currentTvTitle}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form [formGroup]="shelfItemForm">
+            <form [formGroup]="tvshelfItemForm">
                 <div class="modal-body">
 
                     <div class="form-group row">
@@ -339,12 +334,12 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editTvshelfItemLabel">{{currentTitle}}</h5>
+                <h5 class="modal-title" id="editTvshelfItemLabel">{{currentTvTitle}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form [formGroup]="shelfItemForm">
+            <form [formGroup]="tvshelfItemForm">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label for="reason" class="col-sm-2 col-form-label">Reason</label>
@@ -367,12 +362,12 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="">
-                                    <input type="radio" value="DNF" formControlName="status">DNF
+                                    <input  type="radio" value="DNF" formControlName="status">DNF
                                 </label>
                             </div>
                             <div class="col-sm-3">
                                 <label class="">
-                                    <input type="radio" value="LISTING" formControlName="status">LISTING
+                                    <input  type="radio" value="LISTING" formControlName="status">LISTING
                                 </label>
                             </div>
                         </div>
@@ -387,14 +382,13 @@
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"
-                        (click)="deleteListingItem()">Delete</button>
-                    <div>
-                        <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary ml-3" data-dismiss="modal"
-                            (click)="updateTvshelfItem()">Update</button>
-                    </div>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteListingItem()">Delete</button>
+                <div>
+                    <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary ml-3" data-dismiss="modal"
+                        (click)="updateTvshelfItem()">Update</button>
                 </div>
+            </div>
             </form>
         </div>
     </div>

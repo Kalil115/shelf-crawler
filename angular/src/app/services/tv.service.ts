@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Tv } from '../common/tv';
+import { TvSeries } from '../common/tvSeries';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class TvService {
 }
 
 interface GetTvsResponse {
-  tvs: Tv[],
+  tvs: TvSeries[],
   size: number,
   totalElements: number,
   totalPages: number,

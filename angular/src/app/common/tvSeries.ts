@@ -1,4 +1,4 @@
-export class Tv {
+export class TvSeries {
 
     id: number;
     title: string;

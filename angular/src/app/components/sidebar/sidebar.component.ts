@@ -4,6 +4,7 @@ import { User } from 'src/app/common/user';
 import { BookListService } from 'src/app/services/book-list.service';
 import { MovieListService } from 'src/app/services/movie-list.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { TvListService } from 'src/app/services/tv-list.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,13 +22,16 @@ export class SidebarComponent implements OnInit {
 
   constructor(private tokenStorageService:TokenStorageService,
      private bookListService: BookListService,
-     private movieListService: MovieListService) { }
+     private movieListService: MovieListService,
+     private tvListService: TvListService) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
     if(this.user){
       this.bookListService.fetchInitData(this.user.id);
       this.movieListService.fetchInitData(this.user.id);
+      this.tvListService.fetchInitData(this.user.id);
+
     }
 
     this.updateAllListSize();
@@ -36,7 +40,7 @@ export class SidebarComponent implements OnInit {
   updateAllListSize() {
     this.bookListService.bookshelfItemListSize.subscribe(data => this.bookshlefItemListSize = data);
     this.movieListService.listingMoviesSize.subscribe(data => this.movieshelfItemListSize = data);
-    // this.tvListService.bookshelfItemListSize.subscribe(data => this.bookshlefItemListSize = data);
+    this.tvListService.tvshelfItemListSize.subscribe(data => this.tvshelfItemListSize = data);
     // this.gameListService.bookshelfItemListSize.subscribe(data => this.bookshlefItemListSize = data);
   }
 

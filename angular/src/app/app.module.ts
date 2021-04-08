@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BookshelfComponent } from './components/shelves/bookshelf/bookshelf.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -28,6 +28,7 @@ import { MovieshelfComponent } from './components/shelves/movieshelf/movieshelf.
 import { NewBookComponent } from './components/browse/new-book/new-book.component';
 import { NewMovieComponent } from './components/browse/new-movie/new-movie.component';
 import { TvshelfComponent } from './components/shelves/tvshelf/tvshelf.component';
+import { NewTvSeriesComponent } from './components/browse/new-tv-series/new-tv-series.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path:'forget', component: ForgetComponent},
   {path:'browse/books', component: NewBookComponent},
   {path:'browse/movies', component: NewMovieComponent},
+  {path:'browse/tvseries', component:NewTvSeriesComponent},
   {path:'dashboard', component: DashboardComponent},
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'bookshelf', component:BookshelfComponent},
@@ -65,7 +67,8 @@ const routes: Routes = [
     MovieshelfComponent,
     TvshelfComponent,
     NewBookComponent,
-    NewMovieComponent
+    NewMovieComponent,
+    NewTvSeriesComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

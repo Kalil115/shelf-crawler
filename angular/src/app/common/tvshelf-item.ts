@@ -1,8 +1,8 @@
-import { Tv } from "./tv";
+import { TvSeries } from "./tvSeries";
 
 export class TvshelfItem {
     id: number;
-    tv: Tv;
+    tvSeries: TvSeries;
     comment: string;
     rating: number;
     reason: string;

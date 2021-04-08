@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Tv } from '../common/tv';
+import { TvSeries } from '../common/tvSeries';
 import { TvshelfItem } from '../common/tvshelf-item';
 import { TodoListStorageService } from './todo-list-storage.service';
 import { TvshelfService } from './tvshelf.service';
@@ -34,16 +34,16 @@ export class TvListService {
   }
 
   // add a new tv fromo browse component
-  addToTvTodoList(newTv: Tv) {
+  addToTvTodoList(newTv: TvSeries) {
 
     let newTvshelfItem: TvshelfItem = new TvshelfItem();
-    newTvshelfItem.tv = newTv;
+    newTvshelfItem.tvSeries = newTv;
     newTvshelfItem.status = "LISTING";
 
     let duplicate: TvshelfItem = undefined;
 
     if (this.tvshelfItemList.length > 0) {
-      duplicate = this.tvshelfItemList.find(item => item.tv.id == newTvshelfItem.tv.id);
+      duplicate = this.tvshelfItemList.find(item => item.tvSeries.id == newTvshelfItem.tvSeries.id);
     }
 
     if (duplicate == undefined) {
