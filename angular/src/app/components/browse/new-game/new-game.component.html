@@ -1,0 +1,26 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-3 grid-margin stretch-card" *ngFor="let tempGame of games">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-dark">{{tempGame.title}}</h5>
+                    <div class="text-center"><img class="img-thumbnail" src="{{tempGame.imageUrl}}"></div>
+                    
+                    <ul class="card-description">
+                        <li>Year: {{tempGame.year}}</li>
+                        <li>Platform: {{tempGame.platform}}</li>
+                        <li>Descrpition: <p class="description">{{tempGame.description}}</p></li>
+                    </ul>
+                    <button class="btn btn-primary" (click)="addToList(tempGame)">add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-pagination">
+        <ngb-pagination [(page)] = "pageNumber"
+                        [pageSize] = "pageSize"
+                        [collectionSize] = "totalElements"
+                        (pageChange) = "listItems()">
+        </ngb-pagination>
+    </div>
+</div>

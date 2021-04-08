@@ -29,6 +29,8 @@ import { NewBookComponent } from './components/browse/new-book/new-book.componen
 import { NewMovieComponent } from './components/browse/new-movie/new-movie.component';
 import { TvshelfComponent } from './components/shelves/tvshelf/tvshelf.component';
 import { NewTvSeriesComponent } from './components/browse/new-tv-series/new-tv-series.component';
+import { GameshelfComponent } from './components/shelves/gameshelf/gameshelf.component';
+import { NewGameComponent } from './components/browse/new-game/new-game.component';
 
 
 const routes: Routes = [
@@ -39,11 +41,13 @@ const routes: Routes = [
   {path:'browse/books', component: NewBookComponent},
   {path:'browse/movies', component: NewMovieComponent},
   {path:'browse/tvseries', component:NewTvSeriesComponent},
+  {path:'browse/games', component:NewGameComponent},
   {path:'dashboard', component: DashboardComponent},
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'bookshelf', component:BookshelfComponent},
   {path:'movieshelf', component:MovieshelfComponent},
   {path:'tvshelf', component:TvshelfComponent},
+  {path:'gameshelf', component:GameshelfComponent},
   {path:'search/:keyword', component: NewBookComponent},
   {path:'', component: NewBookComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'}
@@ -68,7 +72,9 @@ const routes: Routes = [
     TvshelfComponent,
     NewBookComponent,
     NewMovieComponent,
-    NewTvSeriesComponent
+    NewTvSeriesComponent,
+    GameshelfComponent,
+    NewGameComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -281,19 +281,16 @@ INSERT INTO game (title, description, platform, year, image_url) VALUES ('Super 
 
 INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
 INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.02); 
-INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04); 
-INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.0); 
-
+INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.0);
+INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.02); 
 
 
 INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (4, 1, 'I love the fact that they made it so only one of you has to buy the full game. I really appreciate that.', 8.5, null, 'FINISHED', '2021-3-25');
-INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (3, 2, null, null, 'friend recommend', 'LISTING', '2020-10-05');
+INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (1, 2, null, null, 'friend recommend', 'LISTING', '2020-10-05');
 INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (1, 3, null, null, null, 'LISTING', '2018-03-24');
 INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (2, 4, null, '8.5', null, 'FINISHED', '2019-01-08');
 INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (3, 5, null, null, null,'DNF', '2015-05-23');
 INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (4, 6, null, null, null, 'IN_PROGRESS', '2019-05-23');
-
-
 
 
 

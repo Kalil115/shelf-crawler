@@ -8,6 +8,7 @@ export class TodoListStorageService {
   private bookKey = "bookTodoListId";
   private movieKey = "movieTodoListId";
   private tvKey = "tvTodoListId";
+  private gameKey = "gameTodoListId";
 
   constructor() { }
 
@@ -39,4 +40,12 @@ export class TodoListStorageService {
     return +window.sessionStorage.getItem(this.tvKey);
   }
 
+  public saveGameshelfId(gameshelfId: number): void {
+    window.sessionStorage.removeItem(this.gameKey);
+    window.sessionStorage.setItem(this.gameKey, gameshelfId.toString());
+  }
+
+  public getGameshelfId():number | null {
+    return +window.sessionStorage.getItem(this.gameKey);
+  }
 }
