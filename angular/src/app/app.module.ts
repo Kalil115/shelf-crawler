@@ -37,7 +37,7 @@ const routes: Routes = [
   {path:'dashboard', component: DashboardComponent},
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'bookshelf', component:BookshelfComponent},
-  {path:'movies', component:MovieshelfComponent},
+  {path:'movieshelf', component:MovieshelfComponent},
   {path:'search/:keyword', component: BrowseComponent},
   {path:'', component: BrowseComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'}

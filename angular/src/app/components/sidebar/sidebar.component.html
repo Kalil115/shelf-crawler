@@ -24,9 +24,12 @@
     </li>
 
     <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link" routerLink="movies">
-        <i class="mdi mdi-movie menu-icon"></i>
-        <span class="menu-title">Movies</span>
+      <a class="nav-link d-flex justify-content-between flex-wrap" routerLink="movieshelf">
+        <div>
+          <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+          <span class="menu-title">Movies</span>
+        </div>
+        <span class="badge badge-pill badge-secondary">{{movieshelfItemListSize}}</span>
       </a>
     </li>
 

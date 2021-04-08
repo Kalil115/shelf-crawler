@@ -221,20 +221,20 @@ INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('
 
 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
-INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
-INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.48); 
-INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.48); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.02); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.0); 
 
 
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 1, "exciting", 8.2, "imdb recommended", "FINISHED", '2017-01-12');
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 2, "exciting", 8.5, "imdb recommended", "FINISHED", '2017-05-27');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 1, "exciting", null, "imdb recommended", "LISTING", '2017-01-12');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 2, "exciting", null, "imdb recommended", "LISTING", '2017-05-27');
 INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 3, null, null, "imdb recommended", 'LISTING', '2017-10-23');
 INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 4, null, null, "bpv recommend", 'DNF', '2017-12-30');
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 5, null, null, null, 'LISTING', '2018-02-13');
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 6, 'enjoyed it', null, null, 'FINISHED', '2018-05-23');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 5, null, null, null, 'IN_PROGRESS', '2018-02-13');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 6, 'enjoyed it', 9, null, 'FINISHED', '2018-05-23');
 INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 7, 'not interesting', null, null, 'DNF', '2018-12-01');
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 8, null, null, null, 'LISTING', '2019-07-20');
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 9, 'good', null, null, 'FINISHED', '2020-01-20');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 8, null, 7, null, 'FINISHED', '2019-07-20');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 9, 'good', 8.6, null, 'FINISHED', '2020-01-20');
 INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 10, 'not interesting', null, null, 'DNF', '2021-01-05');
 
 
