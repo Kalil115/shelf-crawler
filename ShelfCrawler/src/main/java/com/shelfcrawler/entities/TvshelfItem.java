@@ -27,7 +27,7 @@ import lombok.Setter;
 @Table(name = "TVSHELF_ITEM")
 @Getter
 @Setter
-public class TVshelfItem implements Serializable {
+public class TvshelfItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,10 +37,10 @@ public class TVshelfItem implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "tvshelfId")
 	@JsonBackReference
-	private TVshelf tvshelf;
+	private Tvshelf tvshelf;
 
 	@OneToOne
-	private TVSeries tvSeries;
+	private TvSeries tvSeries;
 
 	private String comment;
 
@@ -63,11 +63,11 @@ public class TVshelfItem implements Serializable {
 		if (o == this)
 			return true;
 		
-		if (!(o instanceof TVshelfItem)) {
+		if (!(o instanceof TvshelfItem)) {
 			return false;
 		}
 		
-		TVshelfItem tvshelfItem = (TVshelfItem) o;
+		TvshelfItem tvshelfItem = (TvshelfItem) o;
 		
 		return tvSeries.getId() == tvshelfItem.tvSeries.getId();
 	}

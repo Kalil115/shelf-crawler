@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "TVSHELF")
 @Getter
 @Setter
-public class TVshelf implements Serializable {
+public class Tvshelf implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -42,7 +42,7 @@ public class TVshelf implements Serializable {
 	private Double reachRate;
 
 	@OneToMany(mappedBy = "tvshelf", cascade = CascadeType.ALL)
-	private Set<TVshelfItem> tvshelfItems = new HashSet<>();
+	private Set<TvshelfItem> tvshelfItems = new HashSet<>();
 	
 
 }

@@ -155,6 +155,8 @@ export class MovieshelfComponent implements OnInit, AfterViewInit {
       newshelf.movieshelfItems = [];
       this.shelfName = newshelf.name;
       this.shelf = newshelf;
+      this.goal = newGoal;
+      this.reachRate = 0;
       this.movieshelfService.addMovieshelf(this.user.id, newshelf).subscribe(
         data => this.shelf = data
       );

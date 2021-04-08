@@ -4,9 +4,9 @@
             <div class="card">
                 <div class="card-body">
 
-                    <div *ngIf="shelfName; else createMovieshelf">
+                    <div *ngIf="shelfName; else createTvshelf">
                         <diV class="card-title">
-                            <h4>Movies in {{shelfName}}</h4>
+                            <h4>Tvs in {{shelfName}}</h4>
                         </diV>
 
                         <div class="d-flex align-items-end">
@@ -29,11 +29,11 @@
                             class="mat-elevation-z2">
                             <ng-container matColumnDef="title">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="col-md-6-"> Title </th>
-                                <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.movie.title}} </td>
+                                <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.title}} </td>
                             </ng-container>
                             <ng-container matColumnDef="director">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Director </th>
-                                <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.movie.director}} </td>
+                                <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.director}} </td>
                             </ng-container>
                             <ng-container matColumnDef="rating">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
@@ -60,25 +60,25 @@
                                     <div class="example-element-detail"
                                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                         <div class="col-lg-2 img-container">
-                                            <img src="{{element.movie.imageUrl}}" class="img-thumbnail" alt="thumbnail">
+                                            <img src="{{element.tv.imageUrl}}" class="img-thumbnail" alt="thumbnail">
                                         </div>
                                         <div class="col-lg-10 card-body">
                                             <ul class="list-arrow">
                                                 <div class="row">
                                                     <div class="col-md-10">
-                                                        <li>Year: {{element.movie.year}}</li>
+                                                        <li>Year: {{element.tv.year}}</li>
                                                     </div>
                                                     <div class="col-mdd-2 ml-auto">
                                                         <button
                                                             class="btn btn-sm btn-inverse-secondary btn-icon-text btn-icon-prepend"
-                                                            data-toggle="modal" data-target="#editMovieshelfItem"
+                                                            data-toggle="modal" data-target="#editTvshelfItem"
                                                             (click)="openEditshelfModal(element.id)">
-                                                            <i class="mdi mdi-auto-fix"></i>editmovie
+                                                            <i class="mdi mdi-auto-fix"></i>edittv
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <li>Description: <p class="card-description">
-                                                        {{element.movie.description}}
+                                                        {{element.tv.description}}
                                                     </p>
                                                 </li>
                                                 <li>Reason: {{element.reason}} </li>
@@ -99,10 +99,10 @@
                     </div>
 
 
-                    <!-- if no movieshelf -->
-                    <ng-template #createMovieshelf>
+                    <!-- if no tvshelf -->
+                    <ng-template #createTvshelf>
                         <diV class="card-description">
-                            <h4>You don't have a movieshelf this year yet.</h4>
+                            <h4>You don't have a tvshelf this year yet.</h4>
                         </diV>
                         <div class="d-flex align-items-end">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
@@ -124,18 +124,18 @@
             <div class="card">
                 <div class="card-body">
                     <diV class="card-title">
-                        <h4>Listing Movies</h4>
+                        <h4>Listing Tvs</h4>
                     </diV>
 
                     <table mat-table [dataSource]="ListingDataSource" multiTemplateDataRows matSort
                         class="mat-elevation-z2">
                         <ng-container matColumnDef="title">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
-                            <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.movie.title}} </td>
+                            <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.title}} </td>
                         </ng-container>
                         <ng-container matColumnDef="director">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Author </th>
-                            <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.movie.director}} </td>
+                            <td mat-cell *matCellDef="let shelfItems"> {{shelfItems.tv.director}} </td>
                         </ng-container>
                         <ng-container matColumnDef="rating">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Rating </th>
@@ -162,25 +162,25 @@
                                 <div class="example-element-detail"
                                     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                     <div class="col-lg-2 img-container">
-                                        <img src="{{element.movie.imageUrl}}" class="img-thumbnail" alt="thumbnail">
+                                        <img src="{{element.tv.imageUrl}}" class="img-thumbnail" alt="thumbnail">
                                     </div>
                                     <div class="col-lg-10 card-body">
                                         <ul class="list-arrow">
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <li>Year: {{element.movie.year}}</li>
+                                                    <li>Year: {{element.tv.year}}</li>
                                                 </div>
                                                 <div class="col-mdd-2 ml-auto">
                                                     <button
                                                         class="btn btn-sm btn-inverse-secondary btn-icon-text btn-icon-prepend"
-                                                        data-toggle="modal" data-target="#editListingMovie"
+                                                        data-toggle="modal" data-target="#editListingTv"
                                                         (click)="openEditshelfModal(element.id)">
-                                                        <i class="mdi mdi-auto-fix"></i>editMovie
+                                                        <i class="mdi mdi-auto-fix"></i>editTv
                                                     </button>
                                                 </div>
                                             </div>
                                             <li>Description: <p class="card-description">
-                                                    {{element.movie.description}}
+                                                    {{element.tv.description}}
                                                 </p>
                                             </li>
                                             <li>Reason: {{element.reason}} </li>
@@ -246,7 +246,7 @@
             </div>
             <form>
                 <div class="modal-body">
-                    <input type="text" name="goal" class="form-control" id="editMovieshelfItem1"
+                    <input type="text" name="goal" class="form-control" id="editTvshelfItem1"
                         placeholder="Please enter your goal" [(ngModel)]="createShelf.newGoal">
                 </div>
                 <div class="modal-footer">
@@ -260,13 +260,13 @@
 </div>
 <!-- end of Modal create shelf -->
 
-<!-- Modal edit MovieshelfItem -->
-<div class="modal fade" id="editMovieshelfItem" tabindex="-1" role="dialog" aria-labelledby="editMovieshelfItemLabel"
+<!-- Modal edit TvshelfItem -->
+<div class="modal fade" id="editTvshelfItem" tabindex="-1" role="dialog" aria-labelledby="editTvshelfItemLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editMovieshelfItemLabel">{{currentTitle}}</h5>
+                <h5 class="modal-title" id="editTvshelfItemLabel">{{currentTitle}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -324,22 +324,22 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        (click)="updateMovieshelfItem()">Update</button>
+                        (click)="updateTvshelfItem()">Update</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- end of Modal edit MovieshelfItem  -->
+<!-- end of Modal edit TvshelfItem  -->
 
 
 <!-- Modal edit Listing item -->
-<div class="modal fade" id="editListingMovie" tabindex="-1" role="dialog" aria-labelledby="editListingMovieLabel"
+<div class="modal fade" id="editListingTv" tabindex="-1" role="dialog" aria-labelledby="editListingTvLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editMovieshelfItemLabel">{{currentTitle}}</h5>
+                <h5 class="modal-title" id="editTvshelfItemLabel">{{currentTitle}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -392,7 +392,7 @@
                     <div>
                         <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary ml-3" data-dismiss="modal"
-                            (click)="updateMovieshelfItem()">Update</button>
+                            (click)="updateTvshelfItem()">Update</button>
                     </div>
                 </div>
             </form>

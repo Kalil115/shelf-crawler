@@ -32,11 +32,11 @@ export class MovieshelfService{
     return this.httpClient.put<void>(url, shelf, this.httpOptions);
   }
 
-  addMovieshelf(userId:number, shelf: Movieshelf): Observable<Movieshelf> {
+  addMovieshelf(userId:number, movieshelf: Movieshelf): Observable<Movieshelf> {
     return this.httpClient.post<Movieshelf>(this.baseUrl,
     {
       userId,
-      shelf
+      movieshelf
     }, 
     this.httpOptions);
   }

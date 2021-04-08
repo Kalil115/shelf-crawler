@@ -13,7 +13,7 @@ import lombok.Data;
 @Entity
 @Table(name="TV_SERIES")
 @Data
-public class TVSeries implements Serializable{
+public class TvSeries implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id

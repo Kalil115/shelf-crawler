@@ -11,8 +11,8 @@
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" routerLink="browse/books" routerLinkActive="active">new Books</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="browse/movies" routerLinkActive="active">new Movies</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="browse/movies" routerLinkActive="active">new TV Series</a></li>
-          <li class="nav-item"> <a class="nav-link" routerLink="browse/movies" routerLinkActive="active">new Game</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="browse/tvs" routerLinkActive="active">new TV Series</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="browse/games" routerLinkActive="active">new Game</a></li>
         </ul>
       </div>
     </li>
@@ -37,7 +37,7 @@
     <li class="nav-item" routerLinkActive="active">
       <a class="nav-link d-flex justify-content-between flex-wrap" routerLink="movieshelf">
         <div>
-          <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+          <i class="mdi mdi-movie menu-icon"></i>
           <span class="menu-title">Movies</span>
         </div>
         <span class="badge badge-pill badge-secondary">{{movieshelfItemListSize}}</span>
@@ -45,16 +45,22 @@
     </li>
 
     <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link" routerLink="tvs">
-        <i class="mdi mdi-television menu-icon"></i>
-        <span class="menu-title">TV Series</span>
+      <a class="nav-link d-flex justify-content-between flex-wrap" routerLink="tvshelf">
+        <div>
+          <i class="mdi mdi-television menu-icon"></i>
+          <span class="menu-title">TV Series</span>
+        </div>
+        <span class="badge badge-pill badge-secondary">{{tvshelfItemListSize}}</span>
       </a>
     </li>
 
     <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link" routerLink="games">
-        <i class="mdi mdi-gamepad-variant menu-icon"></i>
-        <span class="menu-title">Games</span>
+      <a class="nav-link d-flex justify-content-between flex-wrap" routerLink="gameshelf">
+        <div>
+          <i class="mdi mdi-gamepad-variant menu-icon"></i>
+          <span class="menu-title">Games</span>
+        </div>
+        <span class="badge badge-pill badge-secondary">{{gameshelfItemListSize}}</span>
       </a>
     </li>
 

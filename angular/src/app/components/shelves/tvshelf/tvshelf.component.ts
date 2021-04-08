@@ -9,6 +9,9 @@ import { TvshelfItem } from 'src/app/common/tvshelf-item';
 import { User } from 'src/app/common/user';
 import { TodoListStorageService } from 'src/app/services/todo-list-storage.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { TvListService } from 'src/app/services/tv-list.service';
+import { TvshelfService } from 'src/app/services/tvshelf.service';
+import { TvshelfItemService } from 'src/app/services/tvshlef-item.service';
 import { YearPickerService } from 'src/app/services/year-picker.service';
 
 @Component({
@@ -52,6 +55,7 @@ export class TvshelfComponent implements OnInit {
     private tvshelfService: TvshelfService,
     private tvshelfItemService: TvshelfItemService,
     private tvListService: TvListService
+                           
   ) { }
 
   ngOnInit(): void {
@@ -104,7 +108,7 @@ export class TvshelfComponent implements OnInit {
   }
 
   updateListingItems() {
-    this.tvListService.listingTvsSubject.subscribe(
+    this.tvListService.tvshelfItemListSubject.subscribe(
       data => this.ListingDataSource = new MatTableDataSource(data)
     );
   }
@@ -144,6 +148,8 @@ export class TvshelfComponent implements OnInit {
       newshelf.tvshelfItems = [];
       this.shelfName = newshelf.name;
       this.shelf = newshelf;
+      this.goal = newGoal;
+      this.reachRate = 0;
       this.tvshelfService.addTvshelf(this.user.id, newshelf).subscribe(
         data => this.shelf = data
       );

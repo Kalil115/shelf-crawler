@@ -4,35 +4,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shelfcrawler.dto.AddMovieshelf;
+import com.shelfcrawler.dto.AddMovieshelf;
+import com.shelfcrawler.entities.Movieshelf;
 import com.shelfcrawler.entities.Movieshelf;
 import com.shelfcrawler.entities.User;
+import com.shelfcrawler.repository.MovieshelfRepository;
 import com.shelfcrawler.repository.MovieshelfRepository;
 import com.shelfcrawler.repository.UserRepository;
 
 @Service
 public class MovieshelfService {
-
-	@Autowired
-	UserRepository userRepository;
-
+	
 	@Autowired
 	MovieshelfRepository movieshelfRepository;
-
-	public Movieshelf saveMovieshelf(AddMovieshelf addMovieshelf) {
-		User user = userRepository.findById(addMovieshelf.getUserId()).get();
-		Movieshelf newshelf = new Movieshelf();
-		newshelf.setName(addMovieshelf.getMovieshelf().getName());
-		newshelf.setGoal(addMovieshelf.getMovieshelf().getGoal());
-		newshelf.setReachRate(0.0);
-		newshelf.setUser(user);
-		return movieshelfRepository.save(newshelf);
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	
+	public Movieshelf saveMovieshelf(AddMovieshelf addmovieshelf) {
+		User user = userRepository.findById(addmovieshelf.getUserId()).get();
+		Movieshelf newMovieshelf = new Movieshelf();
+		newMovieshelf.setName(addmovieshelf.getMovieshelf().getName());
+		newMovieshelf.setGoal(addmovieshelf.getMovieshelf().getGoal());
+		newMovieshelf.setReachRate(0.0);
+		newMovieshelf.setUser(user);
+		return movieshelfRepository.save(newMovieshelf);
 	}
-
+	
 	public Movieshelf updateMovieshelfGoal(Movieshelf movieshelf) {
-		Movieshelf editshelf = movieshelfRepository.findById(movieshelf.getId()).get();
-		editshelf.setGoal(movieshelf.getGoal());
-		editshelf.setReachRate(movieshelf.getReachRate());
-		return movieshelfRepository.save(editshelf);
-
+		
+		Movieshelf editmovieshelf = movieshelfRepository.findById(movieshelf.getId()).get();
+		editmovieshelf.setGoal(movieshelf.getGoal());
+		editmovieshelf.setReachRate(movieshelf.getReachRate());
+		
+		return movieshelfRepository.save(editmovieshelf);
+		
 	}
+
 }

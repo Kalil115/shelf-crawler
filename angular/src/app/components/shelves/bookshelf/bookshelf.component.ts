@@ -159,6 +159,8 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
       newBookshelf.bookshelfItems = [];
       this.bookshelfName = newBookshelf.name;
       this.bookshelf = newBookshelf;
+      this.goal = newGoal;
+      this.reachRate = 0;
       this.bookshelfService.addBookshelf(this.user.id, newBookshelf).subscribe(
         data => this.bookshelf = data
       );
