@@ -20,10 +20,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "BOOKSHELF")
+@Table(name = "TVSHELF")
 @Getter
 @Setter
-public class Bookshelf implements Serializable {
+public class TVshelf implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -41,8 +41,8 @@ public class Bookshelf implements Serializable {
 	
 	private Double reachRate;
 
-	@OneToMany(mappedBy = "bookshelf", cascade = CascadeType.ALL)
-	private Set<BookshelfItem> bookshelfItems = new HashSet<>();
+	@OneToMany(mappedBy = "tvshelf", cascade = CascadeType.ALL)
+	private Set<TVshelfItem> tvshelfItems = new HashSet<>();
 	
 
 }

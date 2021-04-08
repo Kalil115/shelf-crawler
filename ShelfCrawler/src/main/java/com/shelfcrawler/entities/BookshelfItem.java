@@ -35,7 +35,7 @@ public class BookshelfItem implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "bookshelfId")
+	@JoinColumn(name = "bookshelf_id")
 	@JsonBackReference
 	private Bookshelf bookshelf;
 

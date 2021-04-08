@@ -1,6 +1,12 @@
 USE project;
 
 SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS gameshelf_item;
+DROP TABLE IF EXISTS gameshelf;
+DROP TABLE IF EXISTS game;
+DROP TABLE IF EXISTS tvshelf_item;
+DROP TABLE IF EXISTS tvshelf;
+DROP TABLE IF EXISTS tv_series;
 DROP TABLE IF EXISTS movieshelf_item;
 DROP TABLE IF EXISTS movieshelf;
 DROP TABLE IF EXISTS movie;
@@ -93,7 +99,74 @@ create table movieshelf_item (
     foreign key (movie_id) REFERENCES movie (id) on DELETE RESTRICT ON UPDATE CASCADE
 );
 
+create table tv_series (
+	id BIGINT(20) NOT NULL auto_increment,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    year INT,
+    image_url VARCHAR(255),
+    primary key(id)
+);
 
+create table tvshelf (
+	id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) UNIQUE,
+    user_id BIGINT(20) NOT NULL,
+    goal INT NOT NULL,
+    reach_rate FLOAT,
+    PRIMARY KEY (id),
+    FOREIGN KEY(user_id) REFERENCES user(id) on DELETE RESTRICT ON UPDATE CASCADE
+);
+
+create table tvshelf_item (
+	id BIGINT(20) NOT NULL AUTO_INCREMENT,
+	tvshelf_id BIGINT(20) NOT NULL,
+    tv_series_id BIGINT(20) NOT NULL,
+    comment text,
+    rating FLOAT,
+    reason VARCHAR(255),
+    status VARCHAR(255) NOT NULL,
+	date_created DATETIME(6) DEFAULT NULL,
+    last_updated DATETIME(6) DEFAULT NULL,
+	PRIMARY KEY(id),
+    foreign key (tvshelf_id) REFERENCES tvshelf (id) on DELETE RESTRICT ON UPDATE CASCADE,
+    foreign key (tv_series_id) REFERENCES tv_series (id) on DELETE RESTRICT ON UPDATE CASCADE
+);
+
+create table game (
+	id BIGINT(20) NOT NULL auto_increment,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    platform VARCHAR(255),
+    year INT,
+    image_url VARCHAR(255),
+    primary key(id)
+);
+
+create table gameshelf (
+	id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) UNIQUE,
+    user_id BIGINT(20) NOT NULL,
+    goal INT NOT NULL,
+    reach_rate FLOAT,
+    PRIMARY KEY (id),
+    FOREIGN KEY(user_id) REFERENCES user(id) on DELETE RESTRICT ON UPDATE CASCADE
+);
+
+create table gameshelf_item (
+	id BIGINT(20) NOT NULL AUTO_INCREMENT,
+	gameshelf_id BIGINT(20) NOT NULL,
+    game_id BIGINT(20) NOT NULL,
+    comment text,
+    rating FLOAT,
+    reason VARCHAR(255),
+    status VARCHAR(255) NOT NULL,
+	date_created DATETIME(6) DEFAULT NULL,
+    last_updated DATETIME(6) DEFAULT NULL,
+	PRIMARY KEY(id),
+    foreign key (gameshelf_id) REFERENCES gameshelf (id) on DELETE RESTRICT ON UPDATE CASCADE,
+    foreign key (game_id) REFERENCES game (id) on DELETE RESTRICT ON UPDATE CASCADE
+);
 
 -- INSERT INTO user (username, password, email, role) VALUES('abby', 'abby123', 'abby@gmail.com', 'USER');
 -- INSERT INTO user (username, password, email, role) VALUES('Bob', 'bob123', 'bob@gmail.com', 'ADMIN');
@@ -101,6 +174,7 @@ create table movieshelf_item (
 INSERT INTO user (username, password, email, role) VALUES('abby', '$2y$12$42QvfbjCGltb/KI/r0UvJuWCFTFwEwDnLt10Fc04tJCkf/bAFqyEq', 'abby@gmail.com', 'USER');
 INSERT INTO user (username, password, email, role) VALUES('Bob', '$2y$12$4.rEHJL4QjcNarWF4yYxv.EXm15CKvfDLgewDgI3doPM/JV00A4mC', 'bob@gmail.com', 'ADMIN');
 INSERT INTO user (username, password, email, role) VALUES('Charlie', '$2y$12$SlaKuiACH5oa2/yKHnrvc.Z1xjJUfONmb.UHKHePZb.2DJvy5F5u.', 'charlie@gmail.com', 'USER');
+
 
 
 INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE ('014311526X', 'Nudge: Improving Decisions About Health, Wealth, and Happiness', 'Every day we make choices—about what to buy or eat, about financial investments or our children’s health and education, even about the causes we champion or the planet itself. Unfortunately, we often choose poorly. Nudge is about how we make these choices and how we can make better ones. Using dozens of eye-opening examples and drawing on decades of behavioral science research, Nobel Prize winner Richard H. Thaler and Harvard Law School professor Cass R. Sunstein show that no choice is ever presented to us in a neutral way, and that we are all susceptible to biases that can lead us to make bad decisions. But by knowing how people think, we can use sensible “choice architecture” to nudge people toward the best decisions for ourselves, our families, and our society, without restricting our freedom of choice.', ' Richard H. Thaler, Cass R. Sunstein', '2009', 'assets/images/books/3450744.jpg');
@@ -120,6 +194,7 @@ INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04);
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.04); 
 
+
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 1, "very helpful", 8.2, "bpv  recommended", "FINISHED", '2019-05-11');
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 2, "very useful", 8.7, "amazon  recommended", "FINISHED", '2019-06-01');
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 3, "not interested", 5, "amazon  recommended", "DNF", '2019-07-13');
@@ -130,9 +205,6 @@ INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, stat
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 5, null, null, null, "LISTING", '2018-01-31');
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 6, null, null, null, "LISTING", '2020-03-15');
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 10, null, null, "friend recommended", "LISTING", '2020-10-03');
-
-
-
 
 
 
@@ -147,10 +219,12 @@ INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('
 INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('IThe Good, the Bad and the Ugly', 'A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.', 'Sergio Leone', 'Clint Eastwood, Eli Wallach, Lee Van Cleef', '1966', 'assets/images/movies/tt0060196.jpg');
 INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Lord of the Rings: The Fellowship of the Ring', 'A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.', 'Peter Jackson', 'Elijah Wood, Ian McKellen, Orlando Bloom', '2001', 'assets/images/movies/tt0120737.jpg');
 
+
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.48); 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.48); 
+
 
 INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 1, "exciting", 8.2, "imdb recommended", "FINISHED", '2017-01-12');
 INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 2, "exciting", 8.5, "imdb recommended", "FINISHED", '2017-05-27');

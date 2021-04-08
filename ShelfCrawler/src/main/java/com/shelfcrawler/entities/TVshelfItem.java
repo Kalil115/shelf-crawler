@@ -24,58 +24,57 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="MOVIESHELF_ITEM")
+@Table(name = "TVSHELF_ITEM")
 @Getter
 @Setter
-public class MovieshelfItem implements Serializable{
+public class TVshelfItem implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "movieshelf_id")
+	@JoinColumn(name = "tvshelfId")
 	@JsonBackReference
-	private Movieshelf movieshelf;
-	
+	private TVshelf tvshelf;
+
 	@OneToOne
-	private Movie movie;
-	
+	private TVSeries tvSeries;
+
 	private String comment;
-	
+
 	private Float rating;
-	
+
 	private String reason;
-	
+
 	@Enumerated(EnumType.STRING)
 	private ItemStatus status;
-	
+
 	@CreationTimestamp
 	private Date dateCreated;
-	
+
 	@UpdateTimestamp
 	private Date lastUpdated;
-	
+
 	@Override
 	public boolean equals(Object o) {
 
 		if (o == this)
 			return true;
 		
-		if (!(o instanceof MovieshelfItem)) {
+		if (!(o instanceof TVshelfItem)) {
 			return false;
 		}
 		
-		MovieshelfItem movieshelfItem = (MovieshelfItem) o;
+		TVshelfItem tvshelfItem = (TVshelfItem) o;
 		
-		return movie.getId() == movieshelfItem.movie.getId();
+		return tvSeries.getId() == tvshelfItem.tvSeries.getId();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(movie);
+		return Objects.hash(tvSeries);
 	}
-
 
 }
