@@ -38,11 +38,11 @@ export class MovieshelfItemService {
       }, this.httpOptions);
   }
 
-  addMovieshelfItem(shelfId: number, shelfItem: MovieshelfItem): Observable<MovieshelfItem> {
+  addMovieshelfItem(movieshelfId: number, movieshelfItem: MovieshelfItem): Observable<MovieshelfItem> {
     return this.httpClient.post<MovieshelfItem>(this.baseUrl,
       {
-        shelfId,
-        shelfItem
+        movieshelfId,
+        movieshelfItem
       }, this.httpOptions);
   }
 

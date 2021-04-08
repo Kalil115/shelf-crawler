@@ -13,7 +13,7 @@ export class MovieService {
   constructor(private httpClient: HttpClient) { }
 
   getAllMovie(page: number, pagesize: number): Observable<GetResponse> {
-    const url = this.Url + "/?page=" + page + '&size=' + pagesize;
+    const url = this.Url + "?page=" + page + '&size=' + pagesize;
     return this.httpClient.get<GetResponse>(url);
   }
 }

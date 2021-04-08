@@ -1,11 +1,22 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item" routerLinkActive="active">
-      <a class="nav-link" routerLink="browse">
+
+    <li class="nav-item" >
+      <a class="nav-link" data-toggle="collapse" href="#browse-item" aria-expanded="false" aria-controls="browse-item">
         <i class="mdi mdi-compass-outline menu-icon"></i>
         <span class="menu-title">Browse</span>
+        <i class="menu-arrow"></i>
       </a>
+      <div class="collapse" id="browse-item">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="browse/books" routerLinkActive="active">new Books</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="browse/movies" routerLinkActive="active">new Movies</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="browse/movies" routerLinkActive="active">new TV Series</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="browse/movies" routerLinkActive="active">new Game</a></li>
+        </ul>
+      </div>
     </li>
+
     <li class="nav-item" routerLinkActive="active">
       <a class="nav-link" routerLink="dashboard">
         <i class="mdi mdi-home menu-icon"></i>

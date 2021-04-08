@@ -203,7 +203,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource(currentBookshelf.bookshelfItems);
         }else {
           const idx = this.bookshelf.bookshelfItems.findIndex(item => item.id == bookshelfItem.id);
-          if(idx> 0) {
+          if(idx != -1) {
             this.bookshelf.bookshelfItems.splice(idx, 1);
             this.computeReachRate(this.bookshelf);
             this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems);

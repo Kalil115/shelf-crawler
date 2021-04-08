@@ -13,7 +13,7 @@ export class BookService {
   constructor(private httpClient: HttpClient) { }
 
   getAllBook(page: number, pagesize: number): Observable<GetBooksResponse> {
-    const url = this.bookUrl + "/?page=" + page + '&size=' + pagesize;
+    const url = this.bookUrl + "?page=" + page + '&size=' + pagesize;
     return this.httpClient.get<GetBooksResponse>(url);
   }
 }

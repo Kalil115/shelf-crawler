@@ -199,7 +199,7 @@ export class MovieshelfComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource(currentShelf.movieshelfItems);
         }else {
           const idx = this.shelf.movieshelfItems.findIndex(item => item.id == shelfItem.id);
-          if(idx> 0) {
+          if(idx != -1) {
             this.shelf.movieshelfItems.splice(idx, 1);
             this.computeReachRate(this.shelf);
             this.dataSource = new MatTableDataSource(this.shelf.movieshelfItems);
