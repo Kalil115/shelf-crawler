@@ -1,45 +1,48 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="books">
-          <i class="mdi mdi-compass-outline menu-icon"></i>
-          <span class="menu-title">Browse</span>
-        </a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="dashboard">
-          <i class="mdi mdi-home menu-icon"></i>
-          <span class="menu-title">Dashboard</span>
-        </a>
-      </li>
+  <ul class="nav">
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" routerLink="browse">
+        <i class="mdi mdi-compass-outline menu-icon"></i>
+        <span class="menu-title">Browse</span>
+      </a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" routerLink="dashboard">
+        <i class="mdi mdi-home menu-icon"></i>
+        <span class="menu-title">Dashboard</span>
+      </a>
+    </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="bookshelf" >
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link d-flex justify-content-between flex-wrap" routerLink="bookshelf">
+        <div>
           <i class="mdi mdi-book-open-page-variant menu-icon"></i>
           <span class="menu-title">Books</span>
-        </a>
-      </li>
+        </div>
+        <span class="badge badge-pill badge-secondary">{{bookshlefItemListSize}}</span>
+      </a>
+    </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="movies" >
-          <i class="mdi mdi-movie menu-icon"></i>
-          <span class="menu-title">Movies</span>
-        </a>
-      </li>
- 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="tvs" >
-          <i class="mdi mdi-television menu-icon"></i>
-          <span class="menu-title">TV Series</span>
-        </a>
-      </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" routerLink="movies">
+        <i class="mdi mdi-movie menu-icon"></i>
+        <span class="menu-title">Movies</span>
+      </a>
+    </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="games" >
-          <i class="mdi mdi-gamepad-variant menu-icon"></i>
-          <span class="menu-title">Games</span>
-        </a>
-      </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" routerLink="tvs">
+        <i class="mdi mdi-television menu-icon"></i>
+        <span class="menu-title">TV Series</span>
+      </a>
+    </li>
 
-    </ul>
-  </nav>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" routerLink="games">
+        <i class="mdi mdi-gamepad-variant menu-icon"></i>
+        <span class="menu-title">Games</span>
+      </a>
+    </li>
+
+  </ul>
+</nav>

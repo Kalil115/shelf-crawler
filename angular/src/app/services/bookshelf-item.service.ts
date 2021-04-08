@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Book } from '../common/book';
 import { BookshelfItem } from '../common/bookshelf-items';
 
 @Injectable({
@@ -30,4 +31,9 @@ export class BookshelfItemService {
         bookshelfItem
       },this.httpOptions);
   }
+
+  addBookshelfItem(bookshelfId: number, bookshelfItem: BookshelfItem):Observable<BookshelfItem> {
+    return this.httpClient.post<BookshelfItem>(this.baseUrl, {bookshelfId, bookshelfItem},this.httpOptions);
+  }
+
 }

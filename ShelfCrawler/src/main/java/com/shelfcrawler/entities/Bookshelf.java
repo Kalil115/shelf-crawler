@@ -44,16 +44,16 @@ public class Bookshelf implements Serializable {
 	@OneToMany(mappedBy = "bookshelf", cascade = CascadeType.ALL)
 	private Set<BookshelfItem> bookshelfItems = new HashSet<>();
 
-	public void add(BookshelfItem bookshelfItem) {
-		if(bookshelfItem != null) {
-			if(bookshelfItems == null) {
-				bookshelfItems = new HashSet<>();
-			}
-			bookshelfItems.add(bookshelfItem);
-			bookshelfItem.setBookshelf(this);
-		}
-
-	}
+//	public void add(BookshelfItem bookshelfItem) {
+//		if(bookshelfItem != null) {
+//			if(bookshelfItems == null) {
+//				bookshelfItems = new HashSet<>();
+//			}
+//			bookshelfItems.add(bookshelfItem);
+//			bookshelfItem.setBookshelf(this);
+//		}
+//
+//	}
 	
 
 }

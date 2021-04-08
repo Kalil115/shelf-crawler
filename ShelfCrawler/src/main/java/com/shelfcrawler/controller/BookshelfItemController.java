@@ -3,11 +3,13 @@ package com.shelfcrawler.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shelfcrawler.dto.AddBookshelfItem;
 import com.shelfcrawler.dto.UpdateBookshelfItem;
 import com.shelfcrawler.entities.BookshelfItem;
 import com.shelfcrawler.repository.BookshelfItemRepository;
@@ -32,4 +34,10 @@ public class BookshelfItemController {
 	public BookshelfItem updateBookshelfItem(@PathVariable("id") Long id, @RequestBody UpdateBookshelfItem updateBookshelfItem) {
 		return bookshelfItemService.updateBookshelfItem(updateBookshelfItem);
 	}
+
+	@PostMapping
+	public BookshelfItem addBookshelfItem(@RequestBody AddBookshelfItem addbookshelfItem) {
+		return bookshelfItemService.addBookshelfItem(addbookshelfItem);
+	}
+	
 }

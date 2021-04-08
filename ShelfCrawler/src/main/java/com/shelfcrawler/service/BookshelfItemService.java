@@ -1,8 +1,11 @@
 package com.shelfcrawler.service;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shelfcrawler.dto.AddBookshelfItem;
 import com.shelfcrawler.dto.UpdateBookshelfItem;
 import com.shelfcrawler.entities.Bookshelf;
 import com.shelfcrawler.entities.BookshelfItem;
@@ -29,6 +32,19 @@ public class BookshelfItemService {
 		newItem.setBookshelf(bookshelf);
 		newItem.setDateCreated(old.getDateCreated());
 		return bookshelfItemRepository.save(newItem);
+		
+	}
+	
+	public BookshelfItem addBookshelfItem(AddBookshelfItem addbookshelfItem) {
+		Bookshelf todoList = bookshelfRepository.findById(addbookshelfItem.getBookshelfId()).get();
+		Set<BookshelfItem> existingBookshelfItems = todoList.getBookshelfItems();
+		BookshelfItem bookshelfItem = addbookshelfItem.getBookshelfItem();
+		bookshelfItem.setBookshelf(todoList);
+		
+		if(!existingBookshelfItems.contains(bookshelfItem)) {
+			return bookshelfItemRepository.save(bookshelfItem);
+		}
+		return bookshelfItem;
 		
 	}
 }

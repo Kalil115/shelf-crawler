@@ -1,11 +1,22 @@
 package com.shelfcrawler.service;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
-import com.shelfcrawler.dto.AddBookWrapper;
+@Service
+public class AddBookService {
 
-public interface AddBookService {
-
-	ResponseEntity<?> addBook(AddBookWrapper addbook);
+//	@Autowired
+//	BookshelfRepository bookshelfRepository;
+//
+//	
+//	@Transactional
+//	public ResponseEntity<?> addBook(AddBookWrapper addBookWrapper) {
+//
+//		Long bookshelf_id = addBookWrapper.getBookshelf_id();
+//		Bookshelf bookshelf = bookshelfRepository.findById(bookshelf_id).get();
+//		bookshelf.add(addBookWrapper.getBookshelfItem());
+//		
+//		return ResponseEntity.ok("book added");
+//	}
 
 }

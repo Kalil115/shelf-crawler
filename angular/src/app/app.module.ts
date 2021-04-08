@@ -36,7 +36,7 @@ const routes: Routes = [
   {path:'signup', component: RegisterComponent},
   {path:'logout', component: LogoutComponent},
   {path:'forget', component: ForgetComponent},
-  {path:'books', component: BrowseComponent},
+  {path:'browse', component: BrowseComponent},
   {path:'dashboard', component: DashboardComponent},
   // {path:'admin', component: BoardAdminComponent},
   {path:'users/:username/profile', component: ProfileComponent},

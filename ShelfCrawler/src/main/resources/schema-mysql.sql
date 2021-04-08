@@ -114,23 +114,25 @@ INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE(
 INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE('1423178289', 'The Thank You Book', 'Gerald is careful. Piggie is not.\nPiggie cannot help smiling. Gerald can.\nGerald worries so that Piggie does not have to.\nGerald and Piggie are best friends.\nIn The Thank You Book!, Piggie wants to thank EVERYONE. But Gerald is worried Piggie will forget someone . . . someone important. ', 'Mo Willems', '2016', 'assets/images/books/27247476.jpg');
 
 
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.06); 
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2018','1', 50, 0.12); 
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2017','1', 100, 0.76);
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 100, 0);
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04);
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.04); 
+
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 1, "very helpful", 8.2, "bpv  recommended", "FINISHED", '2019-05-11');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 2, "very useful", 8.7, "amazon  recommended", "FINISHED", '2019-06-01');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 3, "not interested", 5, "amazon  recommended", "DNF", '2019-07-13');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 8, "love it", 9, "friend recommended", "FINISHED", '2019-08-23');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (3, 9, null, null, "friend recommended", "DNF", '2020-04-18');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (4, 7, "very helpful", 8.2, "bpv  recommended", "FINISHED", '2020-10-15');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (4, 4, null, null, "amazon  recommended", "IN_PROGRESS", '2020-11-12');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 5, null, null, null, "LISTING", '2018-01-31');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 6, null, null, null, "LISTING", '2020-03-15');
+INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 10, null, null, "friend recommended", "LISTING", '2020-10-03');
 
 
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 1, "very helpful", 8.2, "bpv  recommended", "FINISHED", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 2, "very useful", 8.7, "amazon  recommended", "FINISHED", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 3, "not interested", 5, "amazon  recommended", "DNF", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 4, null, null, "amazon  recommended", "IN_PROGRESS", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 5, null, null, null, "LISTING", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (1, 6, null, null, null, "LISTING", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 7, "very helpful", 8.2, "bpv  recommended", "FINISHED", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 8, "love it", 9, "friend recommended", "FINISHED", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 9, null, null, "friend recommended", "DNF", NOW());
-INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 10, null, null, "friend recommended", "LISTING", NOW());
+
+
 
 
 INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Shawshank Redemption', 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 'Frank Darabont', 'Tim Robbins, Morgan Freeman, Bob Gunton', '1994', 'assets/images/movies/tt0111161.jpg');
