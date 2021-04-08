@@ -14,6 +14,7 @@ import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { BookshelfItemService } from 'src/app/services/bookshelf-item.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BookListService } from 'src/app/services/book-list.service';
 
 @Component({
   selector: 'app-bookshelf',
@@ -44,9 +45,9 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   reachRate: number;
   goal: number;
   bookshelf: Bookshelf;
-  allBookshelves: Bookshelf[];
+  
   bookshelfName: string;
-  ListingbookshelfItems: any =new MatTableDataSource();
+  ListingbookshelfItems: any = new MatTableDataSource();
   dataSource: any = new MatTableDataSource();
   columnsToDisplay = ['title', 'author', 'rating', 'status'];
   expandedElement: PeriodicElement | null;
@@ -60,6 +61,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     private yearPickerService: YearPickerService,
     private bookshelfService: BookshelfService,
     private bookshelfItemService: BookshelfItemService,
+    private bookListService: BookListService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -67,13 +69,16 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     this.user = this.tokenStorageService.getUser();
     if (this.user == null) {
       this.router.navigate(['login']);
-    }
+    } else {
+
 
     this.yearPickerService.currentYear.subscribe(data => {
       this.currentYear = data;
       this.getBookshelfByUserIdAndBookshelfName(this.user.id, data);
-      this.ngAfterViewInit();
     });
+
+    this.updateListingBookshelfItems();
+
 
     this.bookshelfItemForm = this.formBuilder.group({
       'id': ['', Validators.required],
@@ -82,6 +87,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
       'status': ['', Validators.required],
       'comment': [],
     });
+    }
   }
 
   ngAfterViewInit() {
@@ -91,18 +97,14 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   getBookshelfByUserIdAndBookshelfName(userId: number, bookshelfName: number): void {
     this.bookshelfService.getBookshelfByUserId(userId).subscribe(
       data => {
-        this.allBookshelves = data;
-        this.ListingbookshelfItems = data.map( shelf => shelf.bookshelfItems.filter(item => item.status == "LISTING")).reduce((arr1, arr2) => arr1.concat(arr2));
         const found = data.find(bookshelf => bookshelf.name === bookshelfName.toString());
         if (found) {
           this.bookshelf = found;
           this.bookshelfName = found.name;
           this.reachRate = found.reachRate * 100;
           this.goal = found.goal;
-          this.dataSource = new MatTableDataSource(found.bookshelfItems.filter(item=> item.status != 'LISTING'));
+          this.dataSource = new MatTableDataSource(found.bookshelfItems.filter(item => item.status != 'LISTING'));
           this.dataSource.sort = this.sort;
-          
-          
         } else {
           this.bookshelf = new Bookshelf();
           this.bookshelfName = null;
@@ -111,6 +113,12 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
           this.goal = 0;
         }
       }
+    );
+  }
+
+  updateListingBookshelfItems() {
+      this.bookListService.bookshelfItemListSubject.subscribe(
+      data => this.ListingbookshelfItems = data
     );
   }
 
@@ -157,7 +165,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
         this.currentBookshelfItem = data;
         this.currentBookTitle = data.book.title;
         this.bookshelfItemForm.patchValue(data);
-      });    
+      });
   }
 
   updateBookshelfItem() {
@@ -170,16 +178,19 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     bookshelfItem.comment = formValue.comment;
     this.bookshelfItemService.updateBookshelfItem(this.bookshelf.id, bookshelfItem).subscribe();
 
-    // update currrent bookshelf and datasource
+    // update currrent bookshelf and datasources
     const idx = this.bookshelf.bookshelfItems.findIndex(item => item.id == bookshelfItem.id)
-    if(idx != -1){
-    this.bookshelf.bookshelfItems[idx] = bookshelfItem;
-    }else{
+    if (idx != -1) {
+      this.bookshelf.bookshelfItems[idx] = bookshelfItem;
+    } else {
       this.bookshelf.bookshelfItems.push(bookshelfItem);
     }
-    this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems.filter(item=> item.status != 'LISTING'));
-    this.ListingbookshelfItems = new MatTableDataSource(this.allBookshelves.map( shelf => shelf.bookshelfItems.filter(item => item.status == "LISTING")).reduce((arr1, arr2) => arr1.concat(arr2)));
+    this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems.filter(item => item.status != 'LISTING'));
     
+    this.bookListService.update(this.bookshelf.bookshelfItems.filter(item => item.status == "LISTING"));
+
+   
+
     // update reachrate
     this.computeReachRate(this.bookshelf, this.bookshelf.goal);
   }
