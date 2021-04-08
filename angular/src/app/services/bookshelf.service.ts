@@ -40,10 +40,5 @@ export class BookshelfService {
     }, 
     this.httpOptions);
   }
-
-
-
-  // getAllBookshelves(): Observable<Bookshelf[]> {
-  //   return this.httpClient.get<Bookshelf[]>(this.baseUrl);
-  // }
+  
 }

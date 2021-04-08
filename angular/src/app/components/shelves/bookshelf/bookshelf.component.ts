@@ -46,8 +46,8 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   reachRate: number;
   goal: number;
   bookshelf: Bookshelf;
-
   bookshelfName: string;
+
   ListingbookshelfItems: any = new MatTableDataSource();
   dataSource: any = new MatTableDataSource();
   columnsToDisplay = ['title', 'author', 'rating', 'status'];
@@ -56,8 +56,8 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<any>;
 
-
-  constructor(private tokenStorageService: TokenStorageService,
+  constructor(
+    private tokenStorageService: TokenStorageService,
     private router: Router,
     private yearPickerService: YearPickerService,
     private bookshelfService: BookshelfService,

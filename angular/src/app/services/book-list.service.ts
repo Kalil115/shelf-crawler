@@ -53,7 +53,7 @@ export class BookListService {
       this.bookshelfItemService.addBookshelfItem(todoBookshelfId, newBookshelfItem).subscribe(
         data => {
           newBookshelfItem = data;
-          this.bookshelfItemList.push(newBookshelfItem);
+          this.bookshelfItemList.push(data);
           this.refresh();
         });
     }
