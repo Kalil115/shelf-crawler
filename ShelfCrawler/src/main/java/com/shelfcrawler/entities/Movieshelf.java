@@ -44,16 +44,7 @@ public class Movieshelf implements Serializable {
 	@OneToMany(mappedBy = "movieshelf", cascade = CascadeType.ALL)
 	private Set<MovieshelfItem> movieshelfItems = new HashSet<>();
 
-//	public void add(MovieshelfItem movieshelfItem) {
-//		if(movieshelfItem != null) {
-//			if(movieshelfItems == null) {
-//				movieshelfItems = new HashSet<>();
-//			}
-//			movieshelfItems.add(movieshelfItem);
-//			movieshelfItem.setMovieshelf(this);
-//		}
-//
-//	}
+
 	
 
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.dto.AddMovieshelf;
 import com.shelfcrawler.entities.Movieshelf;
-import com.shelfcrawler.entities.Movieshelf;
 import com.shelfcrawler.repository.MovieshelfRepository;
 import com.shelfcrawler.service.MovieshelfService;
 

@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shelfcrawler.dto.AddMovieshelf;
-import com.shelfcrawler.dto.AddMovieshelf;
-import com.shelfcrawler.entities.Movieshelf;
 import com.shelfcrawler.entities.Movieshelf;
 import com.shelfcrawler.entities.User;
-import com.shelfcrawler.repository.MovieshelfRepository;
 import com.shelfcrawler.repository.MovieshelfRepository;
 import com.shelfcrawler.repository.UserRepository;
 

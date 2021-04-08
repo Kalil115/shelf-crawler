@@ -48,13 +48,4 @@ public class User implements Serializable {
 		this.role = role;
 	}
 	
-	public void add(Bookshelf bookshelf) {
-		if (bookshelf != null) {
-			if (bookshelves == null) {
-				bookshelves = new HashSet<>();
-			}
-			bookshelves.add(bookshelf);
-			bookshelf.setUser(this);
-		}
-	}
 }
