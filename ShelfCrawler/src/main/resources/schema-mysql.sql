@@ -94,6 +94,7 @@ create table movieshelf_item (
 );
 
 
+
 -- INSERT INTO user (username, password, email, role) VALUES('abby', 'abby123', 'abby@gmail.com', 'USER');
 -- INSERT INTO user (username, password, email, role) VALUES('Bob', 'bob123', 'bob@gmail.com', 'ADMIN');
 -- INSERT INTO user (username, password, email, role) VALUES('Charlie', 'charlie123', 'charlie@gmail.com', 'USER');
@@ -146,22 +147,20 @@ INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('
 INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('IThe Good, the Bad and the Ugly', 'A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.', 'Sergio Leone', 'Clint Eastwood, Eli Wallach, Lee Van Cleef', '1966', 'assets/images/movies/tt0060196.jpg');
 INSERT INTO movie (title, description, director, cast, year, image_url) VALUE ('The Lord of the Rings: The Fellowship of the Ring', 'A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.', 'Peter Jackson', 'Elijah Wood, Ian McKellen, Orlando Bloom', '2001', 'assets/images/movies/tt0120737.jpg');
 
-
-INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.48); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
 INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
-INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2018','1', 50, 1.22); 
-INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2017','1', 100, 1.09);
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.48); 
+INSERT INTO movieshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.48); 
 
-
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 1, "exciting", 8.2, "imdb recommended", "FINISHED", NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 2, "exciting", 8.5, "imdb recommended", "FINISHED", NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 3, null, null, "imdb recommended", 'LISTING', NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 4, null, null, "bpv recommend", 'DNF', NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 5, null, null, null, 'LISTING', NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 6, 'enjoyed it', null, null, 'FINISHED', NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 7, 'not interesting', null, null, 'DNF', NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 8, null, null, null, 'LISTING', NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 9, 'good', null, null, 'FINISHED', NOW());
-INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 10, 'not interesting', null, null, 'DNF', NOW());
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 1, "exciting", 8.2, "imdb recommended", "FINISHED", '2017-01-12');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 2, "exciting", 8.5, "imdb recommended", "FINISHED", '2017-05-27');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (1, 3, null, null, "imdb recommended", 'LISTING', '2017-10-23');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 4, null, null, "bpv recommend", 'DNF', '2017-12-30');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 5, null, null, null, 'LISTING', '2018-02-13');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 6, 'enjoyed it', null, null, 'FINISHED', '2018-05-23');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (2, 7, 'not interesting', null, null, 'DNF', '2018-12-01');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 8, null, null, null, 'LISTING', '2019-07-20');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 9, 'good', null, null, 'FINISHED', '2020-01-20');
+INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 10, 'not interesting', null, null, 'DNF', '2021-01-05');
 
 

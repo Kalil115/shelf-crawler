@@ -13,8 +13,6 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { ProfileComponent } from './components/nav-bar/profile/profile.component';
 
 import { authInterceptorProviders } from 'src/app/helpers/auth.interceptor';
-import { BoardAdminComponent } from './components/board-admin/board-admin.component';
-import { BoardUserComponent } from './components/board-user/board-user.component';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -27,7 +25,6 @@ import { SearchComponent } from './components/nav-bar/search/search.component';
 import { YearPickerComponent } from './components/nav-bar/year-picker/year-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MovieshelfComponent } from './components/shelves/movieshelf/movieshelf.component';
-import { ListingTableComponent } from './components/listing-table/listing-table.component';
 import { BrowseComponent } from './components/browse/browse.component';
 
 
@@ -38,9 +35,7 @@ const routes: Routes = [
   {path:'forget', component: ForgetComponent},
   {path:'browse', component: BrowseComponent},
   {path:'dashboard', component: DashboardComponent},
-  // {path:'admin', component: BoardAdminComponent},
   {path:'users/:username/profile', component: ProfileComponent},
-  // {path:'users/:username', component: BoardUserComponent},
   {path:'bookshelf', component:BookshelfComponent},
   {path:'movies', component:MovieshelfComponent},
   {path:'search/:keyword', component: BrowseComponent},
@@ -55,8 +50,6 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    BoardAdminComponent,
-    BoardUserComponent,
     SidebarComponent,
     DashboardComponent,
     LogoutComponent,
@@ -66,7 +59,6 @@ const routes: Routes = [
     SearchComponent,
     YearPickerComponent,
     MovieshelfComponent,
-    ListingTableComponent,
     BrowseComponent
   ],
   imports: [
