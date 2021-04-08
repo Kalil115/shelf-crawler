@@ -15,6 +15,7 @@ import { AfterViewInit } from '@angular/core';
 import { BookshelfItemService } from 'src/app/services/bookshelf-item.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookListService } from 'src/app/services/book-list.service';
+import { TodoListStorageService } from 'src/app/services/todo-list-storage.service';
 
 @Component({
   selector: 'app-bookshelf',
@@ -45,7 +46,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   reachRate: number;
   goal: number;
   bookshelf: Bookshelf;
-  
+
   bookshelfName: string;
   ListingbookshelfItems: any = new MatTableDataSource();
   dataSource: any = new MatTableDataSource();
@@ -62,7 +63,8 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     private bookshelfService: BookshelfService,
     private bookshelfItemService: BookshelfItemService,
     private bookListService: BookListService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private todoListStorageService: TodoListStorageService
   ) { }
 
   ngOnInit(): void {
@@ -72,21 +74,21 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     } else {
 
 
-    this.yearPickerService.currentYear.subscribe(data => {
-      this.currentYear = data;
-      this.getBookshelfByUserIdAndBookshelfName(this.user.id, data);
-    });
+      this.yearPickerService.currentYear.subscribe(data => {
+        this.currentYear = data;
+        this.getBookshelfByUserIdAndBookshelfName(this.user.id, data);
+      });
 
-    this.updateListingBookshelfItems();
+      this.updateListingBookshelfItems();
 
 
-    this.bookshelfItemForm = this.formBuilder.group({
-      'id': ['', Validators.required],
-      'rating': [''],
-      'reason': [''],
-      'status': ['', Validators.required],
-      'comment': [],
-    });
+      this.bookshelfItemForm = this.formBuilder.group({
+        'id': ['', Validators.required],
+        'rating': [''],
+        'reason': [''],
+        'status': ['', Validators.required],
+        'comment': [],
+      });
     }
   }
 
@@ -103,7 +105,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
           this.bookshelfName = found.name;
           this.reachRate = found.reachRate * 100;
           this.goal = found.goal;
-          this.dataSource = new MatTableDataSource(found.bookshelfItems.filter(item => item.status != 'LISTING'));
+          this.dataSource = new MatTableDataSource(found.bookshelfItems);
           this.dataSource.sort = this.sort;
         } else {
           this.bookshelf = new Bookshelf();
@@ -117,7 +119,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   }
 
   updateListingBookshelfItems() {
-      this.bookListService.bookshelfItemListSubject.subscribe(
+    this.bookListService.bookshelfItemListSubject.subscribe(
       data => this.ListingbookshelfItems = new MatTableDataSource(data)
     );
   }
@@ -125,22 +127,26 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   editGoal() {
     const newGoal = this.editGoalForm.newGoal;
     if (this.bookshelf.id && newGoal) {
-      const newBookshelf = new Bookshelf();
-      newBookshelf.id = this.bookshelf.id;
-      newBookshelf.name = this.bookshelfName;
-      newBookshelf.goal = newGoal;
-      newBookshelf.reachRate = this.computeReachRate(this.bookshelf, newGoal);
-      this.bookshelfService.updateBookshelfGoal(newBookshelf).subscribe();
+      this.bookshelf.goal = newGoal;
+      this.computeReachRate(this.bookshelf);
     }
   }
 
-  computeReachRate(bookshelf: Bookshelf, newGoal: number): number {
-    const bookshelfItems = bookshelf.bookshelfItems;
-    const count: number = bookshelfItems.filter(item => item.rating != null && item.status === 'FINISHED').length;
-    const reachRate: number = +(count / newGoal).toFixed(2);
-    this.reachRate = reachRate * 100;
-    this.goal = newGoal;
-    return reachRate;
+  computeReachRate(bookshelf: Bookshelf): void {
+    const goal = bookshelf.goal;
+    let count = 0;
+    const element = bookshelf.bookshelfItems;
+    for (let i = 0; i < element.length; i++) {
+      if (element[i].rating > 0 && element[i].status === 'FINISHED') {
+
+        count++;
+      }
+    }
+    const newReachRate: number = +(count / goal).toFixed(2);
+    bookshelf.reachRate = newReachRate;
+    this.reachRate = newReachRate * 100;
+    this.goal = goal;
+    this.bookshelfService.updateBookshelfGoal(bookshelf).subscribe();
   }
 
   buildShelf() {
@@ -176,21 +182,34 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     bookshelfItem.reason = formValue.reason;
     bookshelfItem.status = formValue.status;
     bookshelfItem.comment = formValue.comment;
-    this.bookshelfItemService.updateBookshelfItem(this.bookshelf.id, bookshelfItem).subscribe();
 
-    // update currrent bookshelf and datasources
-    const idx = this.bookshelf.bookshelfItems.findIndex(item => item.id == bookshelfItem.id)
-    if (idx != -1) {
-      this.bookshelf.bookshelfItems[idx] = bookshelfItem;
+    let bookshelfId = undefined;
+
+    if (bookshelfItem.status == 'LISTING') {
+      bookshelfId = this.todoListStorageService.getbookshelfId();
     } else {
-      this.bookshelf.bookshelfItems.push(bookshelfItem);
+      bookshelfId = this.bookshelf.id;
     }
-    this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems.filter(item => item.status != 'LISTING'));
-    
-    
+    this.bookshelfItemService.updateBookshelfItem(bookshelfId, bookshelfItem).subscribe(
+      data => { 
+        this.ListingbookshelfItems = new MatTableDataSource(data.find(bookshelf => bookshelf.name === 'todo').bookshelfItems);
 
-    // update reachrate
-    this.computeReachRate(this.bookshelf, this.bookshelf.goal);
+        const currentBookshelf = data.find(bookshelf => bookshelf.name != 'todo');
+        if(currentBookshelf){
+          this.bookshelf= currentBookshelf;
+          this.computeReachRate(currentBookshelf);
+          this.dataSource = new MatTableDataSource(currentBookshelf.bookshelfItems);
+        }else {
+          const idx = this.bookshelf.bookshelfItems.findIndex(item => item.id == bookshelfItem.id);
+          if(idx> 0) {
+            this.bookshelf.bookshelfItems.splice(idx, 1);
+            this.computeReachRate(this.bookshelf);
+            this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems);
+          }
+        }
+        
+      }
+    );
   }
 
   deleteListingItem() {
@@ -198,12 +217,11 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
 
     this.bookshelfItemService.deleteListingItem(currentBookshelfItemId).subscribe();
 
-   const idx = this.ListingbookshelfItems.findIndex(item => item.id == currentBookshelfItemId);
-    
-    
+    const idx = this.ListingbookshelfItems.findIndex(item => item.id == currentBookshelfItemId);
+
     if (idx != -1) {
       this.bookshelf.bookshelfItems.splice(idx, 1);
-    } 
+    }
     const newList = this.ListingbookshelfItems;
 
     this.bookListService.update(newList);

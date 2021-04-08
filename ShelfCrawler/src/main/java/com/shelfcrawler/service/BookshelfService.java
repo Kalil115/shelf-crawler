@@ -31,9 +31,11 @@ public class BookshelfService {
 	
 	public Bookshelf updateBookshelfGoal(Bookshelf bookshelf) {
 		
-		Bookshelf old = bookshelfRepository.findById(bookshelf.getId()).get();
-		bookshelf.setUser(old.getUser());
-		return bookshelfRepository.save(bookshelf);
+		Bookshelf editbookshelf = bookshelfRepository.findById(bookshelf.getId()).get();
+		editbookshelf.setGoal(bookshelf.getGoal());
+		editbookshelf.setReachRate(bookshelf.getReachRate());
+		
+		return bookshelfRepository.save(editbookshelf);
 		
 	}
 

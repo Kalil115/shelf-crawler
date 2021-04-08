@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateBookshelfItem {
+	private Long todoBookshelfId;
 	private Long bookshelfId;
 	private BookshelfItem bookshelfItem;
 }

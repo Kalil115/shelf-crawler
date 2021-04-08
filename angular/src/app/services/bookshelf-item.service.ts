@@ -2,7 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Book } from '../common/book';
+import { Bookshelf } from '../common/bookshelf';
 import { BookshelfItem } from '../common/bookshelf-items';
+import { TodoListStorageService } from './todo-list-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,8 @@ export class BookshelfItemService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private todoListStorageService: TodoListStorageService) { }
 
 
   findBookshelfItemById(bookshelfItemId: number): Observable<BookshelfItem> {
@@ -23,10 +26,12 @@ export class BookshelfItemService {
   }
 
 
-  updateBookshelfItem(bookshelfId: number, bookshelfItem: BookshelfItem): Observable<BookshelfItem> {
+  updateBookshelfItem(bookshelfId: number, bookshelfItem: BookshelfItem): Observable<Bookshelf[]> {
     const url = this.baseUrl + "/" + bookshelfItem.id;
-    return this.httpClient.put<BookshelfItem>(url,
+    const todoBookshelfId = this.todoListStorageService.getbookshelfId();
+    return this.httpClient.put<Bookshelf[]>(url,
       {
+        todoBookshelfId,
         bookshelfId,
         bookshelfItem
       },this.httpOptions);

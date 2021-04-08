@@ -6,6 +6,7 @@ import { BookshelfItem } from '../common/bookshelf-items';
 import { BookshelfComponent } from '../components/shelves/bookshelf/bookshelf.component';
 import { BookshelfItemService } from './bookshelf-item.service';
 import { BookshelfService } from './bookshelf.service';
+import { TodoListStorageService } from './todo-list-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class BookListService {
   bookshelfItemList: BookshelfItem[] = [];
 
   constructor(private bookshelfItemService: BookshelfItemService,
-    private bookshelfService: BookshelfService) { }
+    private bookshelfService: BookshelfService,
+    private todoListStorageService:TodoListStorageService) { }
 
   fetchInitData(userId: number) {
     this.bookshelfService.getBookshelfByUserId(userId).subscribe(
@@ -26,12 +28,14 @@ export class BookListService {
         const found = data.find(bookshelf => bookshelf.name === "todo");
         if (found) {
           this.bookshelfItemList = found.bookshelfItems;
+          this.todoListStorageService.savebookshelfId(found.id);
           this.refresh();
         }
       });
   }
 
-  addToList(bookshelfId: number, newBook: Book) {
+  // add a new book fromo browse component
+  addToBookTodoList(newBook: Book) {
 
     let newBookshelfItem: BookshelfItem = new BookshelfItem();
     newBookshelfItem.book = newBook;
@@ -44,7 +48,9 @@ export class BookListService {
     }
 
     if (duplicate == undefined) {
-      this.bookshelfItemService.addBookshelfItem(bookshelfId, newBookshelfItem).subscribe(
+    const todoBookshelfId = this.todoListStorageService.getbookshelfId();
+
+      this.bookshelfItemService.addBookshelfItem(todoBookshelfId, newBookshelfItem).subscribe(
         data => {
           newBookshelfItem = data;
           this.bookshelfItemList.push(newBookshelfItem);

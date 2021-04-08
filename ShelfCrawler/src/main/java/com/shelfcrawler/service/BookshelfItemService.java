@@ -1,5 +1,8 @@
 package com.shelfcrawler.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +26,21 @@ public class BookshelfItemService {
 	BookshelfRepository bookshelfRepository;
 	
 	
-	public BookshelfItem updateBookshelfItem(UpdateBookshelfItem updateBookshelfItem) {
-		Long bookshelfId = updateBookshelfItem.getBookshelfId();
+	public List<Bookshelf> updateBookshelfItem(UpdateBookshelfItem updateBookshelfItem) {
+		Long currentBookshelfId = updateBookshelfItem.getBookshelfId();
 		BookshelfItem newItem = updateBookshelfItem.getBookshelfItem();
-		Bookshelf bookshelf = bookshelfRepository.findById(bookshelfId).get();
-		BookshelfItem old = bookshelfItemRepository.findById(newItem.getId()).get();
 		
+		Bookshelf currentBookshelf = bookshelfRepository.findById(currentBookshelfId).get();
+		BookshelfItem old = bookshelfItemRepository.findById(newItem.getId()).get();
 		newItem.setBook(old.getBook());
-		newItem.setBookshelf(bookshelf);
+		newItem.setBookshelf(currentBookshelf);
 		newItem.setDateCreated(old.getDateCreated());
-		return bookshelfItemRepository.save(newItem);
+		bookshelfItemRepository.save(newItem);
+		
+		
+		List<Bookshelf> res = new ArrayList<>();
+		res.add(bookshelfRepository.findById(currentBookshelfId).get());
+		return bookshelfRepository.findAllById(Arrays.asList(currentBookshelfId, updateBookshelfItem.getTodoBookshelfId()));
 		
 	}
 	

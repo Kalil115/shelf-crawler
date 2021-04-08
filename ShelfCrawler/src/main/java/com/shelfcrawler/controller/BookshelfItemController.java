@@ -1,5 +1,7 @@
 package com.shelfcrawler.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.dto.AddBookshelfItem;
 import com.shelfcrawler.dto.UpdateBookshelfItem;
+import com.shelfcrawler.entities.Bookshelf;
 import com.shelfcrawler.entities.BookshelfItem;
 import com.shelfcrawler.repository.BookshelfItemRepository;
 import com.shelfcrawler.service.BookshelfItemService;
@@ -32,8 +35,9 @@ public class BookshelfItemController {
 	}
 
 	@PutMapping("/{id}")
-	public BookshelfItem updateBookshelfItem(@PathVariable("id") Long id, @RequestBody UpdateBookshelfItem updateBookshelfItem) {
-		return bookshelfItemService.updateBookshelfItem(updateBookshelfItem);
+	public List<Bookshelf> updateBookshelfItem(@PathVariable("id") Long id, @RequestBody UpdateBookshelfItem updateBookshelfItem) {
+		List<Bookshelf> res = bookshelfItemService.updateBookshelfItem(updateBookshelfItem);
+		return res;
 	}
 
 	@PostMapping

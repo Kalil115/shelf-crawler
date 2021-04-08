@@ -18,8 +18,6 @@ export class BrowseComponent implements OnInit {
   books: Book[];
   movies: Movie[];
 
-  userTodoBookshelfId: number;
-
   pageNumber: number = 1;
   pageSize: number = 8;
   totalElements: number = 0;
@@ -34,24 +32,10 @@ export class BrowseComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => this.listItems());
-    this.getTodoLists();
-
-
-
-  }
-
-  getTodoLists() {
     const user = this.tokenStorageService.getUser();
     if (user == null) {
       this.router.navigate(['/login']);
-    } else {
-      this.bookshelfService.getBookshelfByUserId(user.id).subscribe(
-        data => {
-          this.userTodoBookshelfId = data.find(bookshelf => bookshelf.name === 'todo').id;
-        });
     }
-
-
   }
 
   listItems() {
@@ -81,7 +65,7 @@ export class BrowseComponent implements OnInit {
   }
 
   addToList(book: Book) {
-    this.bookListService.addToList(this.userTodoBookshelfId, book);
+    this.bookListService.addToBookTodoList(book);
   }
 
 
