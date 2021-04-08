@@ -27,14 +27,14 @@ export class MovieshelfItemService {
   }
 
 
-  updateMovieshelfItem(shelfId: number, shelfItem: MovieshelfItem): Observable<Movieshelf[]> {
-    const url = this.baseUrl + "/" + shelfItem.id;
+  updateMovieshelfItem(movieshelfId: number, movieshelfItem: MovieshelfItem): Observable<Movieshelf[]> {
+    const url = this.baseUrl + "/" + movieshelfItem.id;
     const todoMovieshelfId = this.todoListStorageService.getMovieshelfId();
     return this.httpClient.put<Movieshelf[]>(url,
       {
         todoMovieshelfId,
-        shelfId,
-        shelfItem
+        movieshelfId,
+        movieshelfItem
       }, this.httpOptions);
   }
 

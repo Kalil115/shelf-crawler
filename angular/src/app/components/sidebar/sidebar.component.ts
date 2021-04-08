@@ -27,7 +27,9 @@ export class SidebarComponent implements OnInit {
     this.user = this.tokenStorageService.getUser();
     if(this.user){
       this.bookListService.fetchInitData(this.user.id);
+      this.movieListService.fetchInitData(this.user.id);
     }
+
     this.updateAllListSize();
   }
 
