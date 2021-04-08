@@ -266,3 +266,38 @@ INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, sta
 INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (4, 7, "All the unique characters have depth and are well developed.", "8.5", "imdb recommended", "FINISHED", '2017-01-12');
 
 
+
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('It Takes Two','Bring your favorite co-op partner and together step into the shoes of May and Cody. As the couple is going through a divorce, through unknown means their minds are transported into two dolls which their daughter, Rose, made to represent them. Now they must reluctantly find a way to get back into their bodies, a quest which takes them through the most wild, unexpected and fantastical journey imaginable.','steam','2021','assets/images/games/co2t97.jpg');
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('Disco Elysium', 'A CRPG in which, waking up in a hotel room a total amnesiac with highly opinionated voices in his head, a middle-aged detective on a murder case inadvertently ends up playing a part in the political dispute between a local labour union and a larger international body, all while struggling to piece together his past, diagnose the nature of the reality around him and come to terms with said reality.', 'steam, GOG, Epic', '2019', 'assets/images/games/co1sfj.jpg');
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('The Witcher 3: Wild Hunt', 'RPG and sequel to The Witcher 2 (2011), The Witcher 3 follows witcher Geralt of Rivia as he seeks out his former lover and his young subject while intermingling with the political workings of the wartorn Northern Kingdoms. Geralt has to fight monsters and deal with people of all sorts in order to solve complex problems and settle contentious disputes, each ranging from the personal to the world-changing.', 'steam, GOG, Epic', '2015', 'assets/images/games/co1wyy.jpg');
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('God of War', 'It is a new beginning for Kratos. Living as a man, outside the shadow of the gods, he seeks solitude in the unfamiliar lands of Norse mythology. With new purpose and his son at his side, Kratos must fight for survival as powerful forces threaten to disrupt the new life he has created...', 'PlayStation', '2018', 'assets/images/games/co1tmu.jpg'); 
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('The Last of Us', 'A third person shooter/stealth/survival hybrid, in which twenty years after the outbreak of a parasitic fungus which takes over the neural functions of humans, Joel, a Texan with a tragic familial past, finds himself responsible with smuggling a fourteen year old girl named Ellie to a militia group called the Fireflies, while avoiding strict and deadly authorities, infected fungal hosts and other violent survivors.', 'PlayStation', '2013', 'assets/images/games/co1r7f.jpg');
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('Paper Mario: The Thousand-Year Door', 'Time passes, the pages turn…and a new chapter unfolds in an unfamiliar land! Get ready for a two-dimensional role-playing adventure for the ages as Mario returns to paper form to discover a mystery that sleeps behind an ancient, legendary portal called the Thousand-Year Door. The quest is long, the dangers many, and this time, Mario will have to make full use of his papery qualities just to survive.', 'Nintendo GameCube', '2004', 'assets/images/games/co25us.jpg');
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('Chrono Trigger', 'In this turn-based Japanese RPG, young Crono must travel through time through a misfunctioning teleporter to rescue his misfortunate companion and take part in an intricate web of past and present perils. The adventure that ensues soon unveils an evil force set to destroy the world, triggering Crono\'s race against time to change the course of history and bring about a brighter future.', 'PC, Mobile, Console', '1995', 'assets/images/games/co2eqc.jpg'); 
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('Persona 5', 'Persona 5, a turn-based JRPG with visual novel elements, follows a high school student with a criminal record for a crime he didn\'t commit. Soon he meets several characters who share similar fates to him, and discovers a metaphysical realm which allows him and his friends to channel their pent-up frustrations into becoming a group of vigilantes reveling in aesthetics and rebellion while fighting corruption.', 'PlayStation', '2016', 'assets/images/games/co1r76.jpg');
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('Metal Gear Solid 3: Snake Eater', 'A stealth action/survival game and prequel to Metal Gear Solid 1 (1998) and 2 (2001), MGS3 follows Naked Snake as he trudges through rain forests and swamps in order to clear the name of the American government of suspicion at detonating a nuclear missile within Soviet soil by dispatching the organization behind the act, in a story of shifting allegiances, deception, warfare, mentorship and sexuality.', 'PlayStation', '2014', 'assets/images/games/co29pn.jpg');
+INSERT INTO game (title, description, platform, year, image_url) VALUES ('Super Mario World', 'A 2D platformer and first entry on the SNES in the Super Mario franchise, Super Mario World follows Mario as he attempts to defeat Bowser\'s underlings and rescue Princess Peach from his clutches. The game features a save system, a less linear world map, an expanded movement arsenal and numerous new items for Mario, alongside new approaches to level design and art direction.', 'Nintendo switch', '1990', 'assets/images/games/co2v5y.jpg');
+
+
+INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
+INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.02); 
+INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04); 
+INSERT INTO gameshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.0); 
+
+
+
+INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (4, 1, 'I love the fact that they made it so only one of you has to buy the full game. I really appreciate that.', 8.5, null, 'FINISHED', '2021-3-25');
+INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (3, 2, null, null, 'friend recommend', 'LISTING', '2020-10-05');
+INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (1, 3, null, null, null, 'LISTING', '2018-03-24');
+INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (2, 4, null, '8.5', null, 'FINISHED', '2019-01-08');
+INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (3, 5, null, null, null,'DNF', '2015-05-23');
+INSERT INTO gameshelf_item (gameshelf_id, game_id, comment, rating, reason, status, date_created) VALUES (4, 6, null, null, null, 'IN_PROGRESS', '2019-05-23');
+
+
+
+
+
+
+
+
+
