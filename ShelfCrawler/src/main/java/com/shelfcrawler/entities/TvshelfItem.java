@@ -35,7 +35,7 @@ public class TvshelfItem implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "tvshelfId")
+	@JoinColumn(name = "tvshelf_Id")
 	@JsonBackReference
 	private Tvshelf tvshelf;
 

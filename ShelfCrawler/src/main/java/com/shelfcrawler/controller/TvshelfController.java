@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.dto.AddTvshelf;
 import com.shelfcrawler.entities.Tvshelf;
-import com.shelfcrawler.entities.Tvshelf;
 import com.shelfcrawler.repository.TvshelfRepository;
 import com.shelfcrawler.service.TvshelfService;
 

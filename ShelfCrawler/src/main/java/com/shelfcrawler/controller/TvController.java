@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfcrawler.entities.TvSeries;
-import com.shelfcrawler.repository.TvRepository;
+import com.shelfcrawler.repository.TvSeriesRepository;
 
 @RestController
 @RequestMapping("/tvs")
 public class TvController {
 
 	@Autowired
-	TvRepository tvRepository;
+	TvSeriesRepository tvRepository;
 
 	@GetMapping
 	public Page<TvSeries> findAllTv(@Param("page") Integer page, @Param("size") Integer size) {
@@ -25,13 +25,4 @@ public class TvController {
 		return tvRepository.findAll(pageable);
 	}
 
-//	@PostMapping
-//	public Tv saveTv(@RequestBody Tv tv) {
-//		return tvRepository.save(tv);
-//	}
-//
-//	@PutMapping
-//	public Tv updateTv(@RequestBody Tv tv) {
-//		return tvRepository.save(tv);
-//	}
 }

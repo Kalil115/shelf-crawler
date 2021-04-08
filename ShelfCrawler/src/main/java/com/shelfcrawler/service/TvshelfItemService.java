@@ -54,7 +54,6 @@ public class TvshelfItemService {
 			return tvshelfItemRepository.save(tvshelfItem);
 		}
 		return tvshelfItem;
-		
 	}
 
 	public Tvshelf deleteTvshelfItemOfListingStatus(Long id) {
@@ -64,5 +63,6 @@ public class TvshelfItemService {
 			tvshelfItemRepository.deleteById(id);
 		}
 		return tvshelfRepository.findById(toBeDeleted.getTvshelf().getId()).get();
+		
 	}
 }

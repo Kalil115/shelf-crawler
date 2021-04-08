@@ -27,6 +27,8 @@ public class TvshelfService {
 		newTvshelf.setReachRate(0.0);
 		newTvshelf.setUser(user);
 		return tvshelfRepository.save(newTvshelf);
+	
+				
 	}
 	
 	public Tvshelf updateTvshelfGoal(Tvshelf tvshelf) {
@@ -36,7 +38,7 @@ public class TvshelfService {
 		edittvshelf.setReachRate(tvshelf.getReachRate());
 		
 		return tvshelfRepository.save(edittvshelf);
-		
+	
 	}
 
 }
