@@ -238,3 +238,31 @@ INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, s
 INSERT INTO movieshelf_item (movieshelf_id, movie_id, comment, rating, reason, status, date_created) VALUES (3, 10, 'not interesting', null, null, 'DNF', '2021-01-05');
 
 
+
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('Breaking Bad', 'A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family\'s future.', '2008', 'assets/images/tvs/tt0903747.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('Game of Thrones', 'Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.', '2011', 'assets/images/tvs/tt0944947.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('The Wire', 'The Baltimore drug scene, as seen through the eyes of drug dealers and law enforcement.', '2002', 'assets/images/tvs/tt0306414.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('The Sopranos', 'New Jersey mob boss Tony Soprano deals with personal and professional issues in his home and business life that affect his mental state, leading him to seek professional psychiatric counseling.', '1999', 'assets/images/tvs/tt0141842.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('Rick and Morty', 'An animated series that follows the exploits of a super scientist and his not-so-bright grandson.', '2013', 'assets/images/tvs/tt2861424.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('Attack on Titan', 'After his hometown is destroyed and his mother is killed, young Eren Jaeger vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.', '2013', 'assets/images/tvs/tt2560140.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('The Office', 'A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior, and tedium.', '2005', 'assets/images/tvs/tt0386676.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('Friends', 'Follows the personal and professional lives of six twenty to thirty-something-year-old friends living in Manhattan.', '1994', 'assets/images/tvs/tt0108778.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('Fargo','Various chronicles of deception, intrigue and murder in and around frozen Minnesota. Yet all of these tales mysteriously lead back one way or another to Fargo, North Dakota.','2014','assets/images/tvs/tt2802850.jpg');
+INSERT INTO tv_series (title, description, year, image_url) VALUE ('Invincible', 'An adult animated series based on the Skybound/Image comic about a teenager whose father is the most powerful superhero on the planet.', '2021', 'assets/images/tvs/tt6741278.jpg');
+
+
+INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
+INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.02); 
+INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04); 
+INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.0); 
+
+
+INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (1, 1, null, null, "imdb recommended", "LISTING", '2017-01-12');
+INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (1, 2, null, null, null, "LISTING", '2021-01-12');
+INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (3, 3, "The show is a cross between the Sopranos and the old NBC show Homicide: Life on the Street. The crime/sopranos side and the law/Homicide side run in parallel. Individually, the parallel plot lines are compelling. In tandem, they are complimentary and brilliant.", 8, "friend recommended", "FINISHED", '2020-04-12');
+INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (3, 4, null, null, null, "DNF", '2019-10-12');
+INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (4, 5, "amazing", null, null, "IN_PROGRESS", '2018-09-12');
+INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (4, 6, "This anime is great work", null, "friend recommended", "IN_PROGRESS", '2019-09-12');
+INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (4, 7, "All the unique characters have depth and are well developed.", "8.5", "imdb recommended", "FINISHED", '2017-01-12');
+
+
