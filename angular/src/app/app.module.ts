@@ -25,7 +25,9 @@ import { SearchComponent } from './components/nav-bar/search/search.component';
 import { YearPickerComponent } from './components/nav-bar/year-picker/year-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MovieshelfComponent } from './components/shelves/movieshelf/movieshelf.component';
-import { BrowseComponent } from './components/browse/browse.component';
+import { NewBookComponent } from './components/browse/new-book/new-book.component';
+import { NewMovieComponent } from './components/browse/new-movie/new-movie.component';
+import { TvshelfComponent } from './components/shelves/tvshelf/tvshelf.component';
 
 
 const routes: Routes = [
@@ -33,33 +35,37 @@ const routes: Routes = [
   {path:'signup', component: RegisterComponent},
   {path:'logout', component: LogoutComponent},
   {path:'forget', component: ForgetComponent},
-  {path:'browse', component: BrowseComponent},
+  {path:'browse/books', component: NewBookComponent},
+  {path:'browse/movies', component: NewMovieComponent},
   {path:'dashboard', component: DashboardComponent},
   {path:'users/:username/profile', component: ProfileComponent},
   {path:'bookshelf', component:BookshelfComponent},
   {path:'movieshelf', component:MovieshelfComponent},
-  {path:'search/:keyword', component: BrowseComponent},
-  {path:'', component: BrowseComponent},
+  {path:'tvshelf', component:TvshelfComponent},
+  {path:'search/:keyword', component: NewBookComponent},
+  {path:'', component: NewBookComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookshelfComponent,
     LoginComponent,
+    LogoutComponent,
+    ForgetComponent,
     RegisterComponent,
+    LoginStatusComponent,
     ProfileComponent,
     SidebarComponent,
     DashboardComponent,
-    LogoutComponent,
-    ForgetComponent,
     NavBarComponent,
-    LoginStatusComponent,
     SearchComponent,
     YearPickerComponent,
+    BookshelfComponent,
     MovieshelfComponent,
-    BrowseComponent
+    TvshelfComponent,
+    NewBookComponent,
+    NewMovieComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

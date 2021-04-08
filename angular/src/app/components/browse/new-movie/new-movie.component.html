@@ -1,0 +1,26 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-3 grid-margin stretch-card" *ngFor="let tempMovie of movies">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-dark">{{tempMovie.title}}</h5>
+                    <div class="text-center"><img class="img-thumbnail" src="{{tempMovie.imageUrl}}"></div>
+                    
+                    <ul class="card-description">
+                        <li>Year: {{tempMovie.year}}</li>
+                        <li>Director: {{tempMovie.director}}</li>
+                        <li>Descrpition: <p class="description">{{tempMovie.description}}</p></li>
+                    </ul>
+                    <button class="btn btn-primary" (click)="addToList(tempMovie)">add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-pagination">
+        <ngb-pagination [(page)] = "pageNumber"
+                        [pageSize] = "pageSize"
+                        [collectionSize] = "totalElements"
+                        (pageChange) = "listItems()">
+        </ngb-pagination>
+    </div>
+</div>
