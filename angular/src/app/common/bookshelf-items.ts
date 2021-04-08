@@ -10,5 +10,5 @@ export class BookshelfItem {
     status: string;
     dateCreated: Date;
     lastUpdated: Date;
-    
+
 }

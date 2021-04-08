@@ -7,5 +7,5 @@ export class Movie {
     cast: string;
     year: number;
     imageUrl: string;
-    
+
 }
