@@ -9,6 +9,7 @@ import com.shelfcrawler.dto.AddBookshelfItem;
 import com.shelfcrawler.dto.UpdateBookshelfItem;
 import com.shelfcrawler.entities.Bookshelf;
 import com.shelfcrawler.entities.BookshelfItem;
+import com.shelfcrawler.entities.ItemStatus;
 import com.shelfcrawler.repository.BookshelfItemRepository;
 import com.shelfcrawler.repository.BookshelfRepository;
 
@@ -45,6 +46,14 @@ public class BookshelfItemService {
 			return bookshelfItemRepository.save(bookshelfItem);
 		}
 		return bookshelfItem;
+		
+	}
+
+	public void deleteBookshelfItemOfListingStatus(Long id) {
+		BookshelfItem toBeDeleted = bookshelfItemRepository.findById(id).get();
+		if(toBeDeleted.getStatus() == ItemStatus.LISTING) {
+			bookshelfItemRepository.deleteById(id);
+		}
 		
 	}
 }

@@ -118,7 +118,7 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
 
   updateListingBookshelfItems() {
       this.bookListService.bookshelfItemListSubject.subscribe(
-      data => this.ListingbookshelfItems = data
+      data => this.ListingbookshelfItems = new MatTableDataSource(data)
     );
   }
 
@@ -187,12 +187,26 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     }
     this.dataSource = new MatTableDataSource(this.bookshelf.bookshelfItems.filter(item => item.status != 'LISTING'));
     
-    this.bookListService.update(this.bookshelf.bookshelfItems.filter(item => item.status == "LISTING"));
-
-   
+    
 
     // update reachrate
     this.computeReachRate(this.bookshelf, this.bookshelf.goal);
+  }
+
+  deleteListingItem() {
+    const currentBookshelfItemId = this.bookshelfItemForm.value.id;
+
+    this.bookshelfItemService.deleteListingItem(currentBookshelfItemId).subscribe();
+
+   const idx = this.ListingbookshelfItems.findIndex(item => item.id == currentBookshelfItemId);
+    
+    
+    if (idx != -1) {
+      this.bookshelf.bookshelfItems.splice(idx, 1);
+    } 
+    const newList = this.ListingbookshelfItems;
+
+    this.bookListService.update(newList);
   }
 }
 

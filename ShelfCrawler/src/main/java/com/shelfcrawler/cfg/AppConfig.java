@@ -1,6 +1,7 @@
 package com.shelfcrawler.cfg;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -10,6 +11,6 @@ public class AppConfig implements WebMvcConfigurer{
 	        
 	@Override
 	public void addCorsMappings(CorsRegistry cors) {		
-		cors.addMapping("/**").allowedOrigins("*").allowedMethods("*");
+		cors.addMapping("/**").allowedOrigins("*").allowedMethods("*", HttpMethod.DELETE.toString());
 	}
 }
