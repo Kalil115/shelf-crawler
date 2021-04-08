@@ -46,7 +46,7 @@ public class BookshelfItemController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteBookshelfItemOfListingStatus(@PathVariable("id") Long id) {
-		bookshelfItemService.deleteBookshelfItemOfListingStatus(id);
+	public Bookshelf deleteBookshelfItemOfListingStatus(@PathVariable("id") Long id) {
+		return bookshelfItemService.deleteBookshelfItemOfListingStatus(id);
 	}
 }

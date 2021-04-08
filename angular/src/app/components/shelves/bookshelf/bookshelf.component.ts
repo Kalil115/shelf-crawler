@@ -192,7 +192,9 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
     }
     this.bookshelfItemService.updateBookshelfItem(bookshelfId, bookshelfItem).subscribe(
       data => { 
-        this.ListingbookshelfItems = new MatTableDataSource(data.find(bookshelf => bookshelf.name === 'todo').bookshelfItems);
+        const newList = (data.find(bookshelf => bookshelf.name === 'todo').bookshelfItems);
+        this.ListingbookshelfItems = new MatTableDataSource(newList);
+        this.bookListService.update(newList);
 
         const currentBookshelf = data.find(bookshelf => bookshelf.name != 'todo');
         if(currentBookshelf){
@@ -215,16 +217,13 @@ export class BookshelfComponent implements OnInit, AfterViewInit {
   deleteListingItem() {
     const currentBookshelfItemId = this.bookshelfItemForm.value.id;
 
-    this.bookshelfItemService.deleteListingItem(currentBookshelfItemId).subscribe();
-
-    const idx = this.ListingbookshelfItems.findIndex(item => item.id == currentBookshelfItemId);
-
-    if (idx != -1) {
-      this.bookshelf.bookshelfItems.splice(idx, 1);
-    }
-    const newList = this.ListingbookshelfItems;
-
-    this.bookListService.update(newList);
+    this.bookshelfItemService.deleteListingItem(currentBookshelfItemId).subscribe(
+      data => {
+      const newList = data.bookshelfItems;
+      this.ListingbookshelfItems = new MatTableDataSource(newList);
+      this.bookListService.update(newList);
+  });
+    
   }
 }
 

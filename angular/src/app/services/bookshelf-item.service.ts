@@ -41,8 +41,8 @@ export class BookshelfItemService {
     return this.httpClient.post<BookshelfItem>(this.baseUrl, {bookshelfId, bookshelfItem},this.httpOptions);
   }
 
-  deleteListingItem(bookshelfItemId: number) : Observable<void> {
-    return this.httpClient.delete<void>(this.baseUrl + "/" + bookshelfItemId);
+  deleteListingItem(bookshelfItemId: number) : Observable<Bookshelf> {
+    return this.httpClient.delete<Bookshelf>(this.baseUrl + "/" + bookshelfItemId);
   }
 
 }

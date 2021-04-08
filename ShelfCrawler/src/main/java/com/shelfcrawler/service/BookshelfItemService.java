@@ -57,11 +57,12 @@ public class BookshelfItemService {
 		
 	}
 
-	public void deleteBookshelfItemOfListingStatus(Long id) {
+	public Bookshelf deleteBookshelfItemOfListingStatus(Long id) {
 		BookshelfItem toBeDeleted = bookshelfItemRepository.findById(id).get();
+		toBeDeleted.getBookshelf().getId();
 		if(toBeDeleted.getStatus() == ItemStatus.LISTING) {
 			bookshelfItemRepository.deleteById(id);
 		}
-		
+		return bookshelfRepository.findById(toBeDeleted.getBookshelf().getId()).get();
 	}
 }
