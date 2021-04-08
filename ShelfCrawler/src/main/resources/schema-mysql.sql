@@ -39,7 +39,7 @@ CREATE TABLE book (
 
 CREATE TABLE bookshelf (
 	id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) UNIQUE,
+    name VARCHAR(255),
     user_id BIGINT(20) NOT NULL,
     goal INT NOT NULL,
     reach_rate FLOAT,
@@ -110,7 +110,7 @@ create table tv_series (
 
 create table tvshelf (
 	id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) UNIQUE,
+    name VARCHAR(255),
     user_id BIGINT(20) NOT NULL,
     goal INT NOT NULL,
     reach_rate FLOAT,
@@ -145,7 +145,7 @@ create table game (
 
 create table gameshelf (
 	id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) UNIQUE,
+    name VARCHAR(255),
     user_id BIGINT(20) NOT NULL,
     goal INT NOT NULL,
     reach_rate FLOAT,

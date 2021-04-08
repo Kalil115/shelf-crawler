@@ -44,7 +44,13 @@ public class Movieshelf implements Serializable {
 	@OneToMany(mappedBy = "movieshelf", cascade = CascadeType.ALL)
 	private Set<MovieshelfItem> movieshelfItems = new HashSet<>();
 
+	public Movieshelf() {}
 
-	
+	public Movieshelf(User user) {
+		this.user = user;
+		this.name = "todo";
+		this.goal = 0;
+		this.reachRate = 0.0;
+	}
 
 }

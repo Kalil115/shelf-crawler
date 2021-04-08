@@ -27,6 +27,7 @@ import com.shelfcrawler.security.dto.MessageResponse;
 import com.shelfcrawler.security.dto.SignupRequest;
 import com.shelfcrawler.security.jwt.JwtUtils;
 import com.shelfcrawler.security.services.UserDetailsImpl;
+import com.shelfcrawler.service.InitshelvesService;
 import com.shelfcrawler.service.MailService;
 
 @RestController
@@ -39,6 +40,9 @@ public class AuthController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	InitshelvesService initshelvesService;
+	
 	@Autowired
 	PasswordEncoder encoder;
 
@@ -67,9 +71,11 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(new MessageResponse("email already exist"));
 		}
 
-		User user = new User(username, password, email, role);
-		userRepository.save(user);
+		 
+		User user = userRepository.save(new User(username, password, email, role));
 //		mailService.sendWelcomeMail(user);
+		
+		initshelvesService.addshelves(user);
 		
 		return ResponseEntity.ok(new MessageResponse("User registered succesfully"));
 	}

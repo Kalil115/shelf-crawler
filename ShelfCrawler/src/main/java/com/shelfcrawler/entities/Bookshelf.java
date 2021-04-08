@@ -44,5 +44,15 @@ public class Bookshelf implements Serializable {
 	@OneToMany(mappedBy = "bookshelf", cascade = CascadeType.ALL)
 	private Set<BookshelfItem> bookshelfItems = new HashSet<>();
 	
+	public Bookshelf() {
+		
+	}
+	
+	public Bookshelf(User user) {
+		this.user = user;
+		this.name = "todo";
+		this.goal = 0;
+		this.reachRate = 0.0;
+	}
 
 }

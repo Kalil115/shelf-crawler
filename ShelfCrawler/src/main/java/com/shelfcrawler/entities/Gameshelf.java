@@ -38,11 +38,20 @@ public class Gameshelf implements Serializable {
 	private User user;
 
 	private Integer goal;
-	
+
 	private Double reachRate;
 
 	@OneToMany(mappedBy = "gameshelf", cascade = CascadeType.ALL)
 	private Set<GameshelfItem> gameshelfItems = new HashSet<>();
-	
 
+	public Gameshelf() {
+		
+	}
+	
+	public Gameshelf(User user) {
+		this.user = user;
+		this.name = "todo";
+		this.goal = 0;
+		this.reachRate = 0.0;
+	}
 }

@@ -38,11 +38,19 @@ public class Tvshelf implements Serializable {
 	private User user;
 
 	private Integer goal;
-	
+
 	private Double reachRate;
 
 	@OneToMany(mappedBy = "tvshelf", cascade = CascadeType.ALL)
 	private Set<TvshelfItem> tvshelfItems = new HashSet<>();
-	
 
+	public Tvshelf() {
+	}
+
+	public Tvshelf(User user) {
+		this.user = user;
+		this.name = "todo";
+		this.goal = 0;
+		this.reachRate = 0.0;
+	}
 }
