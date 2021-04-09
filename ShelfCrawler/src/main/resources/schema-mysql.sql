@@ -168,12 +168,10 @@ create table gameshelf_item (
     foreign key (game_id) REFERENCES game (id) on DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- INSERT INTO user (username, password, email, role) VALUES('admin', 'admin123', 'admin@gmail.com', 'ADMIN');
 -- INSERT INTO user (username, password, email, role) VALUES('abby', 'abby123', 'abby@gmail.com', 'USER');
--- INSERT INTO user (username, password, email, role) VALUES('Charlie', 'charlie123', 'charlie@gmail.com', 'USER');
-INSERT INTO user (username, password, email, role) VALUES('admin', '$2y$10$WKYFJMmeyya9rhnKqfxUv.LTPOdVSbB9.dzdvK2ILp6OBajDJHdtO', 'admin@gmail.com', 'ADMIN');
+-- INSERT INTO user (username, password, email, role) VALUES('admin', 'admin123', 'admin@gmail.com', 'ADMIN');
 INSERT INTO user (username, password, email, role) VALUES('abby', '$2y$12$42QvfbjCGltb/KI/r0UvJuWCFTFwEwDnLt10Fc04tJCkf/bAFqyEq', 'abby@gmail.com', 'USER');
-INSERT INTO user (username, password, email, role) VALUES('Charlie', '$2y$12$SlaKuiACH5oa2/yKHnrvc.Z1xjJUfONmb.UHKHePZb.2DJvy5F5u.', 'charlie@gmail.com', 'USER');
+INSERT INTO user (username, password, email, role) VALUES('admin', '$2y$10$WKYFJMmeyya9rhnKqfxUv.LTPOdVSbB9.dzdvK2ILp6OBajDJHdtO', 'admin@gmail.com', 'ADMIN');
 
 
 

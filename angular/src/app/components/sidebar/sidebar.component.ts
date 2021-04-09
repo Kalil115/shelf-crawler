@@ -20,7 +20,8 @@ export class SidebarComponent implements OnInit {
   gameshelfItemListSize: number = 0;
 
   user: User;
-
+  isLoggedin = false;
+  isAdmin = false;
   constructor(private tokenStorageService:TokenStorageService,
      private bookListService: BookListService,
      private movieListService: MovieListService,
@@ -29,17 +30,25 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
-    if(this.user){
+
+    if(this.user && this.user.roles.includes('ADMIN')){
+      this.isLoggedin = true;
+      this.isAdmin = true;
+    }
+
+    if(this.user && this.user.roles.includes('USER')){
+      this.isLoggedin = true;
       this.bookListService.fetchInitData(this.user.id);
       this.movieListService.fetchInitData(this.user.id);
       this.tvListService.fetchInitData(this.user.id);
       this.gameListService.fetchInitData(this.user.id);
-    }
-
-    this.updateAllListSize();
+      
+      this.updateAllListSize();
+    } 
   }
 
   updateAllListSize() {
+    console.log("11");
     this.bookListService.bookshelfItemListSize.subscribe(data => this.bookshlefItemListSize = data);
     this.movieListService.listingMoviesSize.subscribe(data => this.movieshelfItemListSize = data);
     this.tvListService.tvshelfItemListSize.subscribe(data => this.tvshelfItemListSize = data);

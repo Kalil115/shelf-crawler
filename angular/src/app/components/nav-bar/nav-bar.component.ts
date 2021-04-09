@@ -11,7 +11,6 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class NavBarComponent implements OnInit {
   private roles: string[] = [];
   isLoggedin = false;
-  showAdminBoard = false;
   isShelf = false;
   username?: string;
   constructor(private tokenStorageService: TokenStorageService,
@@ -23,7 +22,6 @@ export class NavBarComponent implements OnInit {
     if(this.isLoggedin) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
-      this.showAdminBoard = this.roles.includes("ADMIN");
       this.username = user.username;
       this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(
         (event: NavigationEnd) => {
