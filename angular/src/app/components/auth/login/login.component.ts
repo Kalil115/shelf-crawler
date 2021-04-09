@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedin = true;
       this.roles = this.tokenStorage.getUser().roles;
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/']);
     }
   }
 

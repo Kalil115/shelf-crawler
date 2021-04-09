@@ -13,14 +13,17 @@
         </div>
     </div>
     <!-- logged in -->
-    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end" *ngIf="isLoggedin">
-        <app-year-picker></app-year-picker>
-        <ul class="navbar-nav ml-lg-4 w-100">
-            <li class="nav-item nav-search d-none d-lg-block w-100">
-
-                <app-search></app-search>
-            </li>
-        </ul>
+    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between" *ngIf="isLoggedin">
+        <div *ngIf="isShelf; else showSearchBar">
+            <app-year-picker></app-year-picker>
+        </div>
+        <ng-template #showSearchBar>
+            <ul class="navbar-nav ml-lg-4 w-100">
+                <li class="nav-item nav-search d-none d-lg-block w-100">
+                    <app-search></app-search>
+                </li>
+            </ul>
+        </ng-template>
 
         <app-login-status></app-login-status>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
