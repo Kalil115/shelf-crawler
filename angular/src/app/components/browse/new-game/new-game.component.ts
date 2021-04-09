@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from 'src/app/common/game';
 import { GameListService } from 'src/app/services/game-list.service';
@@ -19,10 +20,16 @@ export class NewGameComponent implements OnInit {
   pageSize: number = 8;
   totalElements: number = 0;
 
+  isAdmin = false;
+
+  gameForm: FormGroup;
+  editingGame: Game;
+
   constructor(private tokenStorageService: TokenStorageService,
     private gameService: GameService,
     private gameshelfService: GameshelfService,
     private gameListService: GameListService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -30,10 +37,22 @@ export class NewGameComponent implements OnInit {
     const user = this.tokenStorageService.getUser();
     if (user == null) {
       this.router.navigate(['/login']);
-    }else{
-      this.route.paramMap.subscribe(() => this.listItems());
-      
     }
+
+    if(user.roles.includes('ADMIN')){
+      this.isAdmin= true;
+    }
+
+    this.route.paramMap.subscribe(() => this.listItems());
+
+    this.gameForm = this.formBuilder.group({
+      'id': ['', Validators.required],
+      'title': [''],
+      'description': [''],
+      'platform': [''],
+      'year': [''],
+      'image_url': ['']
+    });
   }
 
   listItems() {
@@ -66,6 +85,22 @@ export class NewGameComponent implements OnInit {
     this.gameListService.addToGameTodoList(game);
   }
 
+  openEditGameModal(game: Game) {
+    this.editingGame = game;
+    this.gameForm.patchValue(game);
+  }
+
+  updateGame() {
+    const formValue = this.gameForm.value;
+    
+    this.editingGame.title = formValue.title;
+    this.editingGame.platform = formValue.platform;
+    this.editingGame.year = formValue.year;
+    this.editingGame.description = formValue.description;
+
+    this.gameService.updateGame(this.editingGame).subscribe();
+
+  }
 
   processResult() {
     return data => {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TvSeries } from '../common/tvSeries';
@@ -9,12 +9,20 @@ import { TvSeries } from '../common/tvSeries';
 export class TvService {
 
   private tvUrl = 'http://localhost:8080/tvs';
+  private httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
   constructor(private httpClient: HttpClient) { }
 
   getAllTv(page: number, pagesize: number): Observable<GetTvsResponse> {
     const url = this.tvUrl + "?page=" + page + '&size=' + pagesize;
     return this.httpClient.get<GetTvsResponse>(url);
+  }
+
+  updateTvSeries(tvSeries: TvSeries): Observable<TvSeries> {
+    const url = this.tvUrl + '/' + tvSeries.id;
+    return this.httpClient.put<TvSeries>(url, tvSeries ,this.httpOptions);
   }
 }
 

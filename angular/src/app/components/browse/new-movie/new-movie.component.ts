@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Movie } from 'src/app/common/movie';
 import { MovieListService } from 'src/app/services/movie-list.service';
@@ -19,22 +20,43 @@ export class NewMovieComponent implements OnInit {
   pageSize: number = 8;
   totalElements: number = 0;
 
+  isAdmin = false;
+
+  movieForm: FormGroup;
+  editingMovie: Movie;
+
   constructor(private tokenStorageService: TokenStorageService,
     private movieService: MovieService,
     private movieshelfService: MovieshelfService,
     private movieListService: MovieListService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit(): void {
-    const user = this.tokenStorageService.getUser();
-    if (user == null) {
-      this.router.navigate(['/login']);
-    }else{
+
+    ngOnInit(): void {
+      const user = this.tokenStorageService.getUser();
+      if (user == null) {
+        this.router.navigate(['/login']);
+      }
+  
+      if(user.roles.includes('ADMIN')){
+        this.isAdmin= true;
+      }
+  
       this.route.paramMap.subscribe(() => this.listItems());
+  
+      this.movieForm = this.formBuilder.group({
+        'id': ['', Validators.required],
+        'title': [''],
+        'description': [''],
+        'director': [''],
+        'cast': [''],
+        'year': [''],
+        'image_url': ['']
+      });
       
     }
-  }
 
   listItems() {
     // if(this.route.snapshot.paramMap.has("keyword")) {
@@ -66,6 +88,22 @@ export class NewMovieComponent implements OnInit {
     this.movieListService.addToMovieTodoList(movie);
   }
 
+  openEditMovieModal(movie: Movie) {
+    this.editingMovie = movie;
+    this.movieForm.patchValue(movie);
+  }
+
+  updateMovie() {
+    const formValue = this.movieForm.value;
+    
+    this.editingMovie.title = formValue.title;
+    this.editingMovie.director = formValue.director;
+    this.editingMovie.cast = formValue.cast;
+    this.editingMovie.year = formValue.year;
+    this.editingMovie.description = formValue.description;
+
+    this.movieService.updateMovie(this.editingMovie).subscribe();
+  }
 
   processResult() {
     return data => {

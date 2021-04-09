@@ -31,12 +31,12 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <!-- <div class="modal-header">
-                <h5 class="modal-title" id="editBookLabel">{{bookForm.controls.title}}</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBookLabel">Edit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div> -->
+            </div>
             <form [formGroup]="bookForm">
                 <div class="modal-body">
 
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="published " class="col-sm-2 col-form-label">published</label>
+                        <label for="published " class="col-sm-2 col-form-label">Published</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" formControlName="published">
                         </div>
@@ -79,4 +79,4 @@
         </div>
     </div>
 </div>
-<!-- end of Modal edit BookshelfItem  -->
+<!-- end of Modal edit Book -->
