@@ -48,7 +48,6 @@ export class SidebarComponent implements OnInit {
   }
 
   updateAllListSize() {
-    console.log("11");
     this.bookListService.bookshelfItemListSize.subscribe(data => this.bookshlefItemListSize = data);
     this.movieListService.listingMoviesSize.subscribe(data => this.movieshelfItemListSize = data);
     this.tvListService.tvshelfItemListSize.subscribe(data => this.tvshelfItemListSize = data);

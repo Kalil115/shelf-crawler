@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from 'src/app/common/book';
 import { BookListService } from 'src/app/services/book-list.service';
@@ -18,12 +19,17 @@ export class NewBookComponent implements OnInit {
   pageNumber: number = 1;
   pageSize: number = 8;
   totalElements: number = 0;
+
   isAdmin = false;
+
+  bookForm: FormGroup;
+  editingBook: Book;
 
   constructor(private tokenStorageService: TokenStorageService,
     private bookService: BookService,
     private bookshelfService: BookshelfService,
     private bookListService: BookListService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -31,10 +37,24 @@ export class NewBookComponent implements OnInit {
     const user = this.tokenStorageService.getUser();
     if (user == null) {
       this.router.navigate(['/login']);
-    }else{
-      this.route.paramMap.subscribe(() => this.listItems());
-      
     }
+
+    if(user.roles.includes('ADMIN')){
+      this.isAdmin= true;
+    }
+
+    this.route.paramMap.subscribe(() => this.listItems());
+
+    this.bookForm = this.formBuilder.group({
+      'id': ['', Validators.required],
+      'isbn': [''],
+      'title': [''],
+      'description': [''],
+      'author': [''],
+      'published': [''],
+      'image_url': ['']
+    });
+    
   }
 
   listItems() {
@@ -67,6 +87,22 @@ export class NewBookComponent implements OnInit {
     this.bookListService.addToBookTodoList(book);
   }
 
+  openEditBookModal(book: Book) {
+    this.editingBook = book;
+    this.bookForm.patchValue(book);
+  }
+
+  updateBook() {
+    const formValue = this.bookForm.value;
+    
+    this.editingBook.title = formValue.title;
+    this.editingBook.author = formValue.author;
+    this.editingBook.published = formValue.published;
+    this.editingBook.description = formValue.description;
+
+    this.bookService.updateBook(this.editingBook).subscribe();
+
+  }
 
   processResult() {
     return data => {
