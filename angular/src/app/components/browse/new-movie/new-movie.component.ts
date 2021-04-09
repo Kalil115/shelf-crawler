@@ -27,10 +27,12 @@ export class NewMovieComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(() => this.listItems());
     const user = this.tokenStorageService.getUser();
     if (user == null) {
       this.router.navigate(['/login']);
+    }else{
+      this.route.paramMap.subscribe(() => this.listItems());
+      
     }
   }
 
