@@ -22,6 +22,8 @@ export class NewBookComponent implements OnInit {
 
   isAdmin = false;
 
+  addBookForm: FormGroup;
+
   bookForm: FormGroup;
   editingBook: Book;
 
@@ -44,6 +46,15 @@ export class NewBookComponent implements OnInit {
     }
 
     this.route.paramMap.subscribe(() => this.listItems());
+
+    this.addBookForm = this.formBuilder.group({
+      'isbn': [''],
+      'title': ['', Validators.required],
+      'description': [''],
+      'author': [''],
+      'published': [''],
+      'image_url': ['']
+    });
 
     this.bookForm = this.formBuilder.group({
       'id': ['', Validators.required],
@@ -85,6 +96,26 @@ export class NewBookComponent implements OnInit {
 
   addToList(book: Book) {
     this.bookListService.addToBookTodoList(book);
+  }
+
+  addBook() {
+    if(this.addBookForm.valid){
+    const formValue = this.addBookForm.value
+    
+    let newBook: Book = new Book();
+    newBook.isbn = formValue.isbn;
+    newBook.title = formValue.title;
+    newBook.author = formValue.author;
+    newBook.published = formValue.published;
+    newBook.description = formValue.description;
+    let filename = formValue.image_url.substring(12);
+    newBook.imageUrl = "assets/images/books/" + filename;
+    this.bookService.addBook(newBook).subscribe();
+
+    }else{
+      console.log('not valid');
+    }
+    
   }
 
   openEditBookModal(book: Book) {

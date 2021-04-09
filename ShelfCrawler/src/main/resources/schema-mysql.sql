@@ -188,9 +188,9 @@ INSERT INTO book (ISBN, title, description, author, published, image_url) VALUE(
 
 
 INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.04); 
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04);
-INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.04); 
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.06); 
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.0);
+INSERT INTO bookshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.02); 
 
 
 INSERT INTO bookshelf_item (bookshelf_id, book_id, comment, rating, reason, status, date_created) VALUES (2, 1, "very helpful", 8.2, "bpv  recommended", "FINISHED", '2019-05-11');
@@ -250,9 +250,9 @@ INSERT INTO tv_series (title, description, year, image_url) VALUE ('Invincible',
 
 
 INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('todo','1', 0, 0.0); 
-INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.02); 
-INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.04); 
-INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.0); 
+INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2019','1', 50, 0.0); 
+INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2020','1', 50, 0.02); 
+INSERT INTO tvshelf (name, user_id, goal, reach_rate) VALUES('2021','1', 50, 0.02); 
 
 
 INSERT INTO tvshelf_item (tvshelf_id, tv_series_id, comment, rating, reason, status, date_created) VALUES (1, 1, null, null, "imdb recommended", "LISTING", '2017-01-12');

@@ -1,4 +1,15 @@
 <div class="content-wrapper">
+    <div class="row" *ngIf="isAdmin">
+        <div class="col-md-12 grid-margin">
+            <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+                    <button class="btn btn-primary mt-2 mt-xl-0" data-toggle="modal" data-target="#addBook">add
+                        Book</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-3 grid-margin stretch-card" *ngFor="let tempBook of books">
             <div class="card">
@@ -13,7 +24,8 @@
                         </li>
                     </ul>
                     <button *ngIf="!isAdmin" class="btn btn-primary" (click)="addToList(tempBook)">add</button>
-                    <button *ngIf="isAdmin" class="btn btn-primary" data-toggle="modal" data-target="#editBook" (click)="openEditBookModal(tempBook)">edit</button>
+                    <button *ngIf="isAdmin" class="btn btn-primary" data-toggle="modal" data-target="#editBook"
+                        (click)="openEditBookModal(tempBook)">edit</button>
                 </div>
             </div>
         </div>
@@ -25,19 +37,17 @@
     </div>
 </div>
 
-
-<!-- Modal edit Book -->
-<div class="modal fade" id="editBook" tabindex="-1" role="dialog" aria-labelledby="editBookLabel"
-    aria-hidden="true">
+<!-- Modal add Book -->
+<div class="modal fade" id="addBook" tabindex="-1" role="dialog" aria-labelledby="addBookLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editBookLabel">Edit</h5>
+                <h5 class="modal-title" id="addBookLabel">Add</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form [formGroup]="bookForm">
+            <form [formGroup]="addBookForm">
                 <div class="modal-body">
 
                     <div class="form-group row">
@@ -46,7 +56,13 @@
                             <input type="text" class="form-control" formControlName="title">
                         </div>
                     </div>
-                  
+                    <div class="form-group row">
+                        <label for="isbn" class="col-sm-2 col-form-label">ISBN</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="isbn">
+                        </div>
+                    </div>
+
 
                     <div class="form-group row">
                         <label for="author" class="col-sm-2 col-form-label">Author</label>
@@ -68,13 +84,82 @@
                             <textarea class="form-control" rows="12" formControlName="description"></textarea>
                         </div>
                     </div>
-                
-                </div> 
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 col-form-label">Image upload</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="file-upload-default" formControlName="image_url">
+                            <div class="input-group">
+                                <input type="text" class="form-control file-upload-info" disabled
+                                    placeholder="Upload Image">
+                                <span class="input-group-append">
+                                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 
-                 <div class="modal-footer">
+                </div>
+
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateBook()">Save</button>
-                </div> 
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addBook()">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end of Modal add Book -->
+
+
+<!-- Modal edit Book -->
+<div class="modal fade" id="editBook" tabindex="-1" role="dialog" aria-labelledby="editBookLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBookLabel">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="bookForm">
+                <div class="modal-body">
+
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="title">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="author" class="col-sm-2 col-form-label">Author</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="author">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="published " class="col-sm-2 col-form-label">Published</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="published">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="description" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="12" formControlName="description"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        (click)="updateBook()">Save</button>
+                </div>
             </form>
         </div>
     </div>
