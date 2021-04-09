@@ -28,7 +28,6 @@ export class NavBarComponent implements OnInit {
       this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(
         (event: NavigationEnd) => {
           this.isShelf = event.url.startsWith('/shelf/');
-          console.log(this.isShelf);
         });      
     }
   }
